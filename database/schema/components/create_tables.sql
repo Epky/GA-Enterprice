@@ -1,0 +1,81 @@
+CREATE TABLE admins (
+    id INTEGER NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    middle_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE contact_messages (
+    id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    number VARCHAR(15) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT 0
+);
+
+CREATE TABLE customers (
+    id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    customer_address_1 VARCHAR(255) NOT NULL,
+    customer_address_2 VARCHAR(255) NOT NULL,
+    customer_city VARCHAR(255) NOT NULL,
+    customer_municipality VARCHAR(255) NOT NULL,
+    customer_zipcode VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    is_online BOOLEAN NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE orders (
+    id INTEGER NOT NULL,
+    id INTEGER NOT NULL,
+    item_quantity VARCHAR(255) NOT NULL,
+    order_status VARCHAR(255) NOT NULL DEFAULT 'Wait',
+    id VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE inventory_logs (
+    id SERIAL,
+    id VARCHAR(255) NOT NULL,
+    change_type TEXT,
+    quantity INTEGER NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP,
+    id INTEGER NOT NULL,
+    orders_date TIMESTAMP NOT NULL,
+    shipping_address VARCHAR(255) NOT NULL,
+    total_amount TEXT,
+    orders_status VARCHAR(255) NOT NULL,
+    id VARCHAR(255),
+    payment_status VARCHAR(255),
+    tracking_number VARCHAR(255),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP,
+    id VARCHAR(255) NOT NULL,
+    item_quantity VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE products (
+    id INTEGER NOT NULL,
+    product_name VARCHAR(255) NOT NULL,
+    product_price VARCHAR(255) NOT NULL,
+    product_description VARCHAR(255) NOT NULL,
+    product_stocks VARCHAR(255) NOT NULL,
+    product_image_1 VARCHAR(255) NOT NULL,
+    product_image_2 VARCHAR(255) NOT NULL,
+    product_image_3 VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE delivery_types (
+    id INTEGER NOT NULL,
+    delivery_type VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'CURRENT_TIMESTAMP' DEFAULT CURRENT_TIMESTAMP
+);

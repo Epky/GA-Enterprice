@@ -1,0 +1,1830 @@
+# PayMongo API Log - Cleared on cleanup
+# Last cleared: <?php echo date('Y-m-d H:i:s'); ?>
+
+# This file will be automatically populated when PayMongo API calls are made.
+
+[2025-09-03 06:12:39] Creating payment link...
+[2025-09-03 06:12:39] Amount: ₱575
+[2025-09-03 06:12:39] Reference ID: rental_109_user_5_time_1756872759
+[2025-09-03 06:12:39] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #109 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_109_user_5_time_1756872759"
+        }
+    }
+}
+[2025-09-03 06:12:39] API Response Code: 200
+[2025-09-03 06:12:39] API Response: {"data":{"id":"link_d3bnTZkVUeoPkUmdGnWBu2ty","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #109 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/M2GVSUQ","reference_number":"M2GVSUQ","created_at":1756872760,"updated_at":1756872760,"payments":[]}}}
+[2025-09-03 06:12:39] Successfully saved payment link to database - ID: 175
+[2025-09-03 06:12:39] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/M2GVSUQ
+[2025-09-03 06:12:40] Success: Created payment record ID 149 for rental 109 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-03 17:12:38] Creating payment link...
+[2025-09-03 17:12:38] Amount: ₱575
+[2025-09-03 17:12:38] Reference ID: rental_110_user_5_time_1756912358
+[2025-09-03 17:12:38] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #110 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_110_user_5_time_1756912358"
+        }
+    }
+}
+[2025-09-03 17:12:38] API Response Code: 200
+[2025-09-03 17:12:38] API Response: {"data":{"id":"link_BbDr9VuGnpUrnzA67aPiz5UH","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #110 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/4sKTzb4","reference_number":"4sKTzb4","created_at":1756912361,"updated_at":1756912361,"payments":[]}}}
+[2025-09-03 17:12:38] Successfully saved payment link to database - ID: 178
+[2025-09-03 17:12:38] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/4sKTzb4
+[2025-09-03 17:12:40] Success: Created payment record ID 150 for rental 110 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-03 17:27:42] Creating payment link...
+[2025-09-03 17:27:42] Amount: ₱575
+[2025-09-03 17:27:42] Reference ID: rental_112_user_5_time_1756913262
+[2025-09-03 17:27:42] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #112 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_112_user_5_time_1756913262"
+        }
+    }
+}
+[2025-09-03 17:27:42] API Response Code: 200
+[2025-09-03 17:27:42] API Response: {"data":{"id":"link_pUhb8uc1RzM2qAeTM6XPHSKS","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #112 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/8Sge8LZ","reference_number":"8Sge8LZ","created_at":1756913265,"updated_at":1756913265,"payments":[]}}}
+[2025-09-03 17:27:42] Successfully saved payment link to database - ID: 180
+[2025-09-03 17:27:42] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/8Sge8LZ
+[2025-09-03 17:27:44] Success: Created payment record ID 151 for rental 112 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-03 17:46:21] Creating payment link...
+[2025-09-03 17:46:21] Amount: ₱575
+[2025-09-03 17:46:21] Reference ID: rental_113_user_5_time_1756914381
+[2025-09-03 17:46:21] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #113 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_113_user_5_time_1756914381"
+        }
+    }
+}
+[2025-09-03 17:46:21] API Response Code: 200
+[2025-09-03 17:46:21] API Response: {"data":{"id":"link_LwzwBxrWxePXbGT5bnEXsEae","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #113 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/MgUEP4D","reference_number":"MgUEP4D","created_at":1756914384,"updated_at":1756914384,"payments":[]}}}
+[2025-09-03 17:46:21] Successfully saved payment link to database - ID: 182
+[2025-09-03 17:46:21] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/MgUEP4D
+[2025-09-03 17:46:23] Success: Created payment record ID 152 for rental 113 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-03 18:01:35] Creating payment link...
+[2025-09-03 18:01:35] Amount: ₱575
+[2025-09-03 18:01:35] Reference ID: rental_114_user_5_time_1756915295
+[2025-09-03 18:01:35] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #114 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_114_user_5_time_1756915295"
+        }
+    }
+}
+[2025-09-03 18:01:35] API Response Code: 200
+[2025-09-03 18:01:35] API Response: {"data":{"id":"link_8wLH1T55rcWunMn3wgqQhLeg","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #114 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/4uupHx1","reference_number":"4uupHx1","created_at":1756915298,"updated_at":1756915298,"payments":[]}}}
+[2025-09-03 18:01:35] Successfully saved payment link to database - ID: 184
+[2025-09-03 18:01:35] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/4uupHx1
+[2025-09-03 18:01:37] Success: Created payment record ID 153 for rental 114 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-03 19:30:04] Creating payment link...
+[2025-09-03 19:30:04] Amount: ₱575
+[2025-09-03 19:30:04] Reference ID: rental_115_user_5_time_1756920604
+[2025-09-03 19:30:04] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #115 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_115_user_5_time_1756920604"
+        }
+    }
+}
+[2025-09-03 19:30:04] API Response Code: 200
+[2025-09-03 19:30:04] API Response: {"data":{"id":"link_SHAcncPnoHvnS4h7KYC6yqQL","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #115 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/S9dTgKd","reference_number":"S9dTgKd","created_at":1756920605,"updated_at":1756920605,"payments":[]}}}
+[2025-09-03 19:30:04] Successfully saved payment link to database - ID: 186
+[2025-09-03 19:30:04] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/S9dTgKd
+[2025-09-03 19:30:06] Success: Created payment record ID 154 for rental 115 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-03 19:44:56] Creating payment link...
+[2025-09-03 19:44:56] Amount: ₱575
+[2025-09-03 19:44:56] Reference ID: rental_116_user_5_time_1756921496
+[2025-09-03 19:44:56] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #116 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_116_user_5_time_1756921496"
+        }
+    }
+}
+[2025-09-03 19:44:56] API Response Code: 200
+[2025-09-03 19:44:56] API Response: {"data":{"id":"link_urF3Layx2DpweCmEMHJtnD41","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #116 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/xDamtn2","reference_number":"xDamtn2","created_at":1756921497,"updated_at":1756921497,"payments":[]}}}
+[2025-09-03 19:44:56] Successfully saved payment link to database - ID: 188
+[2025-09-03 19:44:56] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/xDamtn2
+[2025-09-03 19:44:57] Success: Created payment record ID 155 for rental 116 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-04 04:07:53] Creating payment link...
+[2025-09-04 04:07:53] Amount: ₱575
+[2025-09-04 04:07:53] Reference ID: rental_117_user_5_time_1756951673
+[2025-09-04 04:07:53] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #117 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_117_user_5_time_1756951673"
+        }
+    }
+}
+[2025-09-04 04:07:53] API Response Code: 200
+[2025-09-04 04:07:53] API Response: {"data":{"id":"link_mJwCPLz1MZ9fU429qMfetjnX","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #117 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/zDSaBwV","reference_number":"zDSaBwV","created_at":1756951674,"updated_at":1756951674,"payments":[]}}}
+[2025-09-04 04:07:53] Successfully saved payment link to database - ID: 190
+[2025-09-04 04:07:53] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/zDSaBwV
+[2025-09-04 04:07:54] Success: Created payment record ID 156 for rental 117 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-04 04:22:25] Creating payment link...
+[2025-09-04 04:22:25] Amount: ₱2300
+[2025-09-04 04:22:25] Reference ID: rental_118_user_5_time_1756952545
+[2025-09-04 04:22:25] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #118",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_118_user_5_time_1756952545"
+        }
+    }
+}
+[2025-09-04 04:22:25] API Response Code: 200
+[2025-09-04 04:22:25] API Response: {"data":{"id":"link_A4UAtUedLY9xbzaWbWDNquVi","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #118","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/obp18CS","reference_number":"obp18CS","created_at":1756952546,"updated_at":1756952546,"payments":[]}}}
+[2025-09-04 04:22:25] Successfully saved payment link to database - ID: 192
+[2025-09-04 04:22:25] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/obp18CS
+[2025-09-04 04:22:26] Success: Created payment record ID 157 for rental 118 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-04 04:32:54] Creating payment link...
+[2025-09-04 04:32:54] Amount: ₱575
+[2025-09-04 04:32:54] Reference ID: rental_119_user_5_time_1756953174
+[2025-09-04 04:32:54] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #119 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_119_user_5_time_1756953174"
+        }
+    }
+}
+[2025-09-04 04:32:54] API Response Code: 200
+[2025-09-04 04:32:54] API Response: {"data":{"id":"link_1aXE9sRJTv7h6xVwxW3zRaoF","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #119 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/HJXCCw5","reference_number":"HJXCCw5","created_at":1756953175,"updated_at":1756953175,"payments":[]}}}
+[2025-09-04 04:32:54] Successfully saved payment link to database - ID: 194
+[2025-09-04 04:32:54] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/HJXCCw5
+[2025-09-04 04:32:56] Success: Created payment record ID 158 for rental 119 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-04 05:36:25] Creating payment link...
+[2025-09-04 05:36:25] Amount: ₱575
+[2025-09-04 05:36:25] Reference ID: rental_120_user_5_time_1756956985
+[2025-09-04 05:36:25] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #120 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_120_user_5_time_1756956985"
+        }
+    }
+}
+[2025-09-04 05:36:25] API Response Code: 200
+[2025-09-04 05:36:25] API Response: {"data":{"id":"link_hQzn7wGM3UgxCms1WbyFQyk7","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #120 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/46VVnrx","reference_number":"46VVnrx","created_at":1756956987,"updated_at":1756956987,"payments":[]}}}
+[2025-09-04 05:36:25] Successfully saved payment link to database - ID: 196
+[2025-09-04 05:36:25] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/46VVnrx
+[2025-09-04 05:36:27] Success: Created payment record ID 159 for rental 120 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-17 22:07:34] Creating payment link...
+[2025-09-17 22:07:34] Amount: ₱575
+[2025-09-17 22:07:34] Reference ID: rental_121_user_5_time_1758139654
+[2025-09-17 22:07:34] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #121 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_121_user_5_time_1758139654"
+        }
+    }
+}
+[2025-09-17 22:07:34] API Response Code: 200
+[2025-09-17 22:07:34] API Response: {"data":{"id":"link_P53osJTYtyRocy6gSg7G6zQB","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #121 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/pY7asDE","reference_number":"pY7asDE","created_at":1758139654,"updated_at":1758139654,"payments":[]}}}
+[2025-09-17 22:07:34] Successfully saved payment link to database - ID: 199
+[2025-09-17 22:07:34] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/pY7asDE
+[2025-09-17 22:07:34] Success: Created payment record ID 160 for rental 121 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-17 22:38:23] Creating payment link...
+[2025-09-17 22:38:23] Amount: ₱575
+[2025-09-17 22:38:23] Reference ID: rental_122_user_5_time_1758141503
+[2025-09-17 22:38:23] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #122 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_122_user_5_time_1758141503"
+        }
+    }
+}
+[2025-09-17 22:38:23] API Response Code: 200
+[2025-09-17 22:38:23] API Response: {"data":{"id":"link_ws9jMPzpa968hxBRnYAtknoz","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #122 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/jdWvWHF","reference_number":"jdWvWHF","created_at":1758141504,"updated_at":1758141504,"payments":[]}}}
+[2025-09-17 22:38:23] Successfully saved payment link to database - ID: 201
+[2025-09-17 22:38:23] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/jdWvWHF
+[2025-09-17 22:38:24] Success: Created payment record ID 161 for rental 122 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-17 22:59:45] Creating payment link...
+[2025-09-17 22:59:45] Amount: ₱575
+[2025-09-17 22:59:45] Reference ID: rental_123_user_5_time_1758142785
+[2025-09-17 22:59:45] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #123 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_123_user_5_time_1758142785"
+        }
+    }
+}
+[2025-09-17 22:59:45] API Response Code: 200
+[2025-09-17 22:59:45] API Response: {"data":{"id":"link_6voxf87zcQDzghy8iJFL9YtB","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #123 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/QwGVqeC","reference_number":"QwGVqeC","created_at":1758142787,"updated_at":1758142787,"payments":[]}}}
+[2025-09-17 22:59:45] Successfully saved payment link to database - ID: 203
+[2025-09-17 22:59:45] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/QwGVqeC
+[2025-09-17 22:59:47] Success: Created payment record ID 162 for rental 123 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-17 23:25:15] Creating payment link...
+[2025-09-17 23:25:15] Amount: ₱575
+[2025-09-17 23:25:15] Reference ID: rental_124_user_5_time_1758144315
+[2025-09-17 23:25:15] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #124 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_124_user_5_time_1758144315"
+        }
+    }
+}
+[2025-09-17 23:25:15] API Response Code: 200
+[2025-09-17 23:25:15] API Response: {"data":{"id":"link_R7uPFZAxcUCJZKTjWa58uS36","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #124 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/EzWXt5t","reference_number":"EzWXt5t","created_at":1758144316,"updated_at":1758144316,"payments":[]}}}
+[2025-09-17 23:25:15] Successfully saved payment link to database - ID: 205
+[2025-09-17 23:25:15] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/EzWXt5t
+[2025-09-17 23:25:16] Success: Created payment record ID 163 for rental 124 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 15:14:54] Creating payment link...
+[2025-09-18 15:14:54] Amount: ₱575
+[2025-09-18 15:14:54] Reference ID: rental_125_user_5_time_1758201294
+[2025-09-18 15:14:54] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #125 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_125_user_5_time_1758201294"
+        }
+    }
+}
+[2025-09-18 15:14:54] API Response Code: 200
+[2025-09-18 15:14:54] API Response: {"data":{"id":"link_a6tVhsyMwiKLaChNcGQ1p8ZY","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #125 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Z8KuHDW","reference_number":"Z8KuHDW","created_at":1758201296,"updated_at":1758201296,"payments":[]}}}
+[2025-09-18 15:14:54] Successfully saved payment link to database - ID: 207
+[2025-09-18 15:14:54] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Z8KuHDW
+[2025-09-18 15:14:55] Success: Created payment record ID 164 for rental 125 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 16:03:11] Creating payment link...
+[2025-09-18 16:03:11] Amount: ₱575
+[2025-09-18 16:03:11] Reference ID: rental_126_user_5_time_1758204191
+[2025-09-18 16:03:11] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #126 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_126_user_5_time_1758204191"
+        }
+    }
+}
+[2025-09-18 16:03:11] API Response Code: 200
+[2025-09-18 16:03:11] API Response: {"data":{"id":"link_bWSnv8vzQWT6MXUWNzW6vMCc","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #126 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/gbAkDXP","reference_number":"gbAkDXP","created_at":1758204193,"updated_at":1758204193,"payments":[]}}}
+[2025-09-18 16:03:11] Successfully saved payment link to database - ID: 209
+[2025-09-18 16:03:11] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/gbAkDXP
+[2025-09-18 16:03:12] Success: Created payment record ID 165 for rental 126 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 16:15:26] Creating payment link...
+[2025-09-18 16:15:26] Amount: ₱2300
+[2025-09-18 16:15:26] Reference ID: rental_127_user_3_time_1758204926
+[2025-09-18 16:15:26] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #127",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_127_user_3_time_1758204926"
+        }
+    }
+}
+[2025-09-18 16:15:26] API Response Code: 200
+[2025-09-18 16:15:26] API Response: {"data":{"id":"link_PF7DicjxxzL43mn8Zgt2s1r9","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #127","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/VhpR36c","reference_number":"VhpR36c","created_at":1758204928,"updated_at":1758204928,"payments":[]}}}
+[2025-09-18 16:15:26] Successfully saved payment link to database - ID: 211
+[2025-09-18 16:15:26] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/VhpR36c
+[2025-09-18 16:15:27] Success: Created payment record ID 166 for rental 127 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-18 16:20:35] Creating payment link...
+[2025-09-18 16:20:35] Amount: ₱575
+[2025-09-18 16:20:35] Reference ID: rental_128_user_3_time_1758205235
+[2025-09-18 16:20:35] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #128 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_128_user_3_time_1758205235"
+        }
+    }
+}
+[2025-09-18 16:20:35] API Response Code: 200
+[2025-09-18 16:20:35] API Response: {"data":{"id":"link_44AH1pJ8QqgZT3M2ybWZZpgM","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #128 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/L3Z2u5K","reference_number":"L3Z2u5K","created_at":1758205236,"updated_at":1758205236,"payments":[]}}}
+[2025-09-18 16:20:35] Successfully saved payment link to database - ID: 213
+[2025-09-18 16:20:35] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/L3Z2u5K
+[2025-09-18 16:20:35] Success: Created payment record ID 167 for rental 128 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 16:54:10] Creating payment link...
+[2025-09-18 16:54:10] Amount: ₱2300
+[2025-09-18 16:54:10] Reference ID: rental_130_user_5_time_1758207250
+[2025-09-18 16:54:10] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #130",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_130_user_5_time_1758207250"
+        }
+    }
+}
+[2025-09-18 16:54:10] API Response Code: 200
+[2025-09-18 16:54:10] API Response: {"data":{"id":"link_YTXCtrwNm5Bfboo2dXZDhpCA","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #130","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/CkD4Tid","reference_number":"CkD4Tid","created_at":1758207251,"updated_at":1758207251,"payments":[]}}}
+[2025-09-18 16:54:10] Successfully saved payment link to database - ID: 215
+[2025-09-18 16:54:10] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/CkD4Tid
+[2025-09-18 16:54:10] Success: Created payment record ID 168 for rental 130 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-18 17:13:22] Creating payment link...
+[2025-09-18 17:13:22] Amount: ₱575
+[2025-09-18 17:13:22] Reference ID: rental_131_user_5_time_1758208402
+[2025-09-18 17:13:22] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #131 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_131_user_5_time_1758208402"
+        }
+    }
+}
+[2025-09-18 17:13:22] API Response Code: 200
+[2025-09-18 17:13:22] API Response: {"data":{"id":"link_5KfG2xgHH4CpkRWkvMGNgXjz","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #131 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/wAa81sN","reference_number":"wAa81sN","created_at":1758208403,"updated_at":1758208403,"payments":[]}}}
+[2025-09-18 17:13:22] Successfully saved payment link to database - ID: 217
+[2025-09-18 17:13:22] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/wAa81sN
+[2025-09-18 17:13:22] Success: Created payment record ID 169 for rental 131 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 17:15:04] Creating payment link...
+[2025-09-18 17:15:04] Amount: ₱2300
+[2025-09-18 17:15:04] Reference ID: rental_132_user_5_time_1758208504
+[2025-09-18 17:15:04] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #132",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_132_user_5_time_1758208504"
+        }
+    }
+}
+[2025-09-18 17:15:04] API Response Code: 200
+[2025-09-18 17:15:04] API Response: {"data":{"id":"link_5PSpaX3Q1TS1fzj15HBY9QkT","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #132","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/36PDPPL","reference_number":"36PDPPL","created_at":1758208505,"updated_at":1758208505,"payments":[]}}}
+[2025-09-18 17:15:04] Successfully saved payment link to database - ID: 219
+[2025-09-18 17:15:04] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/36PDPPL
+[2025-09-18 17:15:05] Success: Created payment record ID 170 for rental 132 - Amount: 2300 - Type: full_payment - Method: maya
+
+[2025-09-18 17:29:25] Creating payment link...
+[2025-09-18 17:29:25] Amount: ₱575
+[2025-09-18 17:29:25] Reference ID: rental_134_user_5_time_1758209365
+[2025-09-18 17:29:25] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #134 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_134_user_5_time_1758209365"
+        }
+    }
+}
+[2025-09-18 17:29:25] API Response Code: 200
+[2025-09-18 17:29:25] API Response: {"data":{"id":"link_xHVpcf2AHY7LbhsB2xK2WQMq","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #134 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/PKVvXkS","reference_number":"PKVvXkS","created_at":1758209366,"updated_at":1758209366,"payments":[]}}}
+[2025-09-18 17:29:25] Successfully saved payment link to database - ID: 221
+[2025-09-18 17:29:25] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/PKVvXkS
+[2025-09-18 17:29:25] Success: Created payment record ID 171 for rental 134 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 17:47:27] Creating payment link...
+[2025-09-18 17:47:27] Amount: ₱575
+[2025-09-18 17:47:27] Reference ID: rental_135_user_5_time_1758210447
+[2025-09-18 17:47:27] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #135 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_135_user_5_time_1758210447"
+        }
+    }
+}
+[2025-09-18 17:47:27] API Response Code: 200
+[2025-09-18 17:47:27] API Response: {"data":{"id":"link_3ZqifoMV3BJbvpHPZV4vYmbJ","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #135 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/kJ8bbsm","reference_number":"kJ8bbsm","created_at":1758210448,"updated_at":1758210448,"payments":[]}}}
+[2025-09-18 17:47:27] Successfully saved payment link to database - ID: 223
+[2025-09-18 17:47:27] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/kJ8bbsm
+[2025-09-18 17:47:28] Success: Created payment record ID 172 for rental 135 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 17:58:42] Creating payment link...
+[2025-09-18 17:58:42] Amount: ₱2300
+[2025-09-18 17:58:42] Reference ID: rental_136_user_5_time_1758211122
+[2025-09-18 17:58:42] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #136",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_136_user_5_time_1758211122"
+        }
+    }
+}
+[2025-09-18 17:58:42] API Response Code: 200
+[2025-09-18 17:58:42] API Response: {"data":{"id":"link_A42x1KdiQJ4MCkpno5D2rYpi","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #136","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/iAaJi7f","reference_number":"iAaJi7f","created_at":1758211123,"updated_at":1758211123,"payments":[]}}}
+[2025-09-18 17:58:42] Successfully saved payment link to database - ID: 225
+[2025-09-18 17:58:42] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/iAaJi7f
+[2025-09-18 17:58:43] Success: Created payment record ID 173 for rental 136 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-18 18:15:01] Creating payment link...
+[2025-09-18 18:15:01] Amount: ₱2300
+[2025-09-18 18:15:01] Reference ID: rental_137_user_5_time_1758212101
+[2025-09-18 18:15:01] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #137",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_137_user_5_time_1758212101"
+        }
+    }
+}
+[2025-09-18 18:15:01] API Response Code: 200
+[2025-09-18 18:15:01] API Response: {"data":{"id":"link_erEPEwp91hcycLMvfSpVPo7E","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #137","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/j51FXWE","reference_number":"j51FXWE","created_at":1758212102,"updated_at":1758212102,"payments":[]}}}
+[2025-09-18 18:15:01] Successfully saved payment link to database - ID: 227
+[2025-09-18 18:15:01] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/j51FXWE
+[2025-09-18 18:15:01] Success: Created payment record ID 174 for rental 137 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-18 18:25:09] Creating payment link...
+[2025-09-18 18:25:09] Amount: ₱575
+[2025-09-18 18:25:09] Reference ID: rental_138_user_5_time_1758212709
+[2025-09-18 18:25:09] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #138 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_138_user_5_time_1758212709"
+        }
+    }
+}
+[2025-09-18 18:25:09] API Response Code: 200
+[2025-09-18 18:25:09] API Response: {"data":{"id":"link_jhwPLd5XiLD2UivKgaEqGaYw","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #138 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/zecfPua","reference_number":"zecfPua","created_at":1758212711,"updated_at":1758212711,"payments":[]}}}
+[2025-09-18 18:25:09] Successfully saved payment link to database - ID: 229
+[2025-09-18 18:25:09] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/zecfPua
+[2025-09-18 18:25:10] Success: Created payment record ID 175 for rental 138 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 18:38:50] Creating payment link...
+[2025-09-18 18:38:50] Amount: ₱2300
+[2025-09-18 18:38:50] Reference ID: rental_139_user_5_time_1758213530
+[2025-09-18 18:38:50] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #139",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_139_user_5_time_1758213530"
+        }
+    }
+}
+[2025-09-18 18:38:50] API Response Code: 200
+[2025-09-18 18:38:50] API Response: {"data":{"id":"link_bMEkkckAPSUDzxSgGwHSwaF3","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #139","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/BWKeyP3","reference_number":"BWKeyP3","created_at":1758213532,"updated_at":1758213532,"payments":[]}}}
+[2025-09-18 18:38:50] Successfully saved payment link to database - ID: 231
+[2025-09-18 18:38:50] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/BWKeyP3
+[2025-09-18 18:38:51] Success: Created payment record ID 176 for rental 139 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-18 18:59:06] Creating payment link...
+[2025-09-18 18:59:06] Amount: ₱575
+[2025-09-18 18:59:06] Reference ID: rental_140_user_5_time_1758214746
+[2025-09-18 18:59:06] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #140 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_140_user_5_time_1758214746"
+        }
+    }
+}
+[2025-09-18 18:59:06] API Response Code: 200
+[2025-09-18 18:59:06] API Response: {"data":{"id":"link_HiAJeLzRn3kPCiEmhg53jE4E","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #140 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/jXDpYD4","reference_number":"jXDpYD4","created_at":1758214747,"updated_at":1758214747,"payments":[]}}}
+[2025-09-18 18:59:06] Successfully saved payment link to database - ID: 233
+[2025-09-18 18:59:06] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/jXDpYD4
+[2025-09-18 18:59:07] Success: Created payment record ID 177 for rental 140 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-18 19:10:36] Creating payment link...
+[2025-09-18 19:10:36] Amount: ₱2300
+[2025-09-18 19:10:36] Reference ID: rental_143_user_5_time_1758215436
+[2025-09-18 19:10:36] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 230000,
+            "currency": "PHP",
+            "description": "Payment for Rental #143",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_143_user_5_time_1758215436"
+        }
+    }
+}
+[2025-09-18 19:10:36] API Response Code: 200
+[2025-09-18 19:10:36] API Response: {"data":{"id":"link_UfMnLEhFLkfVomsqgNSEn2kA","type":"link","attributes":{"amount":230000,"archived":false,"currency":"PHP","description":"Payment for Rental #143","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/ynmWYnD","reference_number":"ynmWYnD","created_at":1758215437,"updated_at":1758215437,"payments":[]}}}
+[2025-09-18 19:10:36] Successfully saved payment link to database - ID: 235
+[2025-09-18 19:10:36] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/ynmWYnD
+[2025-09-18 19:10:37] Success: Created payment record ID 178 for rental 143 - Amount: 2300 - Type: full_payment - Method: gcash
+
+[2025-09-18 19:22:14] Creating payment link...
+[2025-09-18 19:22:14] Amount: ₱575
+[2025-09-18 19:22:14] Reference ID: rental_144_user_5_time_1758216134
+[2025-09-18 19:22:14] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 57500,
+            "currency": "PHP",
+            "description": "Payment for Rental #144 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_144_user_5_time_1758216134"
+        }
+    }
+}
+[2025-09-18 19:22:14] API Response Code: 200
+[2025-09-18 19:22:14] API Response: {"data":{"id":"link_vS5P3hQyZ5xdbE1c8tQnw1TK","type":"link","attributes":{"amount":57500,"archived":false,"currency":"PHP","description":"Payment for Rental #144 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/rkQsP5x","reference_number":"rkQsP5x","created_at":1758216136,"updated_at":1758216136,"payments":[]}}}
+[2025-09-18 19:22:14] Successfully saved payment link to database - ID: 237
+[2025-09-18 19:22:14] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/rkQsP5x
+[2025-09-18 19:22:15] Success: Created payment record ID 179 for rental 144 - Amount: 575 - Type: downpayment - Method: gcash
+
+[2025-09-22 15:58:08] Creating payment link...
+[2025-09-22 15:58:08] Amount: ₱25
+[2025-09-22 15:58:08] Reference ID: rental_145_user_5_time_1758549488
+[2025-09-22 15:58:08] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 2500,
+            "currency": "PHP",
+            "description": "Payment for Rental #145 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_145_user_5_time_1758549488"
+        }
+    }
+}
+[2025-09-22 15:58:08] API Response Code: 400
+[2025-09-22 15:58:08] API Response: {"errors":[{"code":"parameter_below_minimum","detail":"Please enter an amount at least Php 100.00."}]}
+[2025-09-22 15:58:08] Error creating payment link: API Error: Please enter an amount at least Php 100.00.
+
+[2025-09-22 15:58:37] Creating payment link...
+[2025-09-22 15:58:37] Amount: ₱25
+[2025-09-22 15:58:37] Reference ID: rental_145_user_5_time_1758549517
+[2025-09-22 15:58:37] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 2500,
+            "currency": "PHP",
+            "description": "Payment for Rental #145 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_145_user_5_time_1758549517"
+        }
+    }
+}
+[2025-09-22 15:58:37] API Response Code: 400
+[2025-09-22 15:58:37] API Response: {"errors":[{"code":"parameter_below_minimum","detail":"Please enter an amount at least Php 100.00."}]}
+[2025-09-22 15:58:37] Error creating payment link: API Error: Please enter an amount at least Php 100.00.
+
+[2025-09-22 16:02:43] Creating payment link...
+[2025-09-22 16:02:43] Amount: ₱100
+[2025-09-22 16:02:43] Reference ID: rental_145_user_5_time_1758549763
+[2025-09-22 16:02:43] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 10000,
+            "currency": "PHP",
+            "description": "Payment for Rental #145",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_145_user_5_time_1758549763"
+        }
+    }
+}
+[2025-09-22 16:02:43] API Response Code: 200
+[2025-09-22 16:02:43] API Response: {"data":{"id":"link_gd6AuQMLQ4P92ffPzxkv3MSy","type":"link","attributes":{"amount":10000,"archived":false,"currency":"PHP","description":"Payment for Rental #145","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Mtx8SVm","reference_number":"Mtx8SVm","created_at":1758549763,"updated_at":1758549763,"payments":[]}}}
+[2025-09-22 16:02:43] Successfully saved payment link to database - ID: 239
+[2025-09-22 16:02:43] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Mtx8SVm
+[2025-09-22 16:02:44] Success: Created payment record ID 180 for rental 145 - Amount: 100 - Type: full_payment - Method: gcash
+
+[2025-09-22 16:15:59] Creating payment link...
+[2025-09-22 16:15:59] Amount: ₱25
+[2025-09-22 16:15:59] Reference ID: rental_146_user_5_time_1758550559
+[2025-09-22 16:15:59] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 2500,
+            "currency": "PHP",
+            "description": "Payment for Rental #146 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_146_user_5_time_1758550559"
+        }
+    }
+}
+[2025-09-22 16:15:59] API Response Code: 400
+[2025-09-22 16:15:59] API Response: {"errors":[{"code":"parameter_below_minimum","detail":"Please enter an amount at least Php 100.00."}]}
+[2025-09-22 16:15:59] Error creating payment link: API Error: Please enter an amount at least Php 100.00.
+
+[2025-09-22 16:16:33] Creating payment link...
+[2025-09-22 16:16:33] Amount: ₱100
+[2025-09-22 16:16:33] Reference ID: rental_146_user_5_time_1758550593
+[2025-09-22 16:16:33] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 10000,
+            "currency": "PHP",
+            "description": "Payment for Rental #146",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_146_user_5_time_1758550593"
+        }
+    }
+}
+[2025-09-22 16:16:33] API Response Code: 200
+[2025-09-22 16:16:33] API Response: {"data":{"id":"link_Zvy4kdcMtR9gXzfprNNrtX2q","type":"link","attributes":{"amount":10000,"archived":false,"currency":"PHP","description":"Payment for Rental #146","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/oP43Nuz","reference_number":"oP43Nuz","created_at":1758550593,"updated_at":1758550593,"payments":[]}}}
+[2025-09-22 16:16:33] Successfully saved payment link to database - ID: 241
+[2025-09-22 16:16:33] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/oP43Nuz
+[2025-09-22 16:16:34] Success: Created payment record ID 181 for rental 146 - Amount: 100 - Type: full_payment - Method: gcash
+
+[2025-09-22 16:17:48] Creating payment link...
+[2025-09-22 16:17:48] Amount: ₱25
+[2025-09-22 16:17:48] Reference ID: rental_147_user_5_time_1758550668
+[2025-09-22 16:17:48] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 2500,
+            "currency": "PHP",
+            "description": "Payment for Rental #147 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_147_user_5_time_1758550668"
+        }
+    }
+}
+[2025-09-22 16:17:48] API Response Code: 400
+[2025-09-22 16:17:48] API Response: {"errors":[{"code":"parameter_below_minimum","detail":"Please enter an amount at least Php 100.00."}]}
+[2025-09-22 16:17:48] Error creating payment link: API Error: Please enter an amount at least Php 100.00.
+
+[2025-09-22 16:18:38] Creating payment link...
+[2025-09-22 16:18:38] Amount: ₱25
+[2025-09-22 16:18:38] Reference ID: rental_147_user_5_time_1758550718
+[2025-09-22 16:18:38] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 2500,
+            "currency": "PHP",
+            "description": "Payment for Rental #147 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_147_user_5_time_1758550718"
+        }
+    }
+}
+[2025-09-22 16:18:38] API Response Code: 400
+[2025-09-22 16:18:38] API Response: {"errors":[{"code":"parameter_below_minimum","detail":"Please enter an amount at least Php 100.00."}]}
+[2025-09-22 16:18:38] Error creating payment link: API Error: Please enter an amount at least Php 100.00.
+
+[2025-09-22 16:20:49] Creating payment link...
+[2025-09-22 16:20:49] Amount: ₱25
+[2025-09-22 16:20:49] Reference ID: rental_147_user_5_time_1758550849
+[2025-09-22 16:20:49] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 2500,
+            "currency": "PHP",
+            "description": "Payment for Rental #147 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_147_user_5_time_1758550849"
+        }
+    }
+}
+[2025-09-22 16:20:49] API Response Code: 400
+[2025-09-22 16:20:49] API Response: {"errors":[{"code":"parameter_below_minimum","detail":"Please enter an amount at least Php 100.00."}]}
+[2025-09-22 16:20:49] Error creating payment link: API Error: Please enter an amount at least Php 100.00.
+
+[2025-09-22 16:27:02] Creating payment link...
+[2025-09-22 16:27:02] Amount: ₱100
+[2025-09-22 16:27:02] Reference ID: rental_148_user_5_time_1758551222
+[2025-09-22 16:27:02] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 10000,
+            "currency": "PHP",
+            "description": "Payment for Rental #148 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_148_user_5_time_1758551222"
+        }
+    }
+}
+[2025-09-22 16:27:02] API Response Code: 200
+[2025-09-22 16:27:02] API Response: {"data":{"id":"link_Cwki588FHXakR1eBCsmXrw3K","type":"link","attributes":{"amount":10000,"archived":false,"currency":"PHP","description":"Payment for Rental #148 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/detUsv2","reference_number":"detUsv2","created_at":1758551222,"updated_at":1758551222,"payments":[]}}}
+[2025-09-22 16:27:02] Successfully saved payment link to database - ID: 244
+[2025-09-22 16:27:02] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/detUsv2
+[2025-09-22 16:27:03] Success: Created payment record ID 182 for rental 148 - Amount: 100 - Type: downpayment - Method: gcash
+
+[2025-09-22 16:45:03] Creating payment link...
+[2025-09-22 16:45:03] Amount: ₱250
+[2025-09-22 16:45:03] Reference ID: rental_150_user_5_time_1758552303
+[2025-09-22 16:45:03] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 25000,
+            "currency": "PHP",
+            "description": "Payment for Rental #150 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_150_user_5_time_1758552303"
+        }
+    }
+}
+[2025-09-22 16:45:03] API Response Code: 200
+[2025-09-22 16:45:03] API Response: {"data":{"id":"link_i8Zn4BDwsfDJJJL5Bgt9BSm9","type":"link","attributes":{"amount":25000,"archived":false,"currency":"PHP","description":"Payment for Rental #150 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/kbMG1nj","reference_number":"kbMG1nj","created_at":1758552304,"updated_at":1758552304,"payments":[]}}}
+[2025-09-22 16:45:03] Successfully saved payment link to database - ID: 247
+[2025-09-22 16:45:03] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/kbMG1nj
+[2025-09-22 16:45:05] Success: Created payment record ID 183 for rental 150 - Amount: 250 - Type: downpayment - Method: gcash
+
+[2025-09-22 16:55:05] Creating payment link...
+[2025-09-22 16:55:05] Amount: ₱1000
+[2025-09-22 16:55:05] Reference ID: rental_151_user_5_time_1758552905
+[2025-09-22 16:55:05] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 100000,
+            "currency": "PHP",
+            "description": "Payment for Rental #151",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_151_user_5_time_1758552905"
+        }
+    }
+}
+[2025-09-22 16:55:05] API Response Code: 200
+[2025-09-22 16:55:05] API Response: {"data":{"id":"link_SbKacLyiFD5DridPFxUWgKH4","type":"link","attributes":{"amount":100000,"archived":false,"currency":"PHP","description":"Payment for Rental #151","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/V9eGtpA","reference_number":"V9eGtpA","created_at":1758552905,"updated_at":1758552905,"payments":[]}}}
+[2025-09-22 16:55:05] Successfully saved payment link to database - ID: 249
+[2025-09-22 16:55:05] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/V9eGtpA
+[2025-09-22 16:55:06] Success: Created payment record ID 184 for rental 151 - Amount: 1000 - Type: full_payment - Method: maya
+
+[2025-09-22 18:01:42] Creating payment link...
+[2025-09-22 18:01:42] Amount: ₱250
+[2025-09-22 18:01:42] Reference ID: rental_155_user_3_time_1758556902
+[2025-09-22 18:01:42] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 25000,
+            "currency": "PHP",
+            "description": "Payment for Rental #155 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_155_user_3_time_1758556902"
+        }
+    }
+}
+[2025-09-22 18:01:42] API Response Code: 200
+[2025-09-22 18:01:42] API Response: {"data":{"id":"link_tnY9WKYKkYT2Wnx3opnESbCX","type":"link","attributes":{"amount":25000,"archived":false,"currency":"PHP","description":"Payment for Rental #155 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/ZpqdfbN","reference_number":"ZpqdfbN","created_at":1758556904,"updated_at":1758556904,"payments":[]}}}
+[2025-09-22 18:01:42] Successfully saved payment link to database - ID: 253
+[2025-09-22 18:01:42] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/ZpqdfbN
+[2025-09-22 18:01:44] Success: Created payment record ID 186 for rental 155 - Amount: 250 - Type: downpayment - Method: gcash
+
+[2025-09-22 18:03:41] Creating payment link...
+[2025-09-22 18:03:41] Amount: ₱125
+[2025-09-22 18:03:41] Reference ID: rental_156_user_3_time_1758557021
+[2025-09-22 18:03:41] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Payment for Rental #156 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_156_user_3_time_1758557021"
+        }
+    }
+}
+[2025-09-22 18:03:41] API Response Code: 200
+[2025-09-22 18:03:41] API Response: {"data":{"id":"link_tgYVMSoQ37MHYH8kL6tqNNgZ","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Payment for Rental #156 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/5YQTtkd","reference_number":"5YQTtkd","created_at":1758557022,"updated_at":1758557022,"payments":[]}}}
+[2025-09-22 18:03:41] Successfully saved payment link to database - ID: 255
+[2025-09-22 18:03:41] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/5YQTtkd
+[2025-09-22 18:03:43] Success: Created payment record ID 187 for rental 156 - Amount: 125 - Type: downpayment - Method: gcash
+
+[2025-09-23 18:36:56] Creating payment link...
+[2025-09-23 18:36:56] Amount: ₱125
+[2025-09-23 18:36:56] Reference ID: rental_157_user_3_time_1758645416
+[2025-09-23 18:36:56] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Payment for Rental #157 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_157_user_3_time_1758645416"
+        }
+    }
+}
+[2025-09-23 18:36:56] API Response Code: 200
+[2025-09-23 18:36:56] API Response: {"data":{"id":"link_vpkEUGY7WbbRqnCZHP6F9paE","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Payment for Rental #157 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/dSNRFCP","reference_number":"dSNRFCP","created_at":1758645420,"updated_at":1758645420,"payments":[]}}}
+[2025-09-23 18:36:56] Successfully saved payment link to database - ID: 257
+[2025-09-23 18:36:56] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/dSNRFCP
+[2025-09-23 18:36:58] Success: Created payment record ID 188 for rental 157 - Amount: 125 - Type: downpayment - Method: gcash
+
+[2025-09-23 19:03:45] Creating payment link...
+[2025-09-23 19:03:45] Amount: ₱500
+[2025-09-23 19:03:45] Reference ID: rental_158_user_5_time_1758647025
+[2025-09-23 19:03:45] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Payment for Rental #158",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_158_user_5_time_1758647025"
+        }
+    }
+}
+[2025-09-23 19:03:45] API Response Code: 200
+[2025-09-23 19:03:45] API Response: {"data":{"id":"link_TcXFMQB7QxFRm5sZqY9ehD9Q","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Payment for Rental #158","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/mqAo97K","reference_number":"mqAo97K","created_at":1758647028,"updated_at":1758647028,"payments":[]}}}
+[2025-09-23 19:03:45] Successfully saved payment link to database - ID: 259
+[2025-09-23 19:03:45] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/mqAo97K
+[2025-09-23 19:03:47] Success: Created payment record ID 189 for rental 158 - Amount: 500 - Type: full_payment - Method: gcash
+
+[2025-09-23 19:22:14] Creating payment link...
+[2025-09-23 19:22:14] Amount: ₱125
+[2025-09-23 19:22:14] Reference ID: rental_160_user_6_time_1758648134
+[2025-09-23 19:22:14] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Payment for Rental #160 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_160_user_6_time_1758648134"
+        }
+    }
+}
+[2025-09-23 19:22:14] API Response Code: 200
+[2025-09-23 19:22:14] API Response: {"data":{"id":"link_3bRsuXMgTyyb4LnWzEuAW1Dn","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Payment for Rental #160 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/uq3xCoX","reference_number":"uq3xCoX","created_at":1758648138,"updated_at":1758648138,"payments":[]}}}
+[2025-09-23 19:22:14] Successfully saved payment link to database - ID: 262
+[2025-09-23 19:22:14] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/uq3xCoX
+[2025-09-23 19:22:17] Success: Created payment record ID 190 for rental 160 - Amount: 125 - Type: downpayment - Method: gcash
+
+[2025-09-24 19:22:59] Creating payment link...
+[2025-09-24 19:22:59] Amount: ₱125
+[2025-09-24 19:22:59] Reference ID: rental_162_user_3_time_1758734579
+[2025-09-24 19:22:59] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Payment for Rental #162 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_162_user_3_time_1758734579"
+        }
+    }
+}
+[2025-09-24 19:22:59] API Response Code: 200
+[2025-09-24 19:22:59] API Response: {"data":{"id":"link_aVg17xMdH3DpPjSgda86qC4h","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Payment for Rental #162 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/tPGtQpD","reference_number":"tPGtQpD","created_at":1758734580,"updated_at":1758734580,"payments":[]}}}
+[2025-09-24 19:22:59] Successfully saved payment link to database - ID: 265
+[2025-09-24 19:22:59] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/tPGtQpD
+[2025-09-24 19:23:01] Success: Created payment record ID 191 for rental 162 - Amount: 125 - Type: downpayment - Method: maya
+
+[2025-09-24 21:22:27] Creating payment link...
+[2025-09-24 21:22:27] Amount: ₱500
+[2025-09-24 21:22:27] Reference ID: rental_163_user_3_time_1758741747
+[2025-09-24 21:22:27] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Payment for Rental #163",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_163_user_3_time_1758741747"
+        }
+    }
+}
+[2025-09-24 21:22:27] API Response Code: 200
+[2025-09-24 21:22:27] API Response: {"data":{"id":"link_C98TYt5LdFNy3ZNKv2droi5h","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Payment for Rental #163","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/fyVCLrf","reference_number":"fyVCLrf","created_at":1758741749,"updated_at":1758741749,"payments":[]}}}
+[2025-09-24 21:22:27] Successfully saved payment link to database - ID: 267
+[2025-09-24 21:22:27] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/fyVCLrf
+[2025-09-24 21:22:29] Success: Created payment record ID 192 for rental 163 - Amount: 500 - Type: full_payment - Method: maya
+
+[2025-09-24 21:32:03] Creating payment link...
+[2025-09-24 21:32:03] Amount: ₱500
+[2025-09-24 21:32:03] Reference ID: rental_164_user_3_time_1758742323
+[2025-09-24 21:32:03] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Payment for Rental #164",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_164_user_3_time_1758742323"
+        }
+    }
+}
+[2025-09-24 21:32:03] API Response Code: 200
+[2025-09-24 21:32:03] API Response: {"data":{"id":"link_9K3k5bwALJLKRTgEJVTqyQRS","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Payment for Rental #164","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/9fHg2u2","reference_number":"9fHg2u2","created_at":1758742324,"updated_at":1758742324,"payments":[]}}}
+[2025-09-24 21:32:03] Successfully saved payment link to database - ID: 269
+[2025-09-24 21:32:03] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/9fHg2u2
+[2025-09-24 21:32:05] Success: Created payment record ID 193 for rental 164 - Amount: 500 - Type: full_payment - Method: gcash
+
+[2025-09-24 21:51:17] Creating payment link...
+[2025-09-24 21:51:17] Amount: ₱500
+[2025-09-24 21:51:17] Reference ID: rental_165_user_3_time_1758743477
+[2025-09-24 21:51:17] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Payment for Rental #165",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_165_user_3_time_1758743477"
+        }
+    }
+}
+[2025-09-24 21:51:17] API Response Code: 200
+[2025-09-24 21:51:17] API Response: {"data":{"id":"link_aTU8cpRZWXZJ8tVM6MTNRpCC","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Payment for Rental #165","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Smtxzsk","reference_number":"Smtxzsk","created_at":1758743479,"updated_at":1758743479,"payments":[]}}}
+[2025-09-24 21:51:17] Successfully saved payment link to database - ID: 271
+[2025-09-24 21:51:17] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Smtxzsk
+[2025-09-24 21:51:19] Success: Created payment record ID 194 for rental 165 - Amount: 500 - Type: full_payment - Method: gcash
+
+[2025-09-24 22:01:56] Creating payment link...
+[2025-09-24 22:01:56] Amount: ₱1000
+[2025-09-24 22:01:56] Reference ID: extension_5_rental_165_user_3_time_1758744116
+[2025-09-24 22:01:56] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 100000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #165 - motorcyle (2 days)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "extension_5_rental_165_user_3_time_1758744116"
+        }
+    }
+}
+[2025-09-24 22:01:56] API Response Code: 200
+[2025-09-24 22:01:56] API Response: {"data":{"id":"link_vDddF9yPi7SzkZie3my8rG7P","type":"link","attributes":{"amount":100000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #165 - motorcyle (2 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/mZvaXVF","reference_number":"mZvaXVF","created_at":1758744117,"updated_at":1758744117,"payments":[]}}}
+[2025-09-24 22:01:56] Successfully saved payment link to database - ID: 272
+[2025-09-24 22:01:56] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/mZvaXVF
+
+[2025-09-24 22:18:33] Creating payment link...
+[2025-09-24 22:18:33] Amount: ₱125
+[2025-09-24 22:18:33] Reference ID: rental_166_user_3_time_1758745113
+[2025-09-24 22:18:33] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Payment for Rental #166 (Down Payment)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_166_user_3_time_1758745113"
+        }
+    }
+}
+[2025-09-24 22:18:33] API Response Code: 200
+[2025-09-24 22:18:33] API Response: {"data":{"id":"link_vawsYUsHC4jUY75W5wE1g4ro","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Payment for Rental #166 (Down Payment)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/NCcaxDp","reference_number":"NCcaxDp","created_at":1758745115,"updated_at":1758745115,"payments":[]}}}
+[2025-09-24 22:18:33] Successfully saved payment link to database - ID: 274
+[2025-09-24 22:18:33] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/NCcaxDp
+[2025-09-24 22:18:35] Success: Created payment record ID 195 for rental 166 - Amount: 125 - Type: downpayment - Method: gcash
+
+[2025-09-24 22:32:15] Creating payment link...
+[2025-09-24 22:32:15] Amount: ₱1000
+[2025-09-24 22:32:15] Reference ID: extension_6_rental_166_user_3_time_1758745935
+[2025-09-24 22:32:15] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 100000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #166 - motorcyle (2 days)",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "extension_6_rental_166_user_3_time_1758745935"
+        }
+    }
+}
+[2025-09-24 22:32:15] API Response Code: 200
+[2025-09-24 22:32:15] API Response: {"data":{"id":"link_j2fDGtVp5Ty3v6vVP8HHMSDz","type":"link","attributes":{"amount":100000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #166 - motorcyle (2 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/LZcQTEa","reference_number":"LZcQTEa","created_at":1758745937,"updated_at":1758745937,"payments":[]}}}
+[2025-09-24 22:32:15] Successfully saved payment link to database - ID: 275
+[2025-09-24 22:32:15] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/LZcQTEa
+
+[2025-09-24 22:47:00] Creating payment link...
+[2025-09-24 22:47:00] Amount: ₱500
+[2025-09-24 22:47:00] Reference ID: rental_167_payment_196_user_5_time_1758746820
+[2025-09-24 22:47:00] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_167_payment_196_user_5_time_1758746820"
+        }
+    }
+}
+[2025-09-24 22:47:00] API Response Code: 200
+[2025-09-24 22:47:00] API Response: {"data":{"id":"link_LJRGQRVAxRU6nNX1ZyRVAWCv","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/bvHJmzD","reference_number":"bvHJmzD","created_at":1758746820,"updated_at":1758746820,"payments":[]}}}
+[2025-09-24 22:47:00] Successfully saved payment link to database - ID: 277
+[2025-09-24 22:47:00] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/bvHJmzD
+
+[2025-09-24 22:47:40] Creating payment link...
+[2025-09-24 22:47:40] Amount: ₱500
+[2025-09-24 22:47:40] Reference ID: rental_167_payment_197_user_5_time_1758746860
+[2025-09-24 22:47:40] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_167_payment_197_user_5_time_1758746860"
+        }
+    }
+}
+[2025-09-24 22:47:40] API Response Code: 200
+[2025-09-24 22:47:40] API Response: {"data":{"id":"link_6gB2CGKq8ihRzJrDPdF6KZk1","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/fUGizyv","reference_number":"fUGizyv","created_at":1758746862,"updated_at":1758746862,"payments":[]}}}
+[2025-09-24 22:47:40] Successfully saved payment link to database - ID: 278
+[2025-09-24 22:47:40] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/fUGizyv
+
+[2025-09-24 22:49:17] Creating payment link...
+[2025-09-24 22:49:17] Amount: ₱500
+[2025-09-24 22:49:17] Reference ID: rental_167_payment_198_user_5_time_1758746957
+[2025-09-24 22:49:17] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_167_payment_198_user_5_time_1758746957"
+        }
+    }
+}
+[2025-09-24 22:49:17] API Response Code: 200
+[2025-09-24 22:49:17] API Response: {"data":{"id":"link_rMcEHM81dCsvmo7V5U7xdAq5","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Ri99cih","reference_number":"Ri99cih","created_at":1758746959,"updated_at":1758746959,"payments":[]}}}
+[2025-09-24 22:49:17] Successfully saved payment link to database - ID: 279
+[2025-09-24 22:49:17] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Ri99cih
+
+[2025-09-24 22:55:29] Creating payment link...
+[2025-09-24 22:55:29] Amount: ₱500
+[2025-09-24 22:55:29] Reference ID: rental_168_payment_199_user_5_time_1758747329
+[2025-09-24 22:55:29] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_168_payment_199_user_5_time_1758747329"
+        }
+    }
+}
+[2025-09-24 22:55:29] API Response Code: 200
+[2025-09-24 22:55:29] API Response: {"data":{"id":"link_eXsGo47WC1GDwLxtnsnR3Qj2","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/YNoBTWC","reference_number":"YNoBTWC","created_at":1758747330,"updated_at":1758747330,"payments":[]}}}
+[2025-09-24 22:55:29] Successfully saved payment link to database - ID: 281
+[2025-09-24 22:55:29] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/YNoBTWC
+
+[2025-09-24 23:00:31] Creating payment link...
+[2025-09-24 23:00:31] Amount: ₱500
+[2025-09-24 23:00:31] Reference ID: rental_169_payment_200_user_5_time_1758747631
+[2025-09-24 23:00:31] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "client_reference_id": "rental_169_payment_200_user_5_time_1758747631"
+        }
+    }
+}
+[2025-09-24 23:00:31] API Response Code: 200
+[2025-09-24 23:00:31] API Response: {"data":{"id":"link_odCiFSuJvZjAo3DCRrZmUvry","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/3c3RJ4C","reference_number":"3c3RJ4C","created_at":1758747632,"updated_at":1758747632,"payments":[]}}}
+[2025-09-24 23:00:31] Successfully saved payment link to database - ID: 283
+[2025-09-24 23:00:31] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/3c3RJ4C
+
+[2025-09-24 23:10:35] Creating payment link...
+[2025-09-24 23:10:35] Amount: ₱125
+[2025-09-24 23:10:35] Reference ID: rental_169_payment_201_user_5_time_1758748235
+[2025-09-24 23:10:35] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_169_payment_201_user_5_time_1758748235"
+        }
+    }
+}
+[2025-09-24 23:10:35] API Response Code: 200
+[2025-09-24 23:10:35] API Response: {"data":{"id":"link_MQsc9w9Cx7MybwGNGTRLVDpu","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/uUwgGGu","reference_number":"uUwgGGu","created_at":1758748236,"updated_at":1758748236,"payments":[]}}}
+[2025-09-24 23:10:35] Successfully saved payment link to database - ID: 284
+[2025-09-24 23:10:35] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/uUwgGGu
+
+[2025-09-24 23:13:25] Creating payment link...
+[2025-09-24 23:13:25] Amount: ₱125
+[2025-09-24 23:13:25] Reference ID: rental_170_payment_202_user_5_time_1758748405
+[2025-09-24 23:13:25] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_170_payment_202_user_5_time_1758748405"
+        }
+    }
+}
+[2025-09-24 23:13:25] API Response Code: 200
+[2025-09-24 23:13:25] API Response: {"data":{"id":"link_Dh6tSj5tV6PWqzWKN5vAm3iu","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/bjYYv4q","reference_number":"bjYYv4q","created_at":1758748407,"updated_at":1758748407,"payments":[]}}}
+[2025-09-24 23:13:25] Successfully saved payment link to database - ID: 286
+[2025-09-24 23:13:25] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/bjYYv4q
+
+[2025-09-25 15:56:17] Creating payment link...
+[2025-09-25 15:56:17] Amount: ₱125
+[2025-09-25 15:56:17] Reference ID: rental_171_payment_203_user_5_time_1758808577
+[2025-09-25 15:56:17] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_171_payment_203_user_5_time_1758808577"
+        }
+    }
+}
+[2025-09-25 15:56:17] API Response Code: 200
+[2025-09-25 15:56:17] API Response: {"data":{"id":"link_AoZ8QhfnbwxidrMopVitrVuG","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/jqirAg5","reference_number":"jqirAg5","created_at":1758808578,"updated_at":1758808578,"payments":[]}}}
+[2025-09-25 15:56:17] Successfully saved payment link to database - ID: 288
+[2025-09-25 15:56:17] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/jqirAg5
+
+[2025-09-25 16:03:20] Creating payment link...
+[2025-09-25 16:03:20] Amount: ₱500
+[2025-09-25 16:03:20] Reference ID: rental_172_payment_204_user_5_time_1758809000
+[2025-09-25 16:03:20] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_172_payment_204_user_5_time_1758809000"
+        }
+    }
+}
+[2025-09-25 16:03:20] API Response Code: 200
+[2025-09-25 16:03:20] API Response: {"data":{"id":"link_mUnVzvjyeJBKnt3Srhnzr4is","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/NtRVZWv","reference_number":"NtRVZWv","created_at":1758809002,"updated_at":1758809002,"payments":[]}}}
+[2025-09-25 16:03:20] Successfully saved payment link to database - ID: 290
+[2025-09-25 16:03:20] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/NtRVZWv
+
+[2025-09-25 17:00:32] Creating payment link...
+[2025-09-25 17:00:32] Amount: ₱500
+[2025-09-25 17:00:32] Reference ID: extension_7_rental_172_user_5_time_1758812432
+[2025-09-25 17:00:32] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #172 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_7_rental_172_user_5_time_1758812432"
+        }
+    }
+}
+[2025-09-25 17:00:32] API Response Code: 200
+[2025-09-25 17:00:32] API Response: {"data":{"id":"link_HVPqcD1AYRasVPxhxJrNwpyV","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #172 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/x3QadxU","reference_number":"x3QadxU","created_at":1758812434,"updated_at":1758812434,"payments":[]}}}
+[2025-09-25 17:00:32] Successfully saved payment link to database - ID: 291
+[2025-09-25 17:00:32] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/x3QadxU
+
+[2025-09-25 17:12:34] Creating payment link...
+[2025-09-25 17:12:34] Amount: ₱500
+[2025-09-25 17:12:34] Reference ID: rental_173_payment_205_user_5_time_1758813154
+[2025-09-25 17:12:34] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_173_payment_205_user_5_time_1758813154"
+        }
+    }
+}
+[2025-09-25 17:12:34] API Response Code: 200
+[2025-09-25 17:12:34] API Response: {"data":{"id":"link_b66ffQtJoQV1SKBf2ZV2i8wS","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/TjDXueG","reference_number":"TjDXueG","created_at":1758813156,"updated_at":1758813156,"payments":[]}}}
+[2025-09-25 17:12:34] Successfully saved payment link to database - ID: 293
+[2025-09-25 17:12:34] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/TjDXueG
+
+[2025-09-25 17:40:23] Creating payment link...
+[2025-09-25 17:40:23] Amount: ₱500
+[2025-09-25 17:40:23] Reference ID: extension_8_rental_173_user_5_time_1758814823
+[2025-09-25 17:40:23] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #173 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_8_rental_173_user_5_time_1758814823"
+        }
+    }
+}
+[2025-09-25 17:40:23] API Response Code: 200
+[2025-09-25 17:40:23] API Response: {"data":{"id":"link_9pJXAaTeG3ZNkghn9cPyyZkc","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #173 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/7ADZtgu","reference_number":"7ADZtgu","created_at":1758814825,"updated_at":1758814825,"payments":[]}}}
+[2025-09-25 17:40:23] Successfully saved payment link to database - ID: 294
+[2025-09-25 17:40:23] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/7ADZtgu
+
+[2025-09-25 18:37:50] Creating payment link...
+[2025-09-25 18:37:50] Amount: ₱500
+[2025-09-25 18:37:50] Reference ID: rental_174_payment_206_user_5_time_1758818270
+[2025-09-25 18:37:50] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_174_payment_206_user_5_time_1758818270"
+        }
+    }
+}
+[2025-09-25 18:37:50] API Response Code: 200
+[2025-09-25 18:37:50] API Response: {"data":{"id":"link_YkAespiTLuLKEoy4Ub1CBxZ7","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/k3rwZVT","reference_number":"k3rwZVT","created_at":1758818273,"updated_at":1758818273,"payments":[]}}}
+[2025-09-25 18:37:50] Successfully saved payment link to database - ID: 296
+[2025-09-25 18:37:50] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/k3rwZVT
+
+[2025-09-25 18:40:13] Creating payment link...
+[2025-09-25 18:40:13] Amount: ₱500
+[2025-09-25 18:40:13] Reference ID: extension_9_rental_174_user_5_time_1758818413
+[2025-09-25 18:40:13] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #174 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_9_rental_174_user_5_time_1758818413"
+        }
+    }
+}
+[2025-09-25 18:40:13] API Response Code: 200
+[2025-09-25 18:40:13] API Response: {"data":{"id":"link_16NcNVVPZTNufQNNe6QLMVaa","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #174 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/idje9Nk","reference_number":"idje9Nk","created_at":1758818416,"updated_at":1758818416,"payments":[]}}}
+[2025-09-25 18:40:13] Successfully saved payment link to database - ID: 297
+[2025-09-25 18:40:13] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/idje9Nk
+
+[2025-09-25 18:49:18] Creating payment link...
+[2025-09-25 18:49:18] Amount: ₱125
+[2025-09-25 18:49:18] Reference ID: rental_175_payment_207_user_5_time_1758818958
+[2025-09-25 18:49:18] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_175_payment_207_user_5_time_1758818958"
+        }
+    }
+}
+[2025-09-25 18:49:18] API Response Code: 200
+[2025-09-25 18:49:18] API Response: {"data":{"id":"link_kNXHbQVAFN5crceEn3PCXBn8","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/rgotLUB","reference_number":"rgotLUB","created_at":1758818960,"updated_at":1758818960,"payments":[]}}}
+[2025-09-25 18:49:18] Successfully saved payment link to database - ID: 299
+[2025-09-25 18:49:18] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/rgotLUB
+
+[2025-09-25 18:51:49] Creating payment link...
+[2025-09-25 18:51:49] Amount: ₱500
+[2025-09-25 18:51:49] Reference ID: extension_10_rental_175_user_5_time_1758819109
+[2025-09-25 18:51:49] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #175 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_10_rental_175_user_5_time_1758819109"
+        }
+    }
+}
+[2025-09-25 18:51:49] API Response Code: 200
+[2025-09-25 18:51:49] API Response: {"data":{"id":"link_zSzMKEcZP9VykSaEY1HTGRCS","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #175 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/id73grd","reference_number":"id73grd","created_at":1758819111,"updated_at":1758819111,"payments":[]}}}
+[2025-09-25 18:51:49] Successfully saved payment link to database - ID: 300
+[2025-09-25 18:51:49] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/id73grd
+
+[2025-09-25 19:12:40] Creating payment link...
+[2025-09-25 19:12:40] Amount: ₱500
+[2025-09-25 19:12:40] Reference ID: rental_176_payment_208_user_6_time_1758820360
+[2025-09-25 19:12:40] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_176_payment_208_user_6_time_1758820360"
+        }
+    }
+}
+[2025-09-25 19:12:40] API Response Code: 200
+[2025-09-25 19:12:40] API Response: {"data":{"id":"link_fnenr8kkRPmPPuowK7TRCXKF","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/amD91he","reference_number":"amD91he","created_at":1758820361,"updated_at":1758820361,"payments":[]}}}
+[2025-09-25 19:12:40] Successfully saved payment link to database - ID: 302
+[2025-09-25 19:12:40] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/amD91he
+
+[2025-09-25 19:42:22] Creating payment link...
+[2025-09-25 19:42:22] Amount: ₱500
+[2025-09-25 19:42:22] Reference ID: extension_11_rental_176_user_6_time_1758822142
+[2025-09-25 19:42:22] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #176 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_11_rental_176_user_6_time_1758822142"
+        }
+    }
+}
+[2025-09-25 19:42:22] API Response Code: 200
+[2025-09-25 19:42:22] API Response: {"data":{"id":"link_tnKynC1tRY1foY4JX422wFH5","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #176 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/oDhKVSU","reference_number":"oDhKVSU","created_at":1758822144,"updated_at":1758822144,"payments":[]}}}
+[2025-09-25 19:42:22] Successfully saved payment link to database - ID: 303
+[2025-09-25 19:42:22] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/oDhKVSU
+
+[2025-09-29 19:36:15] Creating payment link...
+[2025-09-29 19:36:15] Amount: ₱500
+[2025-09-29 19:36:15] Reference ID: rental_177_payment_209_user_7_time_1759167375
+[2025-09-29 19:36:15] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_177_payment_209_user_7_time_1759167375"
+        }
+    }
+}
+[2025-09-29 19:36:15] API Response Code: 200
+[2025-09-29 19:36:15] API Response: {"data":{"id":"link_9PA5pAyWhzoyK1ftwtNEVmKh","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/9JSXR3p","reference_number":"9JSXR3p","created_at":1759167376,"updated_at":1759167376,"payments":[]}}}
+[2025-09-29 19:36:15] Successfully saved payment link to database - ID: 307
+[2025-09-29 19:36:15] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/9JSXR3p
+
+[2025-09-29 19:50:29] Creating payment link...
+[2025-09-29 19:50:29] Amount: ₱500
+[2025-09-29 19:50:29] Reference ID: rental_178_payment_210_user_5_time_1759168228
+[2025-09-29 19:50:29] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_178_payment_210_user_5_time_1759168228"
+        }
+    }
+}
+[2025-09-29 19:50:29] API Response Code: 200
+[2025-09-29 19:50:29] API Response: {"data":{"id":"link_3KFRBAcKHA6HQV7YmAMTwKke","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/woso31W","reference_number":"woso31W","created_at":1759168229,"updated_at":1759168229,"payments":[]}}}
+[2025-09-29 19:50:29] Successfully saved payment link to database - ID: 310
+[2025-09-29 19:50:29] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/woso31W
+
+[2025-10-01 05:04:51] Creating payment link...
+[2025-10-01 05:04:51] Amount: ₱125
+[2025-10-01 05:04:51] Reference ID: rental_179_payment_212_user_7_time_1759287891
+[2025-10-01 05:04:51] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_179_payment_212_user_7_time_1759287891"
+        }
+    }
+}
+[2025-10-01 05:04:51] API Response Code: 200
+[2025-10-01 05:04:51] API Response: {"data":{"id":"link_XoGkg1eaenwwzTeSxA15kSdH","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/L6WoCoZ","reference_number":"L6WoCoZ","created_at":1759287893,"updated_at":1759287893,"payments":[]}}}
+[2025-10-01 05:04:51] Successfully saved payment link to database - ID: 313
+[2025-10-01 05:04:51] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/L6WoCoZ
+
+[2025-10-01 05:27:29] Creating payment link...
+[2025-10-01 05:27:29] Amount: ₱500
+[2025-10-01 05:27:29] Reference ID: extension_12_rental_179_user_7_time_1759289249
+[2025-10-01 05:27:29] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #179 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_12_rental_179_user_7_time_1759289249"
+        }
+    }
+}
+[2025-10-01 05:27:29] API Response Code: 200
+[2025-10-01 05:27:29] API Response: {"data":{"id":"link_kfLPvxZz2SXz9PaM2y1p9k7N","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #179 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/FvkJ5Ce","reference_number":"FvkJ5Ce","created_at":1759289251,"updated_at":1759289251,"payments":[]}}}
+[2025-10-01 05:27:29] Successfully saved payment link to database - ID: 314
+[2025-10-01 05:27:29] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/FvkJ5Ce
+
+[2025-10-01 05:46:58] Creating payment link...
+[2025-10-01 05:46:58] Amount: ₱500
+[2025-10-01 05:46:58] Reference ID: rental_180_payment_213_user_7_time_1759290418
+[2025-10-01 05:46:58] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_180_payment_213_user_7_time_1759290418"
+        }
+    }
+}
+[2025-10-01 05:46:58] API Response Code: 200
+[2025-10-01 05:46:58] API Response: {"data":{"id":"link_VSbh49vTYnT98qmSip9uPqaE","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Ha6iE65","reference_number":"Ha6iE65","created_at":1759290419,"updated_at":1759290419,"payments":[]}}}
+[2025-10-01 05:46:58] Successfully saved payment link to database - ID: 316
+[2025-10-01 05:46:58] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Ha6iE65
+
+[2025-10-01 06:15:50] Creating payment link...
+[2025-10-01 06:15:50] Amount: ₱500
+[2025-10-01 06:15:50] Reference ID: extension_13_rental_180_user_7_time_1759292150
+[2025-10-01 06:15:50] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #180 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_13_rental_180_user_7_time_1759292150"
+        }
+    }
+}
+[2025-10-01 06:15:50] API Response Code: 200
+[2025-10-01 06:15:50] API Response: {"data":{"id":"link_t1zkjrEiW4pZtdkBwdT1zhbm","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #180 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/TseMQzb","reference_number":"TseMQzb","created_at":1759292150,"updated_at":1759292150,"payments":[]}}}
+[2025-10-01 06:15:50] Successfully saved payment link to database - ID: 317
+[2025-10-01 06:15:50] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/TseMQzb
+
+[2025-10-01 06:22:10] Creating payment link...
+[2025-10-01 06:22:10] Amount: ₱125
+[2025-10-01 06:22:10] Reference ID: rental_181_payment_214_user_7_time_1759292530
+[2025-10-01 06:22:10] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_181_payment_214_user_7_time_1759292530"
+        }
+    }
+}
+[2025-10-01 06:22:10] API Response Code: 200
+[2025-10-01 06:22:10] API Response: {"data":{"id":"link_zSr4stRUPz8BNXn467ERHv7B","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/esJdM3N","reference_number":"esJdM3N","created_at":1759292531,"updated_at":1759292531,"payments":[]}}}
+[2025-10-01 06:22:10] Successfully saved payment link to database - ID: 319
+[2025-10-01 06:22:10] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/esJdM3N
+
+[2025-10-01 06:25:08] Creating payment link...
+[2025-10-01 06:25:08] Amount: ₱500
+[2025-10-01 06:25:08] Reference ID: extension_14_rental_181_user_7_time_1759292708
+[2025-10-01 06:25:08] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #181 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_14_rental_181_user_7_time_1759292708"
+        }
+    }
+}
+[2025-10-01 06:25:08] API Response Code: 200
+[2025-10-01 06:25:08] API Response: {"data":{"id":"link_HQKM4pgVQv2mQUtGeYwoqbd4","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #181 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/rhBmqHy","reference_number":"rhBmqHy","created_at":1759292709,"updated_at":1759292709,"payments":[]}}}
+[2025-10-01 06:25:08] Successfully saved payment link to database - ID: 320
+[2025-10-01 06:25:08] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/rhBmqHy
+
+[2025-10-07 16:43:59] Creating payment link...
+[2025-10-07 16:43:59] Amount: ₱500
+[2025-10-07 16:43:59] Reference ID: rental_184_payment_216_user_3_time_1759848239
+[2025-10-07 16:43:59] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_184_payment_216_user_3_time_1759848239"
+        }
+    }
+}
+[2025-10-07 16:43:59] API Response Code: 200
+[2025-10-07 16:43:59] API Response: {"data":{"id":"link_PYyJHCgb7c19pSq1V3xQc13s","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/wBvg2Wo","reference_number":"wBvg2Wo","created_at":1759848240,"updated_at":1759848240,"payments":[]}}}
+[2025-10-07 16:43:59] Successfully saved payment link to database - ID: 326
+[2025-10-07 16:43:59] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/wBvg2Wo
+
+[2025-10-07 16:49:51] Creating payment link...
+[2025-10-07 16:49:51] Amount: ₱500
+[2025-10-07 16:49:51] Reference ID: extension_15_rental_184_user_3_time_1759848591
+[2025-10-07 16:49:51] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #184 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_15_rental_184_user_3_time_1759848591"
+        }
+    }
+}
+[2025-10-07 16:49:51] API Response Code: 200
+[2025-10-07 16:49:51] API Response: {"data":{"id":"link_mcagbH9CEXY4KZuL6jg6X3Cr","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #184 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/2bDjgGg","reference_number":"2bDjgGg","created_at":1759848591,"updated_at":1759848591,"payments":[]}}}
+[2025-10-07 16:49:51] Successfully saved payment link to database - ID: 327
+[2025-10-07 16:49:51] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/2bDjgGg
+
+[2025-10-07 17:16:34] Creating payment link...
+[2025-10-07 17:16:34] Amount: ₱125
+[2025-10-07 17:16:34] Reference ID: rental_185_payment_217_user_3_time_1759850194
+[2025-10-07 17:16:34] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 12500,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1125.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_185_payment_217_user_3_time_1759850194"
+        }
+    }
+}
+[2025-10-07 17:16:34] API Response Code: 200
+[2025-10-07 17:16:34] API Response: {"data":{"id":"link_u1A7TmbH36uMD6YE7bdg9f8t","type":"link","attributes":{"amount":12500,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱125.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/wAngqE5","reference_number":"wAngqE5","created_at":1759850194,"updated_at":1759850194,"payments":[]}}}
+[2025-10-07 17:16:34] Successfully saved payment link to database - ID: 329
+[2025-10-07 17:16:34] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/wAngqE5
+
+[2025-10-07 17:22:41] Creating payment link...
+[2025-10-07 17:22:41] Amount: ₱500
+[2025-10-07 17:22:41] Reference ID: extension_16_rental_185_user_3_time_1759850561
+[2025-10-07 17:22:41] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #185 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_16_rental_185_user_3_time_1759850561"
+        }
+    }
+}
+[2025-10-07 17:22:41] API Response Code: 200
+[2025-10-07 17:22:41] API Response: {"data":{"id":"link_ViNg2s66e4zkxKY5q1zG6Geu","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #185 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/ysWsrXB","reference_number":"ysWsrXB","created_at":1759850561,"updated_at":1759850561,"payments":[]}}}
+[2025-10-07 17:22:41] Successfully saved payment link to database - ID: 330
+[2025-10-07 17:22:41] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/ysWsrXB
+
+[2025-10-07 18:18:32] Creating payment link...
+[2025-10-07 18:18:32] Amount: ₱500
+[2025-10-07 18:18:32] Reference ID: rental_186_payment_218_user_3_time_1759853912
+[2025-10-07 18:18:32] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_186_payment_218_user_3_time_1759853912"
+        }
+    }
+}
+[2025-10-07 18:18:32] API Response Code: 200
+[2025-10-07 18:18:32] API Response: {"data":{"id":"link_EhEzUQoy2U4KGzqroo1Bwy2A","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Po7L2jE","reference_number":"Po7L2jE","created_at":1759853912,"updated_at":1759853912,"payments":[]}}}
+[2025-10-07 18:18:32] Successfully saved payment link to database - ID: 332
+[2025-10-07 18:18:32] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Po7L2jE
+
+[2025-10-07 18:24:10] Creating payment link...
+[2025-10-07 18:24:10] Amount: ₱500
+[2025-10-07 18:24:10] Reference ID: extension_17_rental_186_user_3_time_1759854250
+[2025-10-07 18:24:10] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #186 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_17_rental_186_user_3_time_1759854250"
+        }
+    }
+}
+[2025-10-07 18:24:10] API Response Code: 200
+[2025-10-07 18:24:10] API Response: {"data":{"id":"link_Ecwjw77D1emPHuZdmDYUS2uj","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #186 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/5zZRj5q","reference_number":"5zZRj5q","created_at":1759854250,"updated_at":1759854250,"payments":[]}}}
+[2025-10-07 18:24:10] Successfully saved payment link to database - ID: 333
+[2025-10-07 18:24:10] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/5zZRj5q
+
+[2025-10-07 19:41:42] Creating payment link...
+[2025-10-07 19:41:42] Amount: ₱500
+[2025-10-07 19:41:42] Reference ID: rental_187_payment_219_user_3_time_1759858902
+[2025-10-07 19:41:42] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_187_payment_219_user_3_time_1759858902"
+        }
+    }
+}
+[2025-10-07 19:41:42] API Response Code: 200
+[2025-10-07 19:41:42] API Response: {"data":{"id":"link_zfiQEtwHp5ofnYg7EfA4yvZW","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/CLg5xoP","reference_number":"CLg5xoP","created_at":1759858903,"updated_at":1759858903,"payments":[]}}}
+[2025-10-07 19:41:42] Successfully saved payment link to database - ID: 335
+[2025-10-07 19:41:42] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/CLg5xoP
+
+[2025-10-07 19:58:14] Creating payment link...
+[2025-10-07 19:58:14] Amount: ₱500
+[2025-10-07 19:58:14] Reference ID: rental_188_payment_220_user_7_time_1759859894
+[2025-10-07 19:58:14] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_188_payment_220_user_7_time_1759859894"
+        }
+    }
+}
+[2025-10-07 19:58:14] API Response Code: 200
+[2025-10-07 19:58:14] API Response: {"data":{"id":"link_XSa3GqBNszqqKNY7Vfs1rbyB","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/Qe3Bzta","reference_number":"Qe3Bzta","created_at":1759859895,"updated_at":1759859895,"payments":[]}}}
+[2025-10-07 19:58:14] Successfully saved payment link to database - ID: 337
+[2025-10-07 19:58:14] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/Qe3Bzta
+
+[2025-10-08 04:37:01] Creating payment link...
+[2025-10-08 04:37:01] Amount: ₱500
+[2025-10-08 04:37:01] Reference ID: extension_18_rental_187_user_3_time_1759891021
+[2025-10-08 04:37:01] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #187 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_18_rental_187_user_3_time_1759891021"
+        }
+    }
+}
+[2025-10-08 04:37:01] API Response Code: 200
+[2025-10-08 04:37:01] API Response: {"data":{"id":"link_Bvha3935KXDfwjuYCmGcHkQJ","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #187 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/bkKUhzn","reference_number":"bkKUhzn","created_at":1759891023,"updated_at":1759891023,"payments":[]}}}
+[2025-10-08 04:37:01] Successfully saved payment link to database - ID: 338
+[2025-10-08 04:37:01] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/bkKUhzn
+
+[2025-10-08 05:31:08] Creating payment link...
+[2025-10-08 05:31:08] Amount: ₱500
+[2025-10-08 05:31:08] Reference ID: extension_21_rental_188_user_7_time_1759894268
+[2025-10-08 05:31:08] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #188 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_21_rental_188_user_7_time_1759894268"
+        }
+    }
+}
+[2025-10-08 05:31:08] API Response Code: 200
+[2025-10-08 05:31:08] API Response: {"data":{"id":"link_omYkRooUW9Xvu5dsq4id1wVC","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #188 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/kZcdRGf","reference_number":"kZcdRGf","created_at":1759894270,"updated_at":1759894270,"payments":[]}}}
+[2025-10-08 05:31:08] Successfully saved payment link to database - ID: 339
+[2025-10-08 05:31:08] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/kZcdRGf
+
+[2025-10-09 04:52:04] Creating payment link...
+[2025-10-09 04:52:04] Amount: ₱500
+[2025-10-09 04:52:04] Reference ID: rental_189_payment_221_user_6_time_1759978324
+[2025-10-09 04:52:04] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_189_payment_221_user_6_time_1759978324"
+        }
+    }
+}
+[2025-10-09 04:52:04] API Response Code: 200
+[2025-10-09 04:52:04] API Response: {"data":{"id":"link_1RTyriVXgLCF1K2LvrCpP9gf","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/f5ce9sA","reference_number":"f5ce9sA","created_at":1759978327,"updated_at":1759978327,"payments":[]}}}
+[2025-10-09 04:52:04] Successfully saved payment link to database - ID: 341
+[2025-10-09 04:52:04] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/f5ce9sA
+
+[2025-10-09 06:17:26] Creating payment link...
+[2025-10-09 06:17:26] Amount: ₱1000
+[2025-10-09 06:17:26] Reference ID: extension_22_rental_189_user_6_time_1759983446
+[2025-10-09 06:17:26] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 100000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #189 - motorcyle (2 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_22_rental_189_user_6_time_1759983446"
+        }
+    }
+}
+[2025-10-09 06:17:26] API Response Code: 200
+[2025-10-09 06:17:26] API Response: {"data":{"id":"link_SRZEXE7MKHBZ1uprA2Au8caU","type":"link","attributes":{"amount":100000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #189 - motorcyle (2 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/xNsdM3b","reference_number":"xNsdM3b","created_at":1759983447,"updated_at":1759983447,"payments":[]}}}
+[2025-10-09 06:17:26] Successfully saved payment link to database - ID: 342
+[2025-10-09 06:17:26] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/xNsdM3b
+
+[2025-10-12 11:36:21] Creating payment link...
+[2025-10-12 11:36:21] Amount: ₱500
+[2025-10-12 11:36:21] Reference ID: rental_190_payment_222_user_5_time_1760261781
+[2025-10-12 11:36:21] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Rental Payment for Item #16 - Amount: \u20b1500.00",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "rental_190_payment_222_user_5_time_1760261781"
+        }
+    }
+}
+[2025-10-12 11:36:21] API Response Code: 200
+[2025-10-12 11:36:21] API Response: {"data":{"id":"link_NwNjxPGXAZr9Z9bfhtugdSa4","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Rental Payment for Item #16 - Amount: ₱500.00","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/6LnCpGq","reference_number":"6LnCpGq","created_at":1760261783,"updated_at":1760261783,"payments":[]}}}
+[2025-10-12 11:36:21] Successfully saved payment link to database - ID: 345
+[2025-10-12 11:36:21] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/6LnCpGq
+
+[2025-10-12 11:54:27] Creating payment link...
+[2025-10-12 11:54:27] Amount: ₱500
+[2025-10-12 11:54:27] Reference ID: extension_23_rental_190_user_5_time_1760262867
+[2025-10-12 11:54:27] Request data: {
+    "data": {
+        "attributes": {
+            "amount": 50000,
+            "currency": "PHP",
+            "description": "Extension Payment for Rental #190 - motorcyle (1 days)",
+            "remarks": "Payment via RentMate",
+            "external_reference_number": "extension_23_rental_190_user_5_time_1760262867"
+        }
+    }
+}
+[2025-10-12 11:54:27] API Response Code: 200
+[2025-10-12 11:54:27] API Response: {"data":{"id":"link_4pX1cNqvxYLVHJaYHTx8CWEL","type":"link","attributes":{"amount":50000,"archived":false,"currency":"PHP","description":"Extension Payment for Rental #190 - motorcyle (1 days)","livemode":false,"fee":0,"remarks":"Payment via RentMate","status":"unpaid","tax_amount":null,"taxes":[],"checkout_url":"https://pm.link/org-hagodchesspaymentsheshh/test/M2JiQLd","reference_number":"M2JiQLd","created_at":1760262869,"updated_at":1760262869,"payments":[]}}}
+[2025-10-12 11:54:27] Successfully saved payment link to database - ID: 346
+[2025-10-12 11:54:27] Successfully created payment link: https://pm.link/org-hagodchesspaymentsheshh/test/M2JiQLd
