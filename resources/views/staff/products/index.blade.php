@@ -93,9 +93,9 @@
                                 </a>
                             </div>
 
-                            <!-- Bulk Actions -->
                             <div class="flex items-center space-x-2">
-                                <select id="bulk-action" class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label for="bulk-action" class="sr-only">Bulk Actions</label>
+                                <select id="bulk-action" class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" aria-label="Bulk Actions">
                                     <option value="">Bulk Actions</option>
                                     <option value="activate">Activate Selected</option>
                                     <option value="deactivate">Deactivate Selected</option>
@@ -119,7 +119,10 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left">
-                                    <input type="checkbox" id="select-all" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <label for="select-all" class="flex items-center">
+                                        <input type="checkbox" id="select-all" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500" aria-label="Select all products">
+                                        <span class="sr-only">Select all products</span>
+                                    </label>
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Product
@@ -151,13 +154,19 @@
                             @forelse($products as $product)
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="checkbox" name="selected_products[]" value="{{ $product->id }}" class="product-checkbox rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <label for="product-checkbox-{{ $product->id }}" class="flex items-center">
+                                            <input type="checkbox" id="product-checkbox-{{ $product->id }}" name="selected_products[]" value="{{ $product->id }}" class="product-checkbox rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500" aria-label="Select {{ $product->name }}">
+                                            <span class="sr-only">Select {{ $product->name }}</span>
+                                        </label>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-12 w-12">
-                                                @if($product->primaryImage)
-                                                    <img class="h-12 w-12 rounded-lg object-cover" src="{{ asset('storage/' . $product->primaryImage->image_url) }}" alt="{{ $product->name }}">
+                                                @if($product->primaryImage && $product->primaryImage->full_url)
+                                                    <img class="h-12 w-12 rounded-lg object-cover" 
+                                                         src="{{ $product->primaryImage->full_url }}" 
+                                                         alt="{{ $product->name }}"
+                                                         onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'h-12 w-12 rounded-lg bg-gray-200 flex items-center justify-center\'><svg class=\'h-6 w-6 text-gray-400\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'></path></svg></div>';">
                                                 @else
                                                     <div class="h-12 w-12 rounded-lg bg-gray-200 flex items-center justify-center">
                                                         <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

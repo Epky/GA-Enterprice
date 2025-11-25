@@ -22,3 +22,11 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Binaries and executables
+postgres
+*.exe
+*.dll
+
+# Temporary/duplicate folders
+walk-in-transaction/

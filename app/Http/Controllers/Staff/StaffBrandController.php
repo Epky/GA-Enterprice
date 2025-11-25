@@ -670,6 +670,16 @@ class StaffBrandController extends Controller
     {
         Cache::forget('brands.active');
         Cache::forget('brands.stats');
-        Cache::tags(['brands'])->flush();
+        
+        // Only use cache tags if the driver supports it (Redis, Memcached)
+        // Database and file drivers don't support tagging
+        try {
+            if (in_array(config('cache.default'), ['redis', 'memcached'])) {
+                Cache::tags(['brands'])->flush();
+            }
+        } catch (\BadMethodCallException $e) {
+            // Cache driver doesn't support tagging, skip it
+            Log::debug('Cache tagging not supported by current driver');
+        }
     }
 }

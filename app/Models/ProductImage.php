@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 class ProductImage extends Model
 {
@@ -112,8 +113,25 @@ class ProductImage extends Model
             return $this->image_url;
         }
 
-        // Otherwise, construct the full URL (assuming Supabase storage)
-        return config('app.url') . '/storage/' . $this->image_url;
+        // Check if file exists, if not return null to allow graceful handling
+        if (!Storage::disk('public')->exists($this->image_url)) {
+            return ''; // Return empty string for missing files
+        }
+
+        // Generate the correct URL for the public disk
+        return Storage::disk('public')->url($this->image_url);
+    }
+    
+    /**
+     * Check if the image file exists on disk.
+     */
+    public function fileExists(): bool
+    {
+        if (filter_var($this->image_url, FILTER_VALIDATE_URL)) {
+            return true; // Assume external URLs are valid
+        }
+        
+        return Storage::disk('public')->exists($this->image_url);
     }
 
     /**

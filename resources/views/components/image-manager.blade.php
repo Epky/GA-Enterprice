@@ -17,7 +17,7 @@
                          data-image-id="{{ $image->id }}"
                          draggable="true">
                         <div class="relative">
-                            <img src="{{ $image->full_url }}" 
+                            <img src="{{ asset($image->full_url) }}" 
                                  alt="{{ $image->alt_text }}" 
                                  class="w-full h-32 object-cover rounded-lg border-2 border-gray-200">
                             

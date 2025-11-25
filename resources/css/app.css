@@ -16,3 +16,207 @@
         border-width: 0;
     }
 }
+
+/* Inventory Alert Severity Indicators */
+@layer components {
+    /* Critical Alert Styles - Red */
+    .alert-critical {
+        @apply bg-red-50 border-l-4 border-red-500;
+    }
+    
+    .alert-critical-card {
+        @apply bg-white border-l-4 border-red-500 shadow-sm rounded-lg;
+    }
+    
+    .alert-critical-badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 text-white;
+    }
+    
+    .alert-critical-text {
+        @apply text-red-700 font-bold;
+    }
+    
+    .alert-critical-bg {
+        @apply bg-red-50;
+    }
+    
+    .alert-critical-border {
+        @apply border-red-200;
+    }
+    
+    .alert-critical-button {
+        @apply bg-red-600 hover:bg-red-700 text-white;
+    }
+    
+    /* Warning Alert Styles - Yellow/Orange */
+    .alert-warning {
+        @apply bg-yellow-50 border-l-4 border-yellow-500;
+    }
+    
+    .alert-warning-card {
+        @apply bg-white border-l-4 border-yellow-500 shadow-sm rounded-lg;
+    }
+    
+    .alert-warning-badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-600 text-white;
+    }
+    
+    .alert-warning-text {
+        @apply text-yellow-700 font-bold;
+    }
+    
+    .alert-warning-bg {
+        @apply bg-yellow-50;
+    }
+    
+    .alert-warning-border {
+        @apply border-yellow-200;
+    }
+    
+    .alert-warning-button {
+        @apply bg-yellow-600 hover:bg-yellow-700 text-white;
+    }
+    
+    /* Error/Out of Stock Alert Styles - Orange/Red */
+    .alert-error {
+        @apply bg-orange-50 border-l-4 border-orange-500;
+    }
+    
+    .alert-error-card {
+        @apply bg-white border-l-4 border-orange-500 shadow-sm rounded-lg;
+    }
+    
+    .alert-error-badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-600 text-white;
+    }
+    
+    .alert-error-text {
+        @apply text-orange-700 font-bold;
+    }
+    
+    .alert-error-bg {
+        @apply bg-orange-50;
+    }
+    
+    .alert-error-border {
+        @apply border-orange-200;
+    }
+    
+    .alert-error-button {
+        @apply bg-orange-600 hover:bg-orange-700 text-white;
+    }
+    
+    /* Healthy Stock Styles - Green */
+    .alert-healthy {
+        @apply bg-green-50 border-l-4 border-green-500;
+    }
+    
+    .alert-healthy-card {
+        @apply bg-white border-l-4 border-green-500 shadow-sm rounded-lg;
+    }
+    
+    .alert-healthy-badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-600 text-white;
+    }
+    
+    .alert-healthy-text {
+        @apply text-green-700 font-bold;
+    }
+    
+    .alert-healthy-bg {
+        @apply bg-green-50;
+    }
+    
+    .alert-healthy-border {
+        @apply border-green-200;
+    }
+    
+    /* Dashboard Alert Badge Styles */
+    .dashboard-alert-badge {
+        @apply inline-flex items-center px-4 py-3 rounded-lg shadow-sm transition-all duration-200 hover:shadow-md;
+    }
+    
+    .dashboard-alert-badge-critical {
+        @apply dashboard-alert-badge bg-red-100 border-2 border-red-300 hover:bg-red-200;
+    }
+    
+    .dashboard-alert-badge-warning {
+        @apply dashboard-alert-badge bg-yellow-100 border-2 border-yellow-300 hover:bg-yellow-200;
+    }
+    
+    .dashboard-alert-badge-error {
+        @apply dashboard-alert-badge bg-orange-100 border-2 border-orange-300 hover:bg-orange-200;
+    }
+    
+    /* Alert Card Common Styles */
+    .alert-card-container {
+        @apply p-4 rounded-r-lg transition-all duration-200 hover:shadow-md;
+    }
+    
+    .alert-card-header {
+        @apply flex items-center mb-2;
+    }
+    
+    .alert-card-title {
+        @apply text-base font-semibold text-gray-900;
+    }
+    
+    .alert-card-grid {
+        @apply grid grid-cols-2 md:grid-cols-4 gap-4 mt-3;
+    }
+    
+    .alert-card-stat {
+        @apply text-xs text-gray-600;
+    }
+    
+    .alert-card-value {
+        @apply text-lg font-bold;
+    }
+    
+    .alert-card-action-box {
+        @apply mt-3 p-3 bg-white rounded border;
+    }
+    
+    /* Progress Bar Styles */
+    .alert-progress-bar {
+        @apply flex-1 bg-gray-200 rounded-full h-2 max-w-[60px];
+    }
+    
+    .alert-progress-fill-critical {
+        @apply bg-red-600 h-2 rounded-full transition-all duration-300;
+    }
+    
+    .alert-progress-fill-warning {
+        @apply bg-yellow-600 h-2 rounded-full transition-all duration-300;
+    }
+    
+    .alert-progress-fill-error {
+        @apply bg-orange-600 h-2 rounded-full transition-all duration-300;
+    }
+    
+    .alert-progress-fill-healthy {
+        @apply bg-green-600 h-2 rounded-full transition-all duration-300;
+    }
+    
+    /* Responsive Mobile Styles */
+    @media (max-width: 640px) {
+        .alert-card-grid {
+            @apply grid-cols-1 gap-3;
+        }
+        
+        .dashboard-alert-badge {
+            @apply px-3 py-2 text-sm;
+        }
+        
+        .alert-card-container {
+            @apply p-3;
+        }
+    }
+    
+    /* Tablet Styles */
+    @media (min-width: 641px) and (max-width: 1024px) {
+        .alert-card-grid {
+            @apply grid-cols-2 gap-3;
+        }
+    }
+}

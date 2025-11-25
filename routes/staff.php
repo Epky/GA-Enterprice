@@ -187,6 +187,36 @@ Route::middleware(['auth', 'role.redirect', 'staff'])->prefix('staff')->name('st
     Route::get('promotions/{promotion}/affected-products', [\App\Http\Controllers\Staff\StaffPromotionController::class, 'affectedProducts'])
         ->name('promotions.affected-products');
     
+    // Walk-in transaction routes
+    Route::prefix('walk-in-transaction')->name('walk-in-transaction.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'index'])
+            ->name('index');
+        Route::get('/create', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'create'])
+            ->name('create');
+        Route::post('/', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'store'])
+            ->name('store');
+        Route::get('/{order}', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'show'])
+            ->name('show');
+        Route::get('/history/list', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'history'])
+            ->name('history');
+        Route::get('/{order}/receipt', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'receipt'])
+            ->name('receipt');
+        
+        // AJAX routes
+        Route::get('/products/search', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'searchProducts'])
+            ->name('products.search');
+        Route::post('/{order}/items', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'addItem'])
+            ->name('items.add');
+        Route::patch('/items/{item}', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'updateItem'])
+            ->name('items.update');
+        Route::delete('/items/{item}', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'removeItem'])
+            ->name('items.remove');
+        Route::post('/{order}/complete', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'complete'])
+            ->name('complete');
+        Route::post('/{order}/cancel', [\App\Http\Controllers\Staff\WalkInTransactionController::class, 'cancel'])
+            ->name('cancel');
+    });
+    
     // Help and documentation routes
     Route::get('help/quick-reference', function () {
         return view('staff.help.quick-reference');

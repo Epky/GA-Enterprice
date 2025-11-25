@@ -146,7 +146,7 @@
                                         <td class="px-6 py-4">
                                             <div class="flex items-center">
                                                 @if ($product->primaryImage)
-                                                    <img src="{{ $product->primaryImage->image_url }}" alt="{{ $product->name }}" class="h-10 w-10 rounded object-cover mr-3">
+                                                    <img src="{{ $product->primaryImage->full_url }}" alt="{{ $product->name }}" class="h-10 w-10 rounded object-cover mr-3">
                                                 @else
                                                     <div class="h-10 w-10 bg-gray-200 rounded mr-3 flex items-center justify-center">
                                                         <span class="text-gray-400 text-xs">No Image</span>

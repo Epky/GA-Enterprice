@@ -5,10 +5,18 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Inventory;
+use App\Services\InventoryService;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    protected InventoryService $inventoryService;
+
+    public function __construct(InventoryService $inventoryService)
+    {
+        $this->inventoryService = $inventoryService;
+    }
+
     /**
      * Display the staff dashboard with statistics and quick access widgets.
      */
@@ -65,6 +73,9 @@ class DashboardController extends Controller
         $totalCategories = DB::table('categories')->where('is_active', true)->count();
         $totalBrands = DB::table('brands')->where('is_active', true)->count();
         
+        // Get low stock alert dashboard data
+        $alertDashboard = $this->inventoryService->getLowStockAlertDashboard();
+        
         return view('staff.dashboard', compact(
             'totalProducts',
             'activeProducts',
@@ -77,7 +88,8 @@ class DashboardController extends Controller
             'outOfStockItems',
             'recentMovements',
             'totalCategories',
-            'totalBrands'
+            'totalBrands',
+            'alertDashboard'
         ));
     }
 }

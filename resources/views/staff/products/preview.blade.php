@@ -34,14 +34,14 @@
                 <div>
                     @if ($product->images->count() > 0)
                         <div class="mb-4">
-                            <img src="{{ $product->primaryImage->image_url ?? $product->images->first()->image_url }}" 
+                            <img src="{{ $product->primaryImage->full_url ?? $product->images->first()->full_url }}" 
                                  alt="{{ $product->name }}" 
                                  class="w-full h-96 object-cover rounded-lg">
                         </div>
                         @if ($product->images->count() > 1)
                             <div class="grid grid-cols-4 gap-2">
                                 @foreach ($product->images->take(4) as $image)
-                                    <img src="{{ $image->image_url }}" 
+                                    <img src="{{ $image->full_url }}" 
                                          alt="{{ $product->name }}" 
                                          class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-75">
                                 @endforeach

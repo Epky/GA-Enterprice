@@ -211,8 +211,20 @@ class Product extends Model
 
     /**
      * Get the total stock quantity across all inventory records.
+     * Includes both available and reserved quantities.
      */
     public function getTotalStockAttribute(): int
+    {
+        return $this->inventory->sum(function ($inventory) {
+            return $inventory->quantity_available + $inventory->quantity_reserved;
+        });
+    }
+
+    /**
+     * Get the available stock quantity across all inventory records.
+     * Only includes quantity_available (not reserved).
+     */
+    public function getAvailableStockAttribute(): int
     {
         return $this->inventory->sum('quantity_available');
     }

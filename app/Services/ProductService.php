@@ -208,7 +208,16 @@ class ProductService
         
         // Clear featured products cache
         Cache::forget('products.featured');
-        Cache::tags(['products.featured'])->flush();
+        
+        // Only use cache tags if the driver supports it (Redis, Memcached)
+        try {
+            if (in_array(config('cache.default'), ['redis', 'memcached'])) {
+                Cache::tags(['products.featured'])->flush();
+            }
+        } catch (\BadMethodCallException $e) {
+            // Cache driver doesn't support tagging, skip it
+        }
+        
         $this->clearProductCaches();
 
         return $product;

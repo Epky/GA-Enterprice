@@ -690,19 +690,32 @@ class InventoryService
     public function detectLowStockWithThresholds(array $options = []): array
     {
         $location = $options['location'] ?? null;
-        $customThreshold = $options['threshold_multiplier'] ?? 1.0;
+        $customThreshold = $options['threshold_multiplier'] ?? 0.5;
         $includeProjections = $options['include_projections'] ?? false;
 
-        $query = Inventory::with(['product', 'variant']);
+        $query = Inventory::with(['product', 'variant'])
+            ->whereNotNull('reorder_level')
+            ->where('reorder_level', '>', 0);
 
         if ($location) {
             $query->atLocation($location);
         }
 
-        // Get items at different stock levels
-        $criticalItems = (clone $query)->whereRaw('quantity_available <= (reorder_level * 0.25)')->get();
-        $lowItems = (clone $query)->whereRaw('quantity_available <= (reorder_level * ?)', [$customThreshold])->get();
-        $outOfStockItems = (clone $query)->outOfStock()->get();
+        // Get items at different stock levels (non-overlapping categories)
+        // Out of stock: quantity_available = 0
+        $outOfStockItems = (clone $query)->where('quantity_available', '=', 0)->get();
+        
+        // Critical: 0 < quantity_available <= 25% of reorder_level
+        $criticalItems = (clone $query)
+            ->where('quantity_available', '>', 0)
+            ->whereRaw('quantity_available <= (reorder_level * 0.25)')
+            ->get();
+        
+        // Low stock: 25% < quantity_available <= threshold (default 50%) of reorder_level
+        $lowItems = (clone $query)
+            ->whereRaw('quantity_available > (reorder_level * 0.25)')
+            ->whereRaw('quantity_available <= (reorder_level * ?)', [$customThreshold])
+            ->get();
 
         $alerts = [
             'critical_stock' => $criticalItems->map(function ($inventory) use ($includeProjections) {

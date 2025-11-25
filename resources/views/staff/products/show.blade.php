@@ -195,11 +195,11 @@
                                     @if($product->primaryImage)
                                         <div class="relative">
                                             <img id="mainProductImage" 
-                                                 src="{{ asset('storage/' . $product->primaryImage->image_url) }}" 
+                                                 src="{{ $product->primaryImage->full_url }}" 
                                                  alt="{{ $product->primaryImage->alt_text }}" 
                                                  class="w-full h-96 object-contain bg-gray-50 rounded-lg border border-gray-200">
                                             <div class="absolute top-3 right-3">
-                                                <button onclick="viewImageFullscreen('{{ asset('storage/' . $product->primaryImage->image_url) }}')" 
+                                                <button onclick="viewImageFullscreen('{{ $product->primaryImage->full_url }}')" 
                                                         class="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors">
                                                     <svg class="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
@@ -216,10 +216,10 @@
                                             <div class="grid grid-cols-5 gap-3">
                                                 @foreach($product->images as $image)
                                                     <div class="relative group">
-                                                        <img src="{{ asset('storage/' . $image->image_url) }}" 
+                                                        <img src="{{ $image->full_url }}" 
                                                              alt="{{ $image->alt_text }}" 
                                                              class="w-full h-24 object-cover rounded-lg cursor-pointer border-2 transition-all {{ $image->is_primary ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-200 hover:border-blue-300' }}"
-                                                             onclick="changeMainImage('{{ asset('storage/' . $image->image_url) }}', '{{ $image->alt_text }}')">
+                                                             onclick="changeMainImage('{{ $image->full_url }}', '{{ $image->alt_text }}')">
                                                         
                                                         <!-- Image Badge -->
                                                         @if($image->is_primary)
@@ -245,7 +245,7 @@
                                                                         </svg>
                                                                     </button>
                                                                 @endif
-                                                                <button onclick="viewImageFullscreen('{{ asset('storage/' . $image->image_url) }}')" 
+                                                                <button onclick="viewImageFullscreen('{{ $image->full_url }}')" 
                                                                         class="p-1.5 bg-white rounded-md hover:bg-gray-100 transition-colors"
                                                                         title="View fullscreen">
                                                                     <svg class="h-4 w-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">

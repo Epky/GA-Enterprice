@@ -113,22 +113,129 @@
                 </div>
             </div>
 
+            <!-- Inventory Alert Widget -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900">Inventory Alerts</h3>
+                        <a href="{{ route('staff.inventory.alerts') }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                            View All Alerts →
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Critical Alerts -->
+                        <a href="{{ route('staff.inventory.alerts') }}" class="block p-4 bg-red-50 border-2 border-red-200 rounded-lg hover:bg-red-100 hover:border-red-300 transition-all duration-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-red-800">Critical</p>
+                                    <p class="text-3xl font-bold text-red-600 mt-1">{{ $alertDashboard['alert_counts']['critical'] }}</p>
+                                </div>
+                                <div class="p-3 bg-red-200 rounded-full">
+                                    <svg class="h-6 w-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="text-xs text-red-700 mt-2">≤ 25% of reorder level</p>
+                        </a>
+
+                        <!-- Warning Alerts -->
+                        <a href="{{ route('staff.inventory.alerts') }}" class="block p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg hover:bg-yellow-100 hover:border-yellow-300 transition-all duration-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-yellow-800">Warning</p>
+                                    <p class="text-3xl font-bold text-yellow-600 mt-1">{{ $alertDashboard['alert_counts']['warning'] }}</p>
+                                </div>
+                                <div class="p-3 bg-yellow-200 rounded-full">
+                                    <svg class="h-6 w-6 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="text-xs text-yellow-700 mt-2">26-50% of reorder level</p>
+                        </a>
+
+                        <!-- Out of Stock Alerts -->
+                        <a href="{{ route('staff.inventory.alerts') }}" class="block p-4 bg-orange-50 border-2 border-orange-200 rounded-lg hover:bg-orange-100 hover:border-orange-300 transition-all duration-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-orange-800">Out of Stock</p>
+                                    <p class="text-3xl font-bold text-orange-600 mt-1">{{ $alertDashboard['alert_counts']['error'] }}</p>
+                                </div>
+                                <div class="p-3 bg-orange-200 rounded-full">
+                                    <svg class="h-6 w-6 text-orange-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="text-xs text-orange-700 mt-2">No stock available</p>
+                        </a>
+                    </div>
+
+                    @if($alertDashboard['total_alerts'] > 0)
+                        <div class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <p class="text-sm text-gray-700">
+                                <span class="font-semibold">{{ $alertDashboard['total_alerts'] }}</span> total alerts require attention
+                            </p>
+                        </div>
+                    @else
+                        <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-sm text-green-700 flex items-center">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                All inventory levels are healthy
+                            </p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
             <!-- Main Action Cards -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Product Management -->
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 overflow-hidden shadow-lg sm:rounded-lg">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Walk-In Transaction -->
+                <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl border-t-4 border-indigo-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="p-3 bg-blue-600 rounded-lg">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="p-4 bg-indigo-600 rounded-xl shadow-lg">
+                                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-center text-lg font-bold text-gray-900 mb-2">Walk-In POS</h3>
+                        <p class="text-center text-gray-600 text-sm mb-6 min-h-[40px]">Process in-store purchases and manage walk-in customer transactions</p>
+                        <div class="space-y-3">
+                            <a href="{{ route('staff.walk-in-transaction.create') }}" class="block w-full text-center px-4 py-3 bg-indigo-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all duration-200">
+                                <span class="flex items-center justify-center">
+                                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    New Transaction
+                                </span>
+                            </a>
+                            <a href="{{ route('staff.walk-in-transaction.history') }}" class="block w-full text-center px-4 py-3 bg-indigo-50 border border-indigo-200 rounded-lg font-semibold text-sm text-indigo-700 hover:bg-indigo-100 transition-all duration-200">
+                                View History
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Management -->
+                <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl border-t-4 border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="p-6">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="p-4 bg-blue-600 rounded-xl shadow-lg">
+                                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                 </svg>
                             </div>
-                            <h3 class="ml-4 text-lg font-semibold text-blue-900">Product Management</h3>
                         </div>
-                        <p class="text-blue-700 text-sm mb-6">Upload new products, update existing items, and manage product catalog</p>
+                        <h3 class="text-center text-lg font-bold text-gray-900 mb-2">Product Management</h3>
+                        <p class="text-center text-gray-600 text-sm mb-6 min-h-[40px]">Upload new products, update existing items, and manage product catalog</p>
                         <div class="space-y-3">
-                            <a href="{{ route('staff.products.create') }}" class="block w-full text-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-blue-700 transition">
+                            <a href="{{ route('staff.products.create') }}" class="block w-full text-center px-4 py-3 bg-blue-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-blue-700 shadow-md hover:shadow-lg transition-all duration-200">
                                 <span class="flex items-center justify-center">
                                     <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -136,7 +243,7 @@
                                     Upload New Product
                                 </span>
                             </a>
-                            <a href="{{ route('staff.products.index') }}" class="block w-full text-center px-4 py-2 bg-white border border-blue-300 rounded-md font-semibold text-sm text-blue-700 hover:bg-blue-50 transition">
+                            <a href="{{ route('staff.products.index') }}" class="block w-full text-center px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg font-semibold text-sm text-blue-700 hover:bg-blue-100 transition-all duration-200">
                                 View All Products
                             </a>
                         </div>
@@ -144,19 +251,19 @@
                 </div>
 
                 <!-- Order Management -->
-                <div class="bg-gradient-to-br from-orange-50 to-orange-100 overflow-hidden shadow-lg sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl border-t-4 border-orange-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="p-3 bg-orange-600 rounded-lg">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="p-4 bg-orange-600 rounded-xl shadow-lg">
+                                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                 </svg>
                             </div>
-                            <h3 class="ml-4 text-lg font-semibold text-orange-900">Order Management</h3>
                         </div>
-                        <p class="text-orange-700 text-sm mb-6">Process orders, update order status, and manage fulfillment</p>
+                        <h3 class="text-center text-lg font-bold text-gray-900 mb-2">Order Management</h3>
+                        <p class="text-center text-gray-600 text-sm mb-6 min-h-[40px]">Process orders, update order status, and manage fulfillment</p>
                         <div class="space-y-3">
-                            <a href="#" class="block w-full text-center px-4 py-2 bg-orange-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-orange-700 transition">
+                            <a href="#" class="block w-full text-center px-4 py-3 bg-orange-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-orange-700 shadow-md hover:shadow-lg transition-all duration-200">
                                 <span class="flex items-center justify-center">
                                     <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -164,7 +271,7 @@
                                     Pending Orders
                                 </span>
                             </a>
-                            <a href="#" class="block w-full text-center px-4 py-2 bg-white border border-orange-300 rounded-md font-semibold text-sm text-orange-700 hover:bg-orange-50 transition">
+                            <a href="#" class="block w-full text-center px-4 py-3 bg-orange-50 border border-orange-200 rounded-lg font-semibold text-sm text-orange-700 hover:bg-orange-100 transition-all duration-200">
                                 All Orders
                             </a>
                         </div>
@@ -172,19 +279,19 @@
                 </div>
 
                 <!-- Inventory Management -->
-                <div class="bg-gradient-to-br from-green-50 to-green-100 overflow-hidden shadow-lg sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl border-t-4 border-green-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                     <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="p-3 bg-green-600 rounded-lg">
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="p-4 bg-green-600 rounded-xl shadow-lg">
+                                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
                                 </svg>
                             </div>
-                            <h3 class="ml-4 text-lg font-semibold text-green-900">Inventory Control</h3>
                         </div>
-                        <p class="text-green-700 text-sm mb-6">Update stock levels, track inventory, and manage warehouse</p>
+                        <h3 class="text-center text-lg font-bold text-gray-900 mb-2">Inventory Control</h3>
+                        <p class="text-center text-gray-600 text-sm mb-6 min-h-[40px]">Update stock levels, track inventory, and manage warehouse</p>
                         <div class="space-y-3">
-                            <a href="{{ route('staff.inventory.index') }}" class="block w-full text-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-green-700 transition">
+                            <a href="{{ route('staff.inventory.index') }}" class="block w-full text-center px-4 py-3 bg-green-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-green-700 shadow-md hover:shadow-lg transition-all duration-200">
                                 <span class="flex items-center justify-center">
                                     <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -192,7 +299,7 @@
                                     Update Stock
                                 </span>
                             </a>
-                            <a href="{{ route('staff.inventory.list') }}" class="block w-full text-center px-4 py-2 bg-white border border-green-300 rounded-md font-semibold text-sm text-green-700 hover:bg-green-50 transition">
+                            <a href="{{ route('staff.inventory.list') }}" class="block w-full text-center px-4 py-3 bg-green-50 border border-green-200 rounded-lg font-semibold text-sm text-green-700 hover:bg-green-100 transition-all duration-200">
                                 View Inventory
                             </a>
                         </div>
@@ -293,6 +400,12 @@
                 <div class="p-6">
                     <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <a href="{{ route('staff.walk-in-transaction.index') }}" class="flex flex-col items-center p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition border-2 border-indigo-200">
+                            <svg class="h-8 w-8 text-indigo-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <span class="text-sm font-medium text-indigo-700">Walk-In POS</span>
+                        </a>
                         <a href="{{ route('staff.categories.index') }}" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
                             <svg class="h-8 w-8 text-purple-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
