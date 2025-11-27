@@ -207,14 +207,65 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @php
                                             $totalStock = $product->inventory->sum('quantity_available');
-                                            $lowStock = $product->inventory->where('quantity_available', '<=', 'reorder_level')->count() > 0;
+                                            $totalReorderLevel = $product->inventory->sum('reorder_level');
+                                            
+                                            // Determine stock status based on reorder level
+                                            // Aligned with inventory alerts logic
+                                            $stockStatus = 'good'; // default
+                                            $stockIcon = null;
+                                            $stockColor = 'text-gray-900';
+                                            
+                                            if ($totalReorderLevel > 0) {
+                                                if ($totalStock == 0) {
+                                                    // Out of Stock
+                                                    $stockStatus = 'out_of_stock';
+                                                    $stockColor = 'text-red-700';
+                                                    $stockIcon = 'out_of_stock';
+                                                } elseif ($totalStock <= $totalReorderLevel * 0.25) {
+                                                    // Critical: 25% or less of reorder level
+                                                    $stockStatus = 'critical';
+                                                    $stockColor = 'text-red-600';
+                                                    $stockIcon = 'critical';
+                                                } elseif ($totalStock <= $totalReorderLevel * 0.5) {
+                                                    // Warning: 50% or less of reorder level
+                                                    $stockStatus = 'warning';
+                                                    $stockColor = 'text-yellow-600';
+                                                    $stockIcon = 'warning';
+                                                } elseif ($totalStock <= $totalReorderLevel) {
+                                                    // Low: at or below reorder level
+                                                    $stockStatus = 'low';
+                                                    $stockColor = 'text-orange-600';
+                                                    $stockIcon = 'low';
+                                                }
+                                            }
                                         @endphp
-                                        <div class="flex items-center">
-                                            <span class="text-sm text-gray-900">{{ $totalStock }}</span>
-                                            @if($lowStock)
-                                                <svg class="h-4 w-4 text-red-500 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                                                </svg>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-sm font-medium {{ $stockColor }}">{{ $totalStock }}</span>
+                                            
+                                            @if($stockIcon === 'out_of_stock')
+                                                <span class="inline-flex items-center" title="Out of Stock - Restock immediately!">
+                                                    <svg class="h-4 w-4 text-red-700" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </span>
+                                            @elseif($stockIcon === 'critical')
+                                                <span class="inline-flex items-center" title="Critical Stock - Immediate reorder needed!">
+                                                    <svg class="h-4 w-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </span>
+                                            @elseif($stockIcon === 'warning')
+                                                <span class="inline-flex items-center" title="Warning - Stock running low">
+                                                    <svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </span>
+                                            @elseif($stockIcon === 'low')
+                                                <span class="inline-flex items-center" title="Low Stock - Consider reordering">
+                                                    <svg class="h-4 w-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                                    </svg>
+                                                </span>
                                             @endif
                                         </div>
                                     </td>

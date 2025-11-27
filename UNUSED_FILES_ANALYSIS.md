@@ -193,9 +193,31 @@ Actual space freed:
 - ✅ `walk-in-transaction/`: ~50 KB (DELETED)
 - ⚠️ `paymongo-payment-method/`: ~500 KB (KEPT for future use)
 - ✅ `postgres`: ~369 KB (DELETED)
-- **Total Freed: ~419 KB**
+- ✅ **Test Files Cleanup**: ~150 KB (DELETED - see below)
+- **Total Freed: ~569 KB**
 
 Plus cleaner repository structure and less confusion.
+
+### Test Files Deleted (November 28, 2025)
+
+**Unused/Obsolete Test Files:**
+- ✅ `tests/verify_cache_management.php` - Utility script no longer needed
+- ✅ `tests/accessibility_verification.js` - Not part of PHP test suite
+- ✅ `tests/Feature/ExampleTest.php` - Basic placeholder test
+- ✅ `tests/Feature/DatabaseTransactionTest.php` - Generic test not specific to app
+- ✅ `tests/Feature/QueryResultLoggingTest.php` - Testing unused logging functionality
+- ✅ `tests/Feature/InlineCreationWorkflowTest.php` - Inline creator feature removed
+- ✅ `tests/Feature/InlineCacheManagementTest.php` - Inline creator feature removed
+- ✅ `tests/Feature/InlineCreatorErrorHandlingTest.php` - Inline creator feature removed
+- ✅ `tests/Feature/InlineCreatorValidationTest.php` - Inline creator feature removed
+- ✅ `tests/Feature/LandingPagePerformanceTest.php` - Landing page feature doesn't exist
+- ✅ `tests/Feature/LandingPageAccessibilityTest.php` - Landing page feature doesn't exist
+- ✅ `tests/Feature/LandingPageResponsiveTest.php` - Landing page feature doesn't exist
+- ✅ `tests/Unit/ExampleTest.php` - Placeholder test (true is true)
+- ✅ `tests/Unit/QueryResultTest.php` - Model exists but not actively used
+- ✅ `tests/Unit/RLSPolicyManagerTest.php` - Service no longer exists in codebase
+
+**Total Test Files Deleted:** 15 files
 
 ## Verification Checklist
 

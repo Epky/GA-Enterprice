@@ -79,14 +79,28 @@ class WalkInTransactionService
      */
     public function searchProducts(string $query): \Illuminate\Database\Eloquent\Collection
     {
-        return Product::with(['inventory', 'primaryImage'])
+        \Illuminate\Support\Facades\Log::info('Searching products in service', [
+            'query' => $query,
+            'total_products' => Product::count(),
+            'active_products' => Product::active()->count(),
+        ]);
+        
+        // Use LIKE for case-insensitive search (works on both MySQL and PostgreSQL)
+        $products = Product::with(['inventory', 'primaryImage'])
             ->active()
             ->where(function ($q) use ($query) {
-                $q->where('name', 'ILIKE', "%{$query}%")
-                  ->orWhere('sku', 'ILIKE', "%{$query}%");
+                $q->where('name', 'LIKE', "%{$query}%")
+                  ->orWhere('sku', 'LIKE', "%{$query}%");
             })
             ->limit(20)
             ->get();
+            
+        \Illuminate\Support\Facades\Log::info('Search results', [
+            'query' => $query,
+            'found' => $products->count(),
+        ]);
+        
+        return $products;
     }
 
     /**
@@ -110,15 +124,33 @@ class WalkInTransactionService
             ]);
         }
 
-        // Check stock availability
-        $availableStock = $product->available_stock;
-        if ($availableStock < $quantity) {
-            throw ValidationException::withMessages([
-                'quantity' => "Insufficient stock. Available: {$availableStock}"
-            ]);
-        }
-
         return DB::transaction(function () use ($order, $product, $quantity, $itemData) {
+            // Check if product already exists in cart
+            $existingItem = $order->orderItems()
+                ->where('product_id', $product->id)
+                ->where(function ($query) use ($itemData) {
+                    if (isset($itemData['variant_id'])) {
+                        $query->where('variant_id', $itemData['variant_id']);
+                    } else {
+                        $query->whereNull('variant_id');
+                    }
+                })
+                ->first();
+
+            if ($existingItem) {
+                // Update existing item quantity
+                $newQuantity = $existingItem->quantity + $quantity;
+                return $this->updateItemQuantity($existingItem, $newQuantity);
+            }
+
+            // Check stock availability for new item
+            $availableStock = $product->available_stock;
+            if ($availableStock < $quantity) {
+                throw ValidationException::withMessages([
+                    'quantity' => "Insufficient stock. Available: {$availableStock}"
+                ]);
+            }
+
             $unitPrice = $product->effective_price;
             $totalPrice = $unitPrice * $quantity;
 
@@ -529,5 +561,37 @@ class WalkInTransactionService
 
         // Return the location if found, otherwise default to main_warehouse
         return $inventory ? $inventory->location : 'main_warehouse';
+    }
+
+    /**
+     * Calculate available stock for a product considering current cart.
+     *
+     * @param Product $product
+     * @param Order $order
+     * @return int Available stock quantity
+     */
+    public function calculateAvailableStock(Product $product, Order $order): int
+    {
+        // Get total available stock from inventory
+        $totalAvailable = $product->available_stock;
+        
+        // Subtract quantity already in cart
+        $cartQuantity = $this->getCartQuantity($product, $order);
+        
+        return max(0, $totalAvailable - $cartQuantity);
+    }
+
+    /**
+     * Get cart quantity for a specific product.
+     *
+     * @param Product $product
+     * @param Order $order
+     * @return int Quantity in cart
+     */
+    public function getCartQuantity(Product $product, Order $order): int
+    {
+        return $order->orderItems()
+            ->where('product_id', $product->id)
+            ->sum('quantity');
     }
 }

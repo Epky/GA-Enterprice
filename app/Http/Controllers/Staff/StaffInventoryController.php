@@ -32,9 +32,10 @@ class StaffInventoryController extends Controller
         // Get low stock alert dashboard data
         $alertDashboard = $this->inventoryService->getLowStockAlertDashboard($location);
         
-        // Get recent inventory movements
+        // Get recent inventory movements (ungrouped for dashboard display)
         $recentMovements = $this->inventoryService->getInventoryMovements([
-            'location' => $location
+            'location' => $location,
+            'group_related' => false
         ], 10);
         
         // Get inventory list with filters
@@ -81,9 +82,10 @@ class StaffInventoryController extends Controller
     {
         $product->load(['inventory', 'variants.inventory', 'category', 'brand']);
         
-        // Get recent movements for this product
+        // Get recent movements for this product (ungrouped for simple display)
         $recentMovements = $this->inventoryService->getInventoryMovements([
-            'product_id' => $product->id
+            'product_id' => $product->id,
+            'group_related' => false
         ], 10);
 
         return view('staff.inventory.edit', compact('product', 'recentMovements'));
@@ -247,16 +249,21 @@ class StaffInventoryController extends Controller
      */
     public function movements(Request $request)
     {
+        $includeSystemMovements = $request->boolean('include_system_movements', false);
+        $groupRelated = $request->boolean('group_related', true);
+        
         $movements = $this->inventoryService->getInventoryMovements([
             'product_id' => $request->get('product_id'),
             'movement_type' => $request->get('movement_type'),
             'location' => $request->get('location'),
             'start_date' => $request->get('start_date'),
             'end_date' => $request->get('end_date'),
-            'performed_by' => $request->get('performed_by')
+            'performed_by' => $request->get('performed_by'),
+            'include_system_movements' => $includeSystemMovements,
+            'group_related' => $groupRelated
         ], 25);
 
-        return view('staff.inventory.movements', compact('movements'));
+        return view('staff.inventory.movements', compact('movements', 'includeSystemMovements', 'groupRelated'));
     }
 
     /**

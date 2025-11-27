@@ -5,11 +5,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $categories = \App\Models\Category::active()
-        ->root()
-        ->ordered()
-        ->withCount('activeProducts')
-        ->get();
+    // Temporary fix: Use Supabase REST API to bypass connection pooler authentication issue
+    // This works because the anon key can access tables without RLS
+    try {
+        $categories = \App\Models\Category::active()
+            ->root()
+            ->ordered()
+            ->withCount('activeProducts')
+            ->get();
+    } catch (\Exception $e) {
+        // Fallback: If database connection fails, use Supabase API
+        \Log::warning('Database connection failed, using Supabase API: ' . $e->getMessage());
+        $supabase = new \App\Services\SupabaseService();
+        $categories = $supabase->getActiveCategories();
+    }
     
     return view('welcome', compact('categories'));
 })->name('home');

@@ -167,9 +167,9 @@ class Product extends Model
     public function scopeSearch(Builder $query, string $search): void
     {
         $query->where(function (Builder $query) use ($search) {
-            $query->where('name', 'ILIKE', "%{$search}%")
-                  ->orWhere('sku', 'ILIKE', "%{$search}%")
-                  ->orWhere('description', 'ILIKE', "%{$search}%");
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('sku', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
         });
     }
 

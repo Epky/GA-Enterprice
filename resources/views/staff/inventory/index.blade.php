@@ -196,7 +196,15 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">{{ $alert['inventory']->display_name }}</p>
+                                    <p class="text-sm font-medium text-gray-900">
+                                        {{ $alert['inventory']->product->name }}
+                                        @if($alert['inventory']->variant)
+                                            - {{ $alert['inventory']->variant->name }}
+                                        @endif
+                                        @if($alert['inventory']->location !== 'main_warehouse')
+                                            ({{ ucwords(str_replace('_', ' ', $alert['inventory']->location)) }})
+                                        @endif
+                                    </p>
                                     <p class="text-xs text-gray-500">
                                         Available: <span class="font-semibold">{{ $alert['inventory']->quantity_available }}</span> | 
                                         Reorder Level: {{ $alert['inventory']->reorder_level }}
@@ -243,7 +251,12 @@
                                 @forelse($recentMovements as $movement)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">{{ $movement->display_name }}</div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $movement->product->name }}
+                                            @if($movement->variant)
+                                                - {{ $movement->variant->name }}
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 

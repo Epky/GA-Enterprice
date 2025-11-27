@@ -2,6 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   DESIGN SYSTEM FOUNDATION - COSMETICS THEME
+   ============================================ */
+
+/* CSS Custom Properties for Cosmetics-Themed Color Palette */
+@layer base {
+    :root {
+        /* Primary Colors - Soft Pinks & Rose Gold */
+        --color-primary-50: #FFF5F7;
+        --color-primary-100: #FFE3E9;
+        --color-primary-200: #FFC0CB;
+        --color-primary-300: #FFB3C1;
+        --color-primary-400: #FF8FA3;
+        --color-primary-500: #FF6B8A;
+        --color-primary-600: #E85D7A;
+        --color-primary-700: #B76E79;
+        --color-primary-800: #8B5A5F;
+        --color-primary-900: #6B4548;
+        
+        /* Secondary Colors - Lavender & Soft Purple */
+        --color-secondary-50: #F9F7FF;
+        --color-secondary-100: #F3EFFF;
+        --color-secondary-200: #E6E6FA;
+        --color-secondary-300: #DDA0DD;
+        --color-secondary-400: #D8BFD8;
+        --color-secondary-500: #C8A2C8;
+        --color-secondary-600: #B088B0;
+        --color-secondary-700: #9370DB;
+        --color-secondary-800: #7B68A8;
+        --color-secondary-900: #5D4E7F;
+        
+        /* Accent Colors - Gold & Champagne */
+        --color-accent-50: #FFFEF5;
+        --color-accent-100: #FFFAEB;
+        --color-accent-200: #FFF4D5;
+        --color-accent-300: #F7E7CE;
+        --color-accent-400: #FFD700;
+        --color-accent-500: #E6C200;
+        --color-accent-600: #D4AF37;
+        --color-accent-700: #B8960F;
+        --color-accent-800: #8B7500;
+        --color-accent-900: #6B5A00;
+        
+        /* Neutral Colors - Warm Grays */
+        --color-neutral-50: #FAFAFA;
+        --color-neutral-100: #F5F5F5;
+        --color-neutral-200: #EEEEEE;
+        --color-neutral-300: #E0E0E0;
+        --color-neutral-400: #BDBDBD;
+        --color-neutral-500: #9E9E9E;
+        --color-neutral-600: #757575;
+        --color-neutral-700: #616161;
+        --color-neutral-800: #424242;
+        --color-neutral-900: #333333;
+        
+        /* Semantic Colors - Success, Error, Warning */
+        --color-success-50: #F0FFF4;
+        --color-success-100: #C6F6D5;
+        --color-success-500: #90EE90;
+        --color-success-600: #68D391;
+        --color-success-700: #48BB78;
+        
+        --color-error-50: #FFF5F5;
+        --color-error-100: #FFE3E9;
+        --color-error-500: #FFB6C1;
+        --color-error-600: #FC8181;
+        --color-error-700: #F56565;
+        
+        --color-warning-50: #FFFBEB;
+        --color-warning-100: #FEF3C7;
+        --color-warning-500: #F59E0B;
+        --color-warning-600: #D97706;
+        --color-warning-700: #B45309;
+        
+        /* Typography */
+        --font-heading: 'Playfair Display', serif;
+        --font-body: 'Poppins', sans-serif;
+        
+        /* Spacing Scale */
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
+        --spacing-2xl: 3rem;
+        --spacing-3xl: 4rem;
+        
+        /* Transitions */
+        --transition-fast: 150ms ease-in-out;
+        --transition-base: 300ms ease-in-out;
+        --transition-slow: 500ms ease-in-out;
+        
+        /* Border Radius */
+        --radius-sm: 0.25rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-full: 9999px;
+        
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
 /* Screen reader only utility class for accessibility */
 @layer utilities {
     .sr-only {
@@ -14,6 +121,194 @@
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
         border-width: 0;
+    }
+}
+
+/* ============================================
+   COSMETICS THEME - REUSABLE COMPONENTS
+   ============================================ */
+
+@layer components {
+    /* Typography Classes */
+    .heading-elegant {
+        font-family: var(--font-heading);
+        @apply font-semibold tracking-tight;
+    }
+    
+    .text-body {
+        font-family: var(--font-body);
+        @apply font-normal;
+    }
+    
+    /* Button Styles - Cosmetics Theme */
+    .btn-cosmetics-primary {
+        @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white;
+        background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
+        transition: all var(--transition-base);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .btn-cosmetics-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+    }
+    
+    .btn-cosmetics-primary:active {
+        transform: translateY(0);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-cosmetics-primary:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        ring-color: var(--color-primary-400);
+    }
+    
+    .btn-cosmetics-secondary {
+        @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium;
+        background: linear-gradient(135deg, var(--color-secondary-400) 0%, var(--color-secondary-500) 100%);
+        color: var(--color-neutral-900);
+        transition: all var(--transition-base);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .btn-cosmetics-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    /* Input Styles - Cosmetics Theme */
+    .input-cosmetics {
+        @apply w-full px-4 py-3 rounded-lg border-2 transition-all;
+        border-color: var(--color-neutral-300);
+        font-family: var(--font-body);
+        transition: all var(--transition-base);
+    }
+    
+    .input-cosmetics:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        border-color: var(--color-primary-400);
+        ring-color: var(--color-primary-300);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .input-cosmetics:hover:not(:focus) {
+        border-color: var(--color-neutral-400);
+    }
+    
+    .input-cosmetics-error {
+        @apply input-cosmetics;
+        border-color: var(--color-error-500);
+    }
+    
+    .input-cosmetics-error:focus {
+        ring-color: var(--color-error-300);
+    }
+    
+    .input-cosmetics-success {
+        @apply input-cosmetics;
+        border-color: var(--color-success-500);
+    }
+    
+    .input-cosmetics-success:focus {
+        ring-color: var(--color-success-300);
+    }
+    
+    /* Card Styles - Cosmetics Theme */
+    .card-cosmetics {
+        @apply bg-white rounded-xl p-8 shadow-lg;
+        box-shadow: var(--shadow-xl);
+        transition: all var(--transition-base);
+    }
+    
+    .card-cosmetics:hover {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Link Styles - Cosmetics Theme */
+    .link-cosmetics {
+        @apply inline-flex items-center font-medium;
+        color: var(--color-primary-600);
+        transition: all var(--transition-base);
+    }
+    
+    .link-cosmetics:hover {
+        color: var(--color-primary-700);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+    
+    .link-cosmetics:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        ring-color: var(--color-primary-400);
+        border-radius: var(--radius-sm);
+    }
+    
+    /* Background Gradients - Cosmetics Theme */
+    .bg-cosmetics-gradient {
+        background: linear-gradient(135deg, 
+            var(--color-primary-50) 0%, 
+            var(--color-secondary-50) 50%, 
+            var(--color-accent-50) 100%);
+    }
+    
+    .bg-cosmetics-gradient-dark {
+        background: linear-gradient(135deg, 
+            var(--color-primary-100) 0%, 
+            var(--color-secondary-100) 50%, 
+            var(--color-accent-100) 100%);
+    }
+    
+    .bg-cosmetics-radial {
+        background: radial-gradient(circle at top right, 
+            var(--color-primary-100) 0%, 
+            var(--color-secondary-100) 50%, 
+            transparent 100%);
+    }
+    
+    /* Spacing Utilities - Consistent Spacing */
+    .spacing-section {
+        padding-top: var(--spacing-2xl);
+        padding-bottom: var(--spacing-2xl);
+    }
+    
+    .spacing-card {
+        padding: var(--spacing-xl);
+    }
+    
+    .spacing-form-field {
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    /* Transition Utilities */
+    .transition-smooth {
+        transition: all var(--transition-base);
+    }
+    
+    .transition-fast {
+        transition: all var(--transition-fast);
+    }
+    
+    .transition-slow {
+        transition: all var(--transition-slow);
+    }
+    
+    /* Focus Ring - Accessible Focus Indicators */
+    .focus-ring-cosmetics {
+        @apply outline-none ring-2 ring-offset-2 rounded;
+        ring-color: var(--color-primary-400);
+    }
+    
+    /* Responsive Spacing */
+    @media (max-width: 640px) {
+        .card-cosmetics {
+            @apply p-6;
+        }
+        
+        .spacing-section {
+            padding-top: var(--spacing-xl);
+            padding-bottom: var(--spacing-xl);
+        }
     }
 }
 
@@ -218,5 +513,112 @@
         .alert-card-grid {
             @apply grid-cols-2 gap-3;
         }
+    }
+    
+    /* Inventory Movements Table Styles */
+    .movements-table-container {
+        @apply overflow-x-auto;
+    }
+    
+    /* Sticky header with enhanced shadow for better visibility */
+    .movements-table thead {
+        @apply sticky top-0 z-10 bg-gray-50;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Enhanced row hover states for better scannability */
+    .movements-table tbody tr {
+        @apply transition-all duration-150 ease-in-out;
+    }
+    
+    .movements-table tbody tr:hover {
+        @apply bg-blue-50 shadow-sm;
+        transform: scale(1.001);
+    }
+    
+    /* Primary movement row in grouped display */
+    .movements-table tbody tr.movement-primary {
+        @apply border-b-2 border-blue-200;
+    }
+    
+    .movements-table tbody tr.movement-primary:hover {
+        @apply bg-blue-100;
+    }
+    
+    /* Related movement rows (system movements) */
+    .movements-table tbody tr.movement-related {
+        @apply bg-gray-50;
+    }
+    
+    .movements-table tbody tr.movement-related:hover {
+        @apply bg-blue-50;
+    }
+    
+    .movements-table tbody tr.movement-related:last-of-type {
+        @apply border-b-2 border-blue-200 mb-1;
+    }
+    
+    /* Subtle borders between grouped movements */
+    .movements-table tbody tr.movement-group-end {
+        @apply border-b-2 border-blue-200;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Responsive table for mobile devices */
+    @media (max-width: 768px) {
+        .movements-table-container {
+            @apply overflow-x-scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .movements-table {
+            @apply min-w-full;
+            font-size: 0.75rem;
+        }
+        
+        .movements-table th,
+        .movements-table td {
+            @apply px-3 py-2;
+        }
+        
+        /* Stack some columns on mobile */
+        .movements-table .mobile-stack {
+            @apply block;
+        }
+        
+        /* Hide less critical columns on mobile */
+        .movements-table .mobile-hide {
+            @apply hidden;
+        }
+    }
+    
+    /* Tablet responsive adjustments */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .movements-table {
+            font-size: 0.875rem;
+        }
+        
+        .movements-table th,
+        .movements-table td {
+            @apply px-4 py-3;
+        }
+    }
+    
+    /* Improved scrollbar styling for movements table */
+    .movements-table-container::-webkit-scrollbar {
+        height: 8px;
+        width: 8px;
+    }
+    
+    .movements-table-container::-webkit-scrollbar-track {
+        @apply bg-gray-100 rounded;
+    }
+    
+    .movements-table-container::-webkit-scrollbar-thumb {
+        @apply bg-gray-400 rounded;
+    }
+    
+    .movements-table-container::-webkit-scrollbar-thumb:hover {
+        @apply bg-gray-500;
     }
 }

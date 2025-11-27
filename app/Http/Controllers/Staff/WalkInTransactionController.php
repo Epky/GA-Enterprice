@@ -72,11 +72,22 @@ class WalkInTransactionController extends Controller
     {
         $query = $request->input('q', '');
         
+        \Illuminate\Support\Facades\Log::info('Product search request', [
+            'query' => $query,
+            'query_length' => strlen($query),
+        ]);
+        
         if (empty($query)) {
             return response()->json([]);
         }
 
         $products = $this->transactionService->searchProducts($query);
+        
+        \Illuminate\Support\Facades\Log::info('Product search results', [
+            'query' => $query,
+            'count' => $products->count(),
+            'products' => $products->pluck('name', 'id')->toArray(),
+        ]);
 
         return response()->json($products->map(function ($product) {
             $imageUrl = null;

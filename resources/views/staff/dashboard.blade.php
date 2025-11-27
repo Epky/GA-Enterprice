@@ -453,51 +453,56 @@
             <div class="mt-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-medium text-gray-900">Recent Inventory Movements (Last 7 Days)</h3>
-                        <a href="{{ route('staff.inventory.movements') }}" class="text-sm text-blue-600 hover:text-blue-800">View All</a>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Recent Inventory Movements</h3>
+                            <p class="text-sm text-gray-500 mt-1">Last 7 days • {{ $recentMovements->count() }} {{ Str::plural('movement', $recentMovements->count()) }}</p>
+                        </div>
+                        <a href="{{ route('staff.inventory.movements') }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">View All →</a>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Date</th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-64">Product</th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Type</th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Quantity</th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach($recentMovements->take(10) as $movement)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
-                                        {{ \Carbon\Carbon::parse($movement->created_at)->format('M d, H:i') }}
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $movement->created_at->format('M d, H:i') }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-900">
-                                        {{ $movement->product_name }}
-                                        @if($movement->variant_name)
-                                            <span class="text-gray-600">({{ $movement->variant_name }})</span>
+                                    <td class="px-6 py-4 text-sm text-gray-900">
+                                        {{ $movement->product->name }}
+                                        @if($movement->variant)
+                                            <span class="text-gray-600">({{ $movement->variant->name }})</span>
                                         @endif
-                                        <div class="text-xs text-gray-500">{{ $movement->product_sku }}</div>
+                                        <div class="text-xs text-gray-500">{{ $movement->product->sku }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full
-                                            @if($movement->movement_type === 'purchase') bg-green-100 text-green-800
-                                            @elseif($movement->movement_type === 'sale') bg-blue-100 text-blue-800
-                                            @elseif($movement->movement_type === 'adjustment') bg-yellow-100 text-yellow-800
-                                            @elseif($movement->movement_type === 'return') bg-purple-100 text-purple-800
-                                            @elseif($movement->movement_type === 'damage') bg-red-100 text-red-800
-                                            @else bg-gray-100 text-gray-800
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $movement->getTypeBadgeColor() }} 
+                                            @if($movement->movement_type === 'purchase') text-blue-800
+                                            @elseif($movement->movement_type === 'sale') text-green-800
+                                            @elseif($movement->movement_type === 'adjustment') text-purple-800
+                                            @elseif($movement->movement_type === 'return') text-yellow-800
+                                            @elseif($movement->movement_type === 'damage') text-red-800
+                                            @elseif($movement->movement_type === 'transfer') text-indigo-800
+                                            @else text-gray-800
                                             @endif">
                                             {{ ucfirst($movement->movement_type) }}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium
-                                        @if($movement->quantity > 0) text-green-600 @else text-red-600 @endif">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium {{ $movement->getQuantityColorClass() }}">
                                         {{ $movement->quantity > 0 ? '+' : '' }}{{ $movement->quantity }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">
-                                        {{ Str::limit($movement->notes ?? 'No notes', 50) }}
+                                    <td class="px-6 py-4 text-sm text-gray-600 break-words">
+                                        <div class="max-w-md">
+                                            <x-movement-notes :movement="$movement" />
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

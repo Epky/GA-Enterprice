@@ -79,8 +79,8 @@ return new class extends Migration
             $table->decimal('max_discount_amount', 10, 2)->nullable();
             $table->enum('applicable_to', ['all', 'category', 'product', 'brand'])->nullable();
             $table->json('applicable_ids')->nullable();
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->integer('usage_limit')->nullable();
             $table->integer('usage_count')->default(0);
             $table->boolean('is_active')->default(true);
@@ -102,8 +102,8 @@ return new class extends Migration
             $table->integer('usage_limit')->nullable();
             $table->integer('usage_count')->default(0);
             $table->integer('user_limit')->default(1);
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             

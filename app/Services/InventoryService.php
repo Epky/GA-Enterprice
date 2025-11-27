@@ -301,6 +301,12 @@ class InventoryService
     {
         $query = InventoryMovement::with(['product', 'variant', 'performedBy']);
 
+        // Apply business-only filter by default (exclude system movements)
+        $includeSystemMovements = $filters['include_system_movements'] ?? false;
+        if (!$includeSystemMovements) {
+            $query->whereIn('movement_type', InventoryMovement::BUSINESS_MOVEMENT_TYPES);
+        }
+
         // Apply product filter
         if (!empty($filters['product_id'])) {
             $query->where('product_id', $filters['product_id']);
@@ -326,7 +332,94 @@ class InventoryService
             $query->where('performed_by', $filters['performed_by']);
         }
 
-        return $query->recent()->paginate($perPage);
+        $paginator = $query->recent()->paginate($perPage);
+
+        // Apply grouping if requested
+        $groupRelated = $filters['group_related'] ?? true;
+        if ($groupRelated) {
+            $groupedMovements = $this->groupRelatedMovements($paginator->getCollection());
+            $paginator->setCollection($groupedMovements);
+        }
+
+        return $paginator;
+    }
+
+    /**
+     * Group related movements by transaction reference
+     * 
+     * @param \Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Collection $movements
+     * @return \Illuminate\Support\Collection Grouped movements with 'primary' and 'related' keys
+     */
+    public function groupRelatedMovements($movements): \Illuminate\Support\Collection
+    {
+        $grouped = collect();
+        $processedIds = [];
+
+        // First pass: Process business movements with transaction references
+        foreach ($movements as $movement) {
+            // Skip if already processed
+            if (in_array($movement->id, $processedIds)) {
+                continue;
+            }
+
+            // Skip system movements in first pass
+            if ($movement->isSystemMovement()) {
+                continue;
+            }
+
+            $transactionRef = $movement->transaction_reference;
+
+            // If no transaction reference, add as ungrouped
+            if (!$transactionRef) {
+                $grouped->push([
+                    'primary' => $movement,
+                    'related' => collect(),
+                    'transaction_ref' => null,
+                ]);
+                $processedIds[] = $movement->id;
+                continue;
+            }
+
+            // This is a business movement with a transaction reference
+            // Find related system movements with the same transaction reference
+            $relatedMovements = $movements->filter(function ($m) use ($movement, $transactionRef, $processedIds) {
+                if ($m->id === $movement->id || in_array($m->id, $processedIds)) {
+                    return false;
+                }
+
+                $mRef = $m->transaction_reference;
+                return $mRef && 
+                       $mRef['id'] === $transactionRef['id'] && 
+                       $m->product_id === $movement->product_id &&
+                       $m->isSystemMovement();
+            });
+
+            $grouped->push([
+                'primary' => $movement,
+                'related' => $relatedMovements->values(),
+                'transaction_ref' => $transactionRef['id'],
+            ]);
+
+            // Mark all related movements as processed
+            $processedIds[] = $movement->id;
+            foreach ($relatedMovements as $related) {
+                $processedIds[] = $related->id;
+            }
+        }
+
+        // Second pass: Add any remaining unprocessed movements (system movements without business counterpart)
+        foreach ($movements as $movement) {
+            if (!in_array($movement->id, $processedIds)) {
+                $grouped->push([
+                    'primary' => $movement,
+                    'related' => collect(),
+                    'transaction_ref' => null,
+                ]);
+                $processedIds[] = $movement->id;
+            }
+        }
+
+        return $grouped;
     }
 
     /**
@@ -1034,7 +1127,8 @@ class InventoryService
             ->sortBy(function ($alert) {
                 return $alert['inventory']->quantity_available;
             })
-            ->take(10);
+            ->take(10)
+            ->values(); // Re-index the collection
 
         // Calculate estimated reorder cost
         $reorderSuggestions = $this->getReorderSuggestions($location);

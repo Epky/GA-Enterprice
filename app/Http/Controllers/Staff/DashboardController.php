@@ -54,20 +54,13 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
         
-        // Get recent inventory movements (last 7 days)
-        $recentMovements = DB::table('inventory_movements')
-            ->join('products', 'inventory_movements.product_id', '=', 'products.id')
-            ->leftJoin('product_variants', 'inventory_movements.variant_id', '=', 'product_variants.id')
-            ->select(
-                'inventory_movements.*',
-                'products.name as product_name',
-                'products.sku as product_sku',
-                'product_variants.name as variant_name'
-            )
-            ->where('inventory_movements.created_at', '>=', now()->subDays(7))
-            ->orderBy('inventory_movements.created_at', 'desc')
-            ->limit(10)
-            ->get();
+        // Get recent inventory movements (last 7 days) using InventoryService
+        $recentMovements = $this->inventoryService->getInventoryMovements([
+            'include_system_movements' => false,  // Business movements only
+            'start_date' => now()->subDays(7)->format('Y-m-d'),
+            'end_date' => now()->format('Y-m-d'),
+            'group_related' => false  // No grouping needed for dashboard
+        ], 10);
         
         // Get category and brand counts
         $totalCategories = DB::table('categories')->where('is_active', true)->count();

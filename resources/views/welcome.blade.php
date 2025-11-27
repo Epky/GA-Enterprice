@@ -158,7 +158,7 @@
                         <div class="text-4xl mb-3 text-center" role="img" aria-label="{{ $category->name }} category">{{ $emoji }}</div>
                         <h4 class="font-semibold text-gray-900 mb-2 text-center">{{ $category->name }}</h4>
                         <p class="text-sm text-gray-600 text-center">{{ Str::limit($category->description, 50) }}</p>
-                        <p class="text-xs text-gray-500 text-center mt-2">{{ $category->active_products_count }} {{ Str::plural('product', $category->active_products_count) }}</p>
+                        <p class="text-xs text-gray-500 text-center mt-2">{{ $category->active_products_count ?? 0 }} {{ Str::plural('product', $category->active_products_count ?? 0) }}</p>
                     </a>
                 @empty
                     <div class="col-span-4 text-center py-8">
