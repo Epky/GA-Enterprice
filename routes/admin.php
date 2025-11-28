@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'role.redirect', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Admin dashboard
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    
+    // Analytics routes
+    Route::get('/analytics/export', [\App\Http\Controllers\Admin\DashboardController::class, 'exportAnalytics'])->name('analytics.export');
+    Route::get('/analytics/data', [\App\Http\Controllers\Admin\DashboardController::class, 'getAnalyticsData'])->name('analytics.data');
 
     // User management routes
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);

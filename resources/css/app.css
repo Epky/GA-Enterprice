@@ -312,6 +312,361 @@
     }
 }
 
+/* ============================================
+   ADMIN DASHBOARD - COSMETICS THEME
+   ============================================ */
+
+@layer base {
+    :root {
+        /* Admin Cosmetics Gradient Colors - Pink, Purple, Indigo */
+        --admin-pink-50: #fdf2f8;
+        --admin-pink-100: #fce7f3;
+        --admin-pink-200: #fbcfe8;
+        --admin-pink-300: #f9a8d4;
+        --admin-pink-400: #f472b6;
+        --admin-pink-500: #ec4899;
+        --admin-pink-600: #db2777;
+        --admin-pink-700: #be185d;
+        
+        --admin-purple-50: #faf5ff;
+        --admin-purple-100: #f3e8ff;
+        --admin-purple-200: #e9d5ff;
+        --admin-purple-300: #d8b4fe;
+        --admin-purple-400: #c084fc;
+        --admin-purple-500: #a855f7;
+        --admin-purple-600: #9333ea;
+        --admin-purple-700: #7e22ce;
+        
+        --admin-indigo-50: #eef2ff;
+        --admin-indigo-100: #e0e7ff;
+        --admin-indigo-200: #c7d2fe;
+        --admin-indigo-300: #a5b4fc;
+        --admin-indigo-400: #818cf8;
+        --admin-indigo-500: #6366f1;
+        --admin-indigo-600: #4f46e5;
+        --admin-indigo-700: #4338ca;
+    }
+}
+
+@layer components {
+    /* Admin Gradient Backgrounds */
+    .admin-gradient-primary {
+        background: linear-gradient(to right, var(--admin-pink-500), var(--admin-purple-500), var(--admin-indigo-500));
+    }
+    
+    .admin-gradient-light {
+        background: linear-gradient(to right, var(--admin-pink-50), var(--admin-purple-50), var(--admin-indigo-50));
+    }
+    
+    .admin-gradient-medium {
+        background: linear-gradient(to right, var(--admin-pink-100), var(--admin-purple-100), var(--admin-indigo-100));
+    }
+    
+    .admin-gradient-vertical {
+        background: linear-gradient(to bottom, var(--admin-pink-50), var(--admin-purple-50), var(--admin-indigo-50));
+    }
+    
+    .admin-gradient-hover {
+        background: linear-gradient(to right, var(--admin-pink-600), var(--admin-purple-600), var(--admin-indigo-600));
+    }
+    
+    /* Admin Button Styles */
+    .admin-btn-primary {
+        @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold text-white;
+        background: linear-gradient(to right, var(--admin-pink-500), var(--admin-purple-500), var(--admin-indigo-500));
+        transition: all 200ms ease-in-out;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .admin-btn-primary:hover {
+        background: linear-gradient(to right, var(--admin-pink-600), var(--admin-purple-600), var(--admin-indigo-600));
+        transform: scale(1.05);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .admin-btn-primary:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        ring-color: var(--admin-pink-400);
+    }
+    
+    .admin-btn-secondary {
+        @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold;
+        background: linear-gradient(to right, var(--admin-pink-100), var(--admin-purple-100));
+        color: var(--admin-purple-700);
+        transition: all 200ms ease-in-out;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    
+    .admin-btn-secondary:hover {
+        background: linear-gradient(to right, var(--admin-pink-200), var(--admin-purple-200));
+        transform: scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .admin-btn-secondary:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        ring-color: var(--admin-pink-400);
+    }
+    
+    /* Admin Card Styles with Gradient Borders */
+    .admin-card {
+        @apply bg-white rounded-xl shadow-lg transition-all duration-300;
+    }
+    
+    .admin-card:hover {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .admin-card-pink {
+        @apply admin-card border-l-4;
+        border-left-color: var(--admin-pink-500);
+    }
+    
+    .admin-card-pink:hover {
+        transform: scale(1.05);
+    }
+    
+    .admin-card-purple {
+        @apply admin-card border-l-4;
+        border-left-color: var(--admin-purple-500);
+    }
+    
+    .admin-card-purple:hover {
+        transform: scale(1.05);
+    }
+    
+    .admin-card-indigo {
+        @apply admin-card border-l-4;
+        border-left-color: var(--admin-indigo-500);
+    }
+    
+    .admin-card-indigo:hover {
+        transform: scale(1.05);
+    }
+    
+    .admin-card-lift {
+        @apply admin-card;
+    }
+    
+    .admin-card-lift:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Admin Icon Backgrounds with Gradients */
+    .admin-icon-pink {
+        @apply w-12 h-12 rounded-full flex items-center justify-center;
+        background: linear-gradient(to bottom right, var(--admin-pink-400), var(--admin-pink-600));
+    }
+    
+    .admin-icon-purple {
+        @apply w-12 h-12 rounded-full flex items-center justify-center;
+        background: linear-gradient(to bottom right, var(--admin-purple-400), var(--admin-purple-600));
+    }
+    
+    .admin-icon-indigo {
+        @apply w-12 h-12 rounded-full flex items-center justify-center;
+        background: linear-gradient(to bottom right, var(--admin-indigo-400), var(--admin-indigo-600));
+    }
+    
+    /* Admin Gradient Text */
+    .admin-text-gradient {
+        background: linear-gradient(to right, var(--admin-pink-500), var(--admin-purple-500), var(--admin-indigo-500));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .admin-text-gradient-light {
+        background: linear-gradient(to right, var(--admin-pink-200), var(--admin-purple-200), var(--admin-indigo-200));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Admin Hover States */
+    .admin-hover-pink {
+        @apply transition-all duration-200;
+    }
+    
+    .admin-hover-pink:hover {
+        background-color: rgba(236, 72, 153, 0.1);
+        color: var(--admin-pink-700);
+    }
+    
+    .admin-hover-purple {
+        @apply transition-all duration-200;
+    }
+    
+    .admin-hover-purple:hover {
+        background-color: rgba(168, 85, 247, 0.1);
+        color: var(--admin-purple-700);
+    }
+    
+    .admin-hover-gradient {
+        @apply transition-all duration-200;
+    }
+    
+    .admin-hover-gradient:hover {
+        background: linear-gradient(to right, var(--admin-pink-100), var(--admin-purple-100));
+    }
+    
+    /* Admin Focus States */
+    .admin-focus-ring {
+        @apply outline-none transition-all duration-200;
+    }
+    
+    .admin-focus-ring:focus {
+        @apply ring-2 ring-offset-2;
+        ring-color: var(--admin-pink-400);
+    }
+    
+    .admin-focus-ring-purple {
+        @apply outline-none transition-all duration-200;
+    }
+    
+    .admin-focus-ring-purple:focus {
+        @apply ring-2 ring-offset-2;
+        ring-color: var(--admin-purple-400);
+    }
+    
+    /* Admin Table Styles */
+    .admin-table {
+        @apply min-w-full divide-y;
+        divide-color: var(--admin-purple-200);
+    }
+    
+    .admin-table thead {
+        background: linear-gradient(to right, var(--admin-pink-50), var(--admin-purple-50));
+    }
+    
+    .admin-table thead th {
+        @apply px-6 py-3 text-left text-xs font-medium uppercase tracking-wider;
+        color: var(--admin-purple-700);
+    }
+    
+    .admin-table tbody {
+        @apply bg-white divide-y;
+        divide-color: var(--admin-purple-100);
+    }
+    
+    .admin-table tbody tr {
+        @apply transition-colors duration-150;
+    }
+    
+    .admin-table tbody tr:hover {
+        background: linear-gradient(to right, var(--admin-pink-50), var(--admin-purple-50));
+    }
+    
+    .admin-table tbody td {
+        @apply px-6 py-4 whitespace-nowrap text-sm;
+    }
+    
+    /* Admin Badge Styles */
+    .admin-badge-pink {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+        background-color: var(--admin-pink-100);
+        color: var(--admin-pink-800);
+    }
+    
+    .admin-badge-purple {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+        background-color: var(--admin-purple-100);
+        color: var(--admin-purple-800);
+    }
+    
+    .admin-badge-indigo {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+        background-color: var(--admin-indigo-100);
+        color: var(--admin-indigo-800);
+    }
+    
+    /* Admin Navigation Styles */
+    .admin-nav-link {
+        @apply text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 px-3 py-2 rounded-md text-sm font-medium;
+    }
+    
+    .admin-nav-link:focus {
+        @apply outline-none ring-2 ring-offset-2 ring-offset-transparent;
+        ring-color: var(--admin-pink-400);
+    }
+    
+    /* Admin Sidebar Styles */
+    .admin-sidebar-link {
+        @apply flex items-center px-4 py-3 rounded-lg text-gray-700 transition-all duration-200;
+    }
+    
+    .admin-sidebar-link:hover {
+        background: linear-gradient(to right, var(--admin-pink-100), var(--admin-purple-100));
+        color: var(--admin-purple-700);
+    }
+    
+    .admin-sidebar-link.active {
+        background: linear-gradient(to right, var(--admin-pink-200), var(--admin-purple-200));
+        color: var(--admin-purple-800);
+        font-weight: 600;
+    }
+    
+    .admin-sidebar-link:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        ring-color: var(--admin-pink-400);
+    }
+    
+    /* Admin Dropdown Styles */
+    .admin-dropdown {
+        @apply rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5;
+    }
+    
+    .admin-dropdown-item {
+        @apply block px-4 py-2 text-sm text-gray-700 transition-colors duration-150;
+    }
+    
+    .admin-dropdown-item:hover {
+        background: linear-gradient(to right, var(--admin-pink-50), var(--admin-purple-50));
+        color: var(--admin-purple-700);
+    }
+    
+    /* Admin Shadow Utilities */
+    .admin-shadow-sm {
+        box-shadow: 0 1px 2px 0 rgba(236, 72, 153, 0.05);
+    }
+    
+    .admin-shadow-md {
+        box-shadow: 0 4px 6px -1px rgba(168, 85, 247, 0.1), 0 2px 4px -1px rgba(168, 85, 247, 0.06);
+    }
+    
+    .admin-shadow-lg {
+        box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1), 0 4px 6px -2px rgba(99, 102, 241, 0.05);
+    }
+    
+    .admin-shadow-xl {
+        box-shadow: 0 20px 25px -5px rgba(168, 85, 247, 0.1), 0 10px 10px -5px rgba(168, 85, 247, 0.04);
+    }
+    
+    /* Admin Responsive Utilities */
+    @media (max-width: 640px) {
+        .admin-card {
+            @apply p-4;
+        }
+        
+        .admin-btn-primary,
+        .admin-btn-secondary {
+            @apply px-4 py-2 text-sm;
+        }
+        
+        .admin-table thead th,
+        .admin-table tbody td {
+            @apply px-3 py-2 text-xs;
+        }
+    }
+    
+    @media (min-width: 641px) and (max-width: 1024px) {
+        .admin-card {
+            @apply p-6;
+        }
+    }
+}
+
 /* Inventory Alert Severity Indicators */
 @layer components {
     /* Critical Alert Styles - Red */

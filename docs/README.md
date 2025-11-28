@@ -4,6 +4,23 @@ Welcome to the Staff Product Management System documentation. This directory con
 
 ## Documentation Index
 
+### For Admin Users
+
+#### 📊 [Admin Analytics Dashboard User Guide](ADMIN_ANALYTICS_USER_GUIDE.md)
+**Complete guide for using the analytics dashboard**
+
+Learn how to:
+- Access and navigate the analytics dashboard
+- Understand all available metrics
+- Use time period filters effectively
+- Interpret charts and visualizations
+- Export analytics data
+- Make data-driven business decisions
+
+**Audience:** Admin users who need business intelligence  
+**Length:** Comprehensive guide with examples and best practices  
+**Last Updated:** November 2024
+
 ### For Staff Users
 
 #### 📘 [Staff Product Management User Guide](STAFF_PRODUCT_MANAGEMENT_GUIDE.md)

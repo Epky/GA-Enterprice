@@ -12,6 +12,24 @@ class CustomerController extends Controller
 {
     public function dashboard(Request $request)
     {
+        // Validate price range inputs
+        $validated = $request->validate([
+            'min_price' => 'nullable|numeric|min:0',
+            'max_price' => 'nullable|numeric|min:0',
+            'category' => 'nullable|exists:categories,id',
+            'brand' => 'nullable|exists:brands,id',
+            'search' => 'nullable|string|max:255',
+            'sort' => 'nullable|in:newest,price_low,price_high,name',
+        ]);
+
+        // Ensure min_price <= max_price
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            if ($request->min_price > $request->max_price) {
+                return redirect()->route('customer.dashboard')
+                    ->withErrors(['price' => 'Minimum price cannot be greater than maximum price.']);
+            }
+        }
+
         $query = Product::with(['category', 'brand', 'primaryImage', 'inventory'])
             ->where('status', 'active')
             ->where('is_featured', true);
@@ -30,12 +48,12 @@ class CustomerController extends Controller
             });
         }
 
-        // Category filter
+        // Category filter (with validation for invalid IDs)
         if ($request->filled('category')) {
             $productsQuery->where('category_id', $request->category);
         }
 
-        // Brand filter
+        // Brand filter (with validation for invalid IDs)
         if ($request->filled('brand')) {
             $productsQuery->where('brand_id', $request->brand);
         }
@@ -67,11 +85,27 @@ class CustomerController extends Controller
         }
 
         $products = $productsQuery->paginate(12);
+        
+        // Featured products should also respect category filter
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+        
         $featuredProducts = $query->take(4)->get();
         $categories = Category::where('is_active', true)->get();
         $brands = Brand::where('is_active', true)->get();
+        
+        // Get categories with product counts for showcase
+        $showcaseCategories = Category::where('is_active', true)
+            ->withCount(['activeProducts'])
+            ->orderBy('display_order')
+            ->orderBy('name')
+            ->get()
+            ->filter(function ($category) {
+                return $category->active_products_count > 0;
+            });
 
-        return view('customer.dashboard', compact('products', 'featuredProducts', 'categories', 'brands'));
+        return view('customer.dashboard', compact('products', 'featuredProducts', 'categories', 'brands', 'showcaseCategories'));
     }
 
     public function show(Product $product)

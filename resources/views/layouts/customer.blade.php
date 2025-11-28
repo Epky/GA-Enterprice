@@ -30,7 +30,7 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <x-nav-link href="/" :active="request()->is('/')">
+                                <x-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('customer.dashboard')">
                                     {{ __('Home') }}
                                 </x-nav-link>
                                 <x-nav-link href="/products" :active="request()->is('products*')">
@@ -42,12 +42,22 @@
                         <!-- Right Side Navigation -->
                         <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
                             <!-- Cart Icon -->
-                            <a href="/cart" class="relative text-gray-600 hover:text-gray-900">
-                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                <span class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
-                            </a>
+                            @auth
+                                @php
+                                    $userCart = \App\Models\Cart::where('user_id', auth()->id())->first();
+                                    $cartItemCount = $userCart ? $userCart->total_items : 0;
+                                @endphp
+                                <a href="{{ route('cart.index') }}" class="relative text-gray-600 hover:text-gray-900">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    @if($cartItemCount > 0)
+                                        <span class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                            {{ $cartItemCount }}
+                                        </span>
+                                    @endif
+                                </a>
+                            @endauth
 
                             @auth
                                 <!-- User Dropdown -->
@@ -108,7 +118,7 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <x-responsive-nav-link href="/" :active="request()->is('/')">
+                        <x-responsive-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('customer.dashboard')">
                             {{ __('Home') }}
                         </x-responsive-nav-link>
                         <x-responsive-nav-link href="/products" :active="request()->is('products*')">

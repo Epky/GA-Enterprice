@@ -1,58 +1,315 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Beauty Store E-Commerce System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive e-commerce platform for beauty product retail, built with Laravel. This system supports both online shopping and walk-in transactions, with powerful analytics and inventory management capabilities.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Customer Features
+- Browse products by category and brand
+- Product search and filtering
+- Shopping cart management
+- Online order placement
+- Order history and tracking
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Staff Features
+- Product management (CRUD operations)
+- Inventory management with location tracking
+- Walk-in transaction processing
+- Inventory movement tracking
+- Low stock alerts
+- Brand and category management
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin Features
+- **Comprehensive Analytics Dashboard** (see below)
+- User management (customers, staff, admins)
+- System health monitoring
+- Data export capabilities
 
-## Learning Laravel
+## Analytics Dashboard
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+The admin analytics dashboard provides comprehensive business intelligence with the following metrics:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Available Metrics
 
-## Laravel Sponsors
+#### Revenue Analytics
+- **Total Revenue**: Sum of all completed and paid orders
+- **Revenue Trends**: Daily/monthly revenue visualization
+- **Revenue by Location**: Breakdown of sales by inventory location
+- **Period Comparison**: Compare current period with previous period
+- **Percentage Change**: Track revenue growth or decline
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Order Analytics
+- **Total Orders**: Count of all non-cancelled orders
+- **Order Status Breakdown**: Completed, pending, and processing orders
+- **Average Order Value (AOV)**: Revenue divided by completed orders
+- **Order Type Distribution**: Walk-in vs online orders
+- **Channel Comparison**: Revenue and order count by channel
 
-### Premium Partners
+#### Product Analytics
+- **Top Selling Products**: Top 10 products by quantity sold
+- **Sales by Category**: Revenue breakdown by product category
+- **Sales by Brand**: Revenue and units sold by brand
+- **Product Performance**: Quantity sold and revenue per product
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+#### Payment Analytics
+- **Payment Method Distribution**: Orders and revenue by payment method
+- **Payment Preferences**: Percentage breakdown of payment methods
+- **Payment Trends**: Track popular payment methods over time
+
+#### Profit Analytics
+- **Gross Profit**: Total revenue minus total cost
+- **Profit Margin**: Percentage of revenue retained as profit
+- **Cost Analysis**: Total cost of goods sold
+
+#### Customer Analytics
+- **Total Customers**: Count of all registered customers
+- **New Customers**: Customer acquisition by period
+- **Growth Rate**: Customer growth percentage
+- **Customer Trends**: Track customer acquisition over time
+
+#### Inventory Analytics
+- **Low Stock Alerts**: Products at or below reorder level
+- **Out of Stock Count**: Products with zero inventory
+- **Stock Severity**: Prioritized by lowest stock percentage
+- **Inventory Health**: Overall inventory status
+
+### Time Period Options
+
+The analytics dashboard supports multiple time period filters:
+
+- **Today**: Current day from midnight to now
+- **This Week**: Current week from Monday to Sunday
+- **This Month**: Current calendar month
+- **This Year**: Current calendar year (January to December)
+- **Custom Range**: User-defined start and end dates
+
+All metrics automatically adjust to the selected time period, and comparisons are made with the equivalent previous period.
+
+### Data Visualization
+
+- **Line Charts**: Revenue and order trends over time
+- **Pie Charts**: Payment method and channel distribution
+- **Bar Charts**: Category and brand performance
+- **Tables**: Top products, detailed breakdowns
+- **Cards**: Key metrics with change indicators
+
+### Export Functionality
+
+Export comprehensive analytics data to CSV format:
+
+1. Navigate to the admin dashboard
+2. Select your desired time period
+3. Click the "Export Analytics" button
+4. CSV file downloads automatically with filename format: `analytics_YYYY-MM-DD_to_YYYY-MM-DD.csv`
+
+**Export Contents:**
+- Revenue metrics (total, previous period, change percentage)
+- Order metrics (total, completed, walk-in, online, AOV)
+- Profit metrics (gross profit, margin, cost)
+- Customer metrics (total, new, growth rate)
+- Top selling products (name, quantity, revenue)
+- Sales by category (name, revenue, percentage)
+- Sales by brand (name, revenue, units sold)
+- Payment method distribution (method, count, revenue, percentage)
+- Channel comparison (walk-in vs online)
+- Revenue by location (location, revenue, order count)
+
+### Performance Optimization
+
+The analytics system includes several performance optimizations:
+
+- **Caching**: Frequently accessed metrics are cached
+  - Current period data: 15-minute cache
+  - Historical data: 24-hour cache
+- **Database Indexes**: Optimized queries with proper indexing
+- **Query Optimization**: Efficient aggregation using database functions
+- **Lazy Loading**: Charts and widgets load progressively
+
+### Accessing Analytics
+
+**URL**: `/admin/dashboard`
+
+**Requirements**: Admin role required
+
+**Usage Examples**:
+```
+# View current month analytics (default)
+/admin/dashboard
+
+# View this week's analytics
+/admin/dashboard?period=week
+
+# View custom date range
+/admin/dashboard?period=custom&start_date=2024-01-01&end_date=2024-01-31
+
+# Export analytics
+/admin/analytics/export?period=month
+```
+
+## Technology Stack
+
+- **Framework**: Laravel 11.x
+- **Database**: PostgreSQL (Supabase)
+- **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
+- **Charts**: Chart.js
+- **Authentication**: Laravel Breeze
+
+## Installation
+
+### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- Node.js and NPM
+- PostgreSQL database (or Supabase account)
+
+### Setup Steps
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd beauty-store
+```
+
+2. Install PHP dependencies
+```bash
+composer install
+```
+
+3. Install JavaScript dependencies
+```bash
+npm install
+```
+
+4. Configure environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Update `.env` with your database credentials
+```env
+DB_CONNECTION=pgsql
+DB_HOST=your-database-host
+DB_PORT=5432
+DB_DATABASE=your-database-name
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+```
+
+6. Run migrations
+```bash
+php artisan migrate
+```
+
+7. Seed the database (optional)
+```bash
+php artisan db:seed
+```
+
+8. Build frontend assets
+```bash
+npm run build
+```
+
+9. Start the development server
+```bash
+php artisan serve
+```
+
+Visit `http://localhost:8000` to access the application.
+
+### Default Admin Account
+
+After seeding, you can log in with:
+- **Email**: admin@example.com
+- **Password**: password
+
+## Testing
+
+The application includes comprehensive test coverage:
+
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suite
+php artisan test --testsuite=Unit
+php artisan test --testsuite=Feature
+
+# Run with coverage
+php artisan test --coverage
+```
+
+### Test Categories
+
+- **Unit Tests**: Service layer logic, calculations, data transformations
+- **Feature Tests**: HTTP endpoints, workflows, integrations
+- **Property-Based Tests**: Correctness properties validated across random inputs
+- **Performance Tests**: Analytics query performance and cache effectiveness
+
+## Documentation
+
+Additional documentation is available in the `/docs` directory:
+
+- [Analytics Performance Optimization](docs/ANALYTICS_PERFORMANCE_OPTIMIZATION_SUMMARY.md)
+- [Analytics Performance Benchmark](docs/ANALYTICS_PERFORMANCE_BENCHMARK.md)
+- [Inventory Location Fix](docs/inventory-location-fix.md)
+- [Walk-in Transaction Inventory Reservation](docs/walk-in-transaction-inventory-reservation.md)
+- [Product Image Troubleshooting](docs/product-image-troubleshooting.md)
+- [Supabase Connection Setup](SUPABASE_CONNECTION_SETUP.md)
+
+## Project Structure
+
+```
+app/
+├── Http/Controllers/
+│   ├── Admin/          # Admin controllers
+│   ├── Staff/          # Staff controllers
+│   ├── Customer/       # Customer controllers
+│   └── Shop/           # Public shop controllers
+├── Models/             # Eloquent models
+├── Services/           # Business logic services
+│   ├── AnalyticsService.php
+│   ├── InventoryService.php
+│   ├── ProductService.php
+│   └── WalkInTransactionService.php
+└── View/Components/    # Blade components
+
+resources/
+├── views/
+│   ├── admin/          # Admin views
+│   ├── staff/          # Staff views
+│   ├── customer/       # Customer views
+│   └── components/     # Reusable components
+└── js/
+    └── analytics-charts.js  # Chart.js initialization
+
+tests/
+├── Unit/               # Unit tests
+├── Feature/            # Feature tests
+└── Performance/        # Performance tests
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome! Please follow these guidelines:
 
-## Code of Conduct
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Code Standards
 
-## Security Vulnerabilities
+- Follow PSR-12 coding standards
+- Write comprehensive tests for new features
+- Update documentation as needed
+- Ensure all tests pass before submitting PR
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Security
+
+If you discover a security vulnerability, please email security@example.com. All security vulnerabilities will be promptly addressed.
 
 ## License
 

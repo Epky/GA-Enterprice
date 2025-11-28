@@ -1,6 +1,4 @@
-@extends('layouts.landing')
-
-@section('content')
+<x-customer-layout>
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
     <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 py-12">
@@ -59,7 +57,7 @@
                         <div class="p-4">
                             <h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">{{ $product->name }}</h3>
                             <p class="text-sm text-gray-500 mb-2">{{ $product->brand->name ?? 'No Brand' }}</p>
-                            <p class="text-lg font-bold text-purple-600">₱{{ number_format($product->price, 2) }}</p>
+                            <p class="text-lg font-bold text-purple-600">₱{{ number_format($product->base_price, 2) }}</p>
                         </div>
                     </a>
                 @endforeach
@@ -76,4 +74,4 @@
         @endif
     </div>
 </div>
-@endsection
+</x-customer-layout>

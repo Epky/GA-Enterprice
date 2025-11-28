@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,7 +16,7 @@ Route::get('/', function () {
             ->get();
     } catch (\Exception $e) {
         // Fallback: If database connection fails, use Supabase API
-        \Log::warning('Database connection failed, using Supabase API: ' . $e->getMessage());
+        Log::warning('Database connection failed, using Supabase API: ' . $e->getMessage());
         $supabase = new \App\Services\SupabaseService();
         $categories = $supabase->getActiveCategories();
     }
@@ -27,6 +28,15 @@ Route::get('/', function () {
 Route::get('/products', [App\Http\Controllers\Shop\ShopController::class, 'index'])->name('products.index');
 Route::get('/products/category/{category}', [App\Http\Controllers\Shop\ShopController::class, 'category'])->name('products.category');
 Route::get('/products/{product}', [App\Http\Controllers\Shop\ShopController::class, 'show'])->name('products.show');
+
+// Cart routes (require authentication)
+Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/add/{product}', [App\Http\Controllers\Customer\CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [App\Http\Controllers\Customer\CartController::class, 'index'])->name('cart.index');
+    Route::patch('/cart/item/{cartItem}', [App\Http\Controllers\Customer\CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/item/{cartItem}', [App\Http\Controllers\Customer\CartController::class, 'remove'])->name('cart.remove');
+    Route::delete('/cart/clear', [App\Http\Controllers\Customer\CartController::class, 'clear'])->name('cart.clear');
+});
 
 // Generic dashboard route that redirects based on user role
 Route::get('/dashboard', function () {
