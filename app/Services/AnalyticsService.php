@@ -319,7 +319,8 @@ class AnalyticsService
                 // Sum quantities and revenue
                 // Order by quantity descending
                 // Limit to specified number
-                $topProducts = \App\Models\OrderItem::select(
+                $topProducts = \Illuminate\Support\Facades\DB::table('order_items')
+                    ->select(
                         'order_items.product_id',
                         'products.name as product_name',
                         \Illuminate\Support\Facades\DB::raw('SUM(order_items.quantity) as total_quantity_sold'),
@@ -783,18 +784,19 @@ class AnalyticsService
     /**
      * Get inventory alerts summary.
      * 
+     * @param string|null $location Optional location filter
      * @return array [
      *   'low_stock_count' => int,
      *   'out_of_stock_count' => int,
      *   'items' => Collection
      * ]
      */
-    public function getInventoryAlerts(): array
+    public function getInventoryAlerts(?string $location = null): array
     {
         try {
             // Query inventory where quantity_available <= reorder_level
             // Use select to only fetch needed columns and optimize eager loading
-            $lowStockItems = \App\Models\Inventory::select([
+            $query = \App\Models\Inventory::select([
                     'inventory.id',
                     'inventory.product_id',
                     'inventory.variant_id',
@@ -806,19 +808,35 @@ class AnalyticsService
                     'product:id,name',  // Only select needed columns
                     'variant:id,name'   // Only select needed columns
                 ])
-                ->whereRaw('quantity_available <= reorder_level')
-                ->get();
+                ->whereRaw('quantity_available <= reorder_level');
+
+            // Apply location filter if provided
+            if ($location) {
+                $query->where('location', $location);
+            }
+
+            $lowStockItems = $query->get();
 
             // Count out of stock items (quantity_available <= 0)
             $outOfStockCount = $lowStockItems->where('quantity_available', '<=', 0)->count();
 
-            // Calculate stock percentage for each item and add to collection
+            // Calculate stock percentage for each item and add severity classification
             $items = $lowStockItems->map(function ($inventory) {
                 // Calculate stock percentage (current / reorder_level * 100)
                 // Handle division by zero
                 $stockPercentage = $inventory->reorder_level > 0
                     ? round(($inventory->quantity_available / $inventory->reorder_level) * 100, 2)
                     : 0.0;
+
+                // Determine severity classification
+                $severity = 'normal';
+                if ($inventory->quantity_available <= 0) {
+                    $severity = 'out_of_stock';
+                } elseif ($stockPercentage <= 25) {
+                    $severity = 'critical';
+                } elseif ($stockPercentage <= 50) {
+                    $severity = 'warning';
+                }
 
                 return [
                     'id' => $inventory->id,
@@ -830,6 +848,7 @@ class AnalyticsService
                     'reorder_level' => $inventory->reorder_level,
                     'stock_percentage' => $stockPercentage,
                     'is_out_of_stock' => $inventory->quantity_available <= 0,
+                    'severity' => $severity,
                 ];
             });
 
@@ -852,6 +871,40 @@ class AnalyticsService
                 'out_of_stock_count' => 0,
                 'items' => collect([]),
             ];
+        }
+    }
+
+    /**
+     * Get recent inventory movements.
+     * 
+     * @param int $limit Number of movements to return (default: 20)
+     * @param string|null $location Optional location filter
+     * @return \Illuminate\Support\Collection Collection of recent inventory movements
+     */
+    public function getRecentInventoryMovements(int $limit = 20, ?string $location = null): \Illuminate\Support\Collection
+    {
+        try {
+            $query = \App\Models\InventoryMovement::with(['product:id,name', 'variant:id,name'])
+                ->whereIn('movement_type', \App\Models\InventoryMovement::BUSINESS_MOVEMENT_TYPES)
+                ->orderBy('created_at', 'desc')
+                ->limit($limit);
+
+            // Apply location filter if provided
+            if ($location) {
+                $query->where(function ($q) use ($location) {
+                    $q->where('location_from', $location)
+                      ->orWhere('location_to', $location);
+                });
+            }
+
+            return $query->get();
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error getting recent inventory movements: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            
+            // Return empty collection gracefully
+            return collect([]);
         }
     }
 

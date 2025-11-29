@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\AnalyticsService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -114,17 +115,24 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             Log::error('Error loading admin dashboard: ' . $e->getMessage(), [
                 'exception' => $e,
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
+                'period' => $request->input('period', 'month'),
+                'user_id' => Auth::id()
             ]);
             
-            // Return view with error message
+            // Try to get cached analytics data as fallback
+            $cachedAnalytics = $this->getCachedAnalytics($period);
+            
+            // Return view with error message and cached data if available
             return view('admin.dashboard', [
                 'stats' => $this->getDashboardStats(),
                 'recentUsers' => $this->getRecentUsers(),
                 'systemHealth' => $this->getSystemHealth(),
-                'analytics' => null,
+                'analytics' => $cachedAnalytics,
                 'period' => $request->input('period', 'month'),
-                'error' => 'Unable to load analytics data. Please try again later.'
+                'error' => $cachedAnalytics 
+                    ? 'Unable to load fresh analytics data. Showing cached data from an earlier time.'
+                    : 'Unable to load analytics data. Please try again later.'
             ]);
         }
     }
@@ -420,6 +428,192 @@ class DashboardController extends Controller
     }
 
     /**
+     * Display the Sales & Revenue page.
+     * 
+     * Shows detailed sales and revenue analytics including revenue metrics,
+     * order statistics, sales trends, top products, and category/brand breakdowns.
+     * 
+     * @param Request $request The HTTP request with optional period and date filters
+     * @return \Illuminate\View\View The sales & revenue view with analytics data
+     */
+    public function salesRevenue(Request $request)
+    {
+        try {
+            // Validate request inputs
+            $validated = $request->validate([
+                'period' => 'nullable|in:today,week,month,year,custom',
+                'start_date' => 'nullable|required_if:period,custom|date',
+                'end_date' => 'nullable|required_if:period,custom|date|after_or_equal:start_date',
+            ], [
+                'end_date.after_or_equal' => 'The end date must be equal to or after the start date.',
+                'start_date.required_if' => 'The start date is required when using a custom period.',
+                'end_date.required_if' => 'The end date is required when using a custom period.',
+            ]);
+            
+            // Get time period from request (default to 'month')
+            $period = $validated['period'] ?? 'month';
+            $startDate = $validated['start_date'] ?? null;
+            $endDate = $validated['end_date'] ?? null;
+            
+            // Get date range for period
+            $dateRange = $this->getDateRangeForPeriod($period, $startDate, $endDate);
+            
+            // Get sales and revenue analytics data
+            $analytics = [
+                'revenue' => $this->analyticsService->calculateRevenue($dateRange['start'], $dateRange['end']),
+                'order_metrics' => $this->analyticsService->getOrderMetrics($dateRange['start'], $dateRange['end']),
+                'profit_metrics' => $this->analyticsService->getProfitMetrics($period),
+                'sales_trend' => $this->analyticsService->getDailySalesTrend($period),
+                'top_products' => $this->analyticsService->getTopSellingProducts(10, $period),
+                'category_breakdown' => $this->analyticsService->getSalesByCategory($period),
+                'brand_breakdown' => $this->analyticsService->getSalesByBrand($period),
+            ];
+            
+            return view('admin.sales-revenue', compact('analytics', 'period'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Error loading sales & revenue page: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+                'period' => $request->input('period', 'month'),
+                'user_id' => Auth::id()
+            ]);
+            
+            // Try to get cached analytics data as fallback
+            $cachedAnalytics = $this->getCachedSalesAnalytics($period);
+            
+            return view('admin.sales-revenue', [
+                'analytics' => $cachedAnalytics,
+                'period' => $request->input('period', 'month'),
+                'error' => $cachedAnalytics 
+                    ? 'Unable to load fresh sales data. Showing cached data from an earlier time.'
+                    : 'Unable to load sales and revenue data. Please try again later.'
+            ]);
+        }
+    }
+
+    /**
+     * Display the Customers & Channels page.
+     * 
+     * Shows customer analytics and sales channel comparisons including customer metrics,
+     * channel comparison, payment method distribution, and customer acquisition trends.
+     * 
+     * @param Request $request The HTTP request with optional period and date filters
+     * @return \Illuminate\View\View The customers & channels view with analytics data
+     */
+    public function customersChannels(Request $request)
+    {
+        try {
+            // Validate request inputs
+            $validated = $request->validate([
+                'period' => 'nullable|in:today,week,month,year,custom',
+                'start_date' => 'nullable|required_if:period,custom|date',
+                'end_date' => 'nullable|required_if:period,custom|date|after_or_equal:start_date',
+            ], [
+                'end_date.after_or_equal' => 'The end date must be equal to or after the start date.',
+                'start_date.required_if' => 'The start date is required when using a custom period.',
+                'end_date.required_if' => 'The end date is required when using a custom period.',
+            ]);
+            
+            // Get time period from request (default to 'month')
+            $period = $validated['period'] ?? 'month';
+            $startDate = $validated['start_date'] ?? null;
+            $endDate = $validated['end_date'] ?? null;
+            
+            // Get customers and channels analytics data
+            $analytics = [
+                'customer_metrics' => $this->analyticsService->getCustomerMetrics($period),
+                'channel_comparison' => $this->analyticsService->getChannelComparison($period),
+                'payment_distribution' => $this->analyticsService->getPaymentMethodDistribution($period),
+            ];
+            
+            return view('admin.customers-channels', compact('analytics', 'period'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Error loading customers & channels page: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+                'period' => $request->input('period', 'month'),
+                'user_id' => Auth::id()
+            ]);
+            
+            // Try to get cached analytics data as fallback
+            $cachedAnalytics = $this->getCachedCustomerAnalytics($period);
+            
+            return view('admin.customers-channels', [
+                'analytics' => $cachedAnalytics,
+                'period' => $request->input('period', 'month'),
+                'error' => $cachedAnalytics 
+                    ? 'Unable to load fresh customer data. Showing cached data from an earlier time.'
+                    : 'Unable to load customer and channel data. Please try again later.'
+            ]);
+        }
+    }
+
+    /**
+     * Display the Inventory Insights page.
+     * 
+     * Shows inventory analytics including low stock alerts, inventory movements,
+     * and revenue by location.
+     * 
+     * @param Request $request The HTTP request with optional period and location filters
+     * @return \Illuminate\View\View The inventory insights view with analytics data
+     */
+    public function inventoryInsights(Request $request)
+    {
+        try {
+            // Validate request inputs
+            $validated = $request->validate([
+                'period' => 'nullable|in:today,week,month,year,custom',
+                'start_date' => 'nullable|required_if:period,custom|date',
+                'end_date' => 'nullable|required_if:period,custom|date|after_or_equal:start_date',
+                'location' => 'nullable|string',
+            ], [
+                'end_date.after_or_equal' => 'The end date must be equal to or after the start date.',
+                'start_date.required_if' => 'The start date is required when using a custom period.',
+                'end_date.required_if' => 'The end date is required when using a custom period.',
+            ]);
+            
+            // Get time period from request (default to 'month')
+            $period = $validated['period'] ?? 'month';
+            $location = $validated['location'] ?? null;
+            
+            // Get inventory analytics data
+            $analytics = [
+                'inventory_alerts' => $this->analyticsService->getInventoryAlerts($location),
+                'recent_movements' => $this->analyticsService->getRecentInventoryMovements(20, $location),
+                'revenue_by_location' => $this->analyticsService->getRevenueByLocation($period),
+            ];
+            
+            return view('admin.inventory-insights', compact('analytics', 'period', 'location'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Error loading inventory insights page: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+                'period' => $request->input('period', 'month'),
+                'location' => $request->input('location'),
+                'user_id' => Auth::id()
+            ]);
+            
+            // Try to get cached analytics data as fallback
+            $cachedAnalytics = $this->getCachedInventoryAnalytics($period, $location);
+            
+            return view('admin.inventory-insights', [
+                'analytics' => $cachedAnalytics,
+                'period' => $request->input('period', 'month'),
+                'location' => $request->input('location'),
+                'error' => $cachedAnalytics 
+                    ? 'Unable to load fresh inventory data. Showing cached data from an earlier time.'
+                    : 'Unable to load inventory data. Please try again later.'
+            ]);
+        }
+    }
+
+    /**
      * Get date range for a given period.
      * 
      * Converts a period string (today, week, month, year, custom) into
@@ -556,6 +750,105 @@ class DashboardController extends Controller
                     'details' => config('app.debug') ? $e->getMessage() : 'An error occurred while processing your request'
                 ]
             ], 500);
+        }
+    }
+
+    /**
+     * Get cached analytics data as fallback.
+     * 
+     * Attempts to retrieve cached analytics data when fresh data cannot be loaded.
+     * This provides a better user experience by showing stale data rather than no data.
+     * 
+     * @param string $period The time period for analytics
+     * @return array|null Cached analytics data or null if not available
+     */
+    private function getCachedAnalytics(string $period): ?array
+    {
+        try {
+            $cacheKey = "dashboard_analytics_{$period}";
+            
+            if (\Illuminate\Support\Facades\Cache::has($cacheKey)) {
+                Log::info('Using cached analytics data as fallback', ['period' => $period]);
+                return \Illuminate\Support\Facades\Cache::get($cacheKey);
+            }
+            
+            return null;
+        } catch (\Exception $e) {
+            Log::error('Error retrieving cached analytics: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Get cached sales analytics data as fallback.
+     * 
+     * @param string $period The time period for analytics
+     * @return array|null Cached sales analytics data or null if not available
+     */
+    private function getCachedSalesAnalytics(string $period): ?array
+    {
+        try {
+            $cacheKey = "sales_analytics_{$period}";
+            
+            if (\Illuminate\Support\Facades\Cache::has($cacheKey)) {
+                Log::info('Using cached sales analytics data as fallback', ['period' => $period]);
+                return \Illuminate\Support\Facades\Cache::get($cacheKey);
+            }
+            
+            return null;
+        } catch (\Exception $e) {
+            Log::error('Error retrieving cached sales analytics: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Get cached customer analytics data as fallback.
+     * 
+     * @param string $period The time period for analytics
+     * @return array|null Cached customer analytics data or null if not available
+     */
+    private function getCachedCustomerAnalytics(string $period): ?array
+    {
+        try {
+            $cacheKey = "customer_analytics_{$period}";
+            
+            if (\Illuminate\Support\Facades\Cache::has($cacheKey)) {
+                Log::info('Using cached customer analytics data as fallback', ['period' => $period]);
+                return \Illuminate\Support\Facades\Cache::get($cacheKey);
+            }
+            
+            return null;
+        } catch (\Exception $e) {
+            Log::error('Error retrieving cached customer analytics: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Get cached inventory analytics data as fallback.
+     * 
+     * @param string $period The time period for analytics
+     * @param string|null $location Optional location filter
+     * @return array|null Cached inventory analytics data or null if not available
+     */
+    private function getCachedInventoryAnalytics(string $period, ?string $location = null): ?array
+    {
+        try {
+            $cacheKey = "inventory_analytics_{$period}" . ($location ? "_{$location}" : '');
+            
+            if (\Illuminate\Support\Facades\Cache::has($cacheKey)) {
+                Log::info('Using cached inventory analytics data as fallback', [
+                    'period' => $period,
+                    'location' => $location
+                ]);
+                return \Illuminate\Support\Facades\Cache::get($cacheKey);
+            }
+            
+            return null;
+        } catch (\Exception $e) {
+            Log::error('Error retrieving cached inventory analytics: ' . $e->getMessage());
+            return null;
         }
     }
 }

@@ -14,7 +14,7 @@ class PaymentFactory extends Factory
     {
         return [
             'order_id' => Order::factory(),
-            'payment_method' => $this->faker->randomElement(['cash', 'credit_card', 'debit_card', 'e_wallet', 'bank_transfer']),
+            'payment_method' => $this->faker->randomElement(['cash', 'credit_card', 'debit_card', 'bank_transfer']),
             'amount' => $this->faker->randomFloat(2, 10, 1000),
             'payment_status' => 'completed',
             'transaction_id' => $this->faker->uuid(),

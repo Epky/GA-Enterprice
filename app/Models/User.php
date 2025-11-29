@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -47,6 +48,28 @@ class User extends Authenticatable
             'is_active' => 'boolean',
             'last_login_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Boot the model and register event listeners.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Clean up avatar when user is being deleted
+        static::deleting(function ($user) {
+            // Refresh the user to ensure we have the latest profile data
+            $user->refresh();
+            $user->load('profile');
+            
+            if ($user->profile && $user->profile->avatar_url) {
+                $disk = Storage::disk('public');
+                if ($disk->exists($user->profile->avatar_url)) {
+                    $disk->delete($user->profile->avatar_url);
+                }
+            }
+        });
     }
 
     /**
@@ -121,5 +144,46 @@ class User extends Authenticatable
     public function getLastNameAttribute(): ?string
     {
         return $this->profile?->last_name;
+    }
+
+    /**
+     * Get the user's avatar URL from profile
+     */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        return $this->profile?->avatar_url;
+    }
+
+    /**
+     * Get the user's avatar URL or default placeholder
+     */
+    public function getAvatarOrDefaultAttribute(): string
+    {
+        if ($this->avatar_url) {
+            return Storage::url($this->avatar_url);
+        }
+        return $this->getDefaultAvatarUrl();
+    }
+
+    /**
+     * Get the default avatar URL with user initials
+     */
+    public function getDefaultAvatarUrl(): string
+    {
+        $initials = $this->getInitials();
+        return "https://ui-avatars.com/api/?name={$initials}&size=200&background=random";
+    }
+
+    /**
+     * Get the user's initials for avatar placeholder
+     */
+    public function getInitials(): string
+    {
+        if ($this->profile && $this->profile->first_name && $this->profile->last_name) {
+            $first = substr($this->profile->first_name, 0, 1);
+            $last = substr($this->profile->last_name, 0, 1);
+            return strtoupper($first . $last);
+        }
+        return strtoupper(substr($this->email, 0, 2));
     }
 }

@@ -18,6 +18,11 @@ Route::middleware(['auth', 'role.redirect', 'admin'])->prefix('admin')->name('ad
     // Admin dashboard
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     
+    // Dashboard section pages
+    Route::get('/dashboard/sales-revenue', [\App\Http\Controllers\Admin\DashboardController::class, 'salesRevenue'])->name('dashboard.sales');
+    Route::get('/dashboard/customers-channels', [\App\Http\Controllers\Admin\DashboardController::class, 'customersChannels'])->name('dashboard.customers');
+    Route::get('/dashboard/inventory-insights', [\App\Http\Controllers\Admin\DashboardController::class, 'inventoryInsights'])->name('dashboard.inventory');
+    
     // Analytics routes
     Route::get('/analytics/export', [\App\Http\Controllers\Admin\DashboardController::class, 'exportAnalytics'])->name('analytics.export');
     Route::get('/analytics/data', [\App\Http\Controllers\Admin\DashboardController::class, 'getAnalyticsData'])->name('analytics.data');

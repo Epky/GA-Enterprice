@@ -4,6 +4,7 @@ import './visibility-manager';
 import { InlineCreator, initializeInlineCreators } from './inline-creator';
 import './inline-creator-init';
 import './analytics-charts';
+import './avatar-preview';
 
 // Make InlineCreator available globally
 window.InlineCreator = InlineCreator;

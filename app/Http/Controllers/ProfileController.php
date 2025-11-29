@@ -3,14 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Services\AvatarUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct(
+        private AvatarUploadService $avatarService
+    ) {
+    }
     /**
      * Display the user's profile form.
      */
@@ -63,7 +72,64 @@ class ProfileController extends Controller
             $profileData
         );
 
+        // Handle avatar upload if present
+        if ($request->hasFile('avatar')) {
+            try {
+                $this->avatarService->uploadAvatar($user, $request->file('avatar'));
+            } catch (\Exception $e) {
+                return Redirect::route('profile.edit')
+                    ->with('status', 'profile-updated')
+                    ->withErrors(['avatar' => $e->getMessage()]);
+            }
+        }
+
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Upload a new avatar for the user.
+     */
+    public function uploadAvatar(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        // Validate the avatar file
+        $request->validate([
+            'avatar' => [
+                'required',
+                'image',
+                'mimes:jpg,jpeg,png,gif,webp',
+                'max:2048', // 2MB in kilobytes
+            ],
+        ]);
+
+        try {
+            $this->avatarService->uploadAvatar($user, $request->file('avatar'));
+            
+            return Redirect::route('profile.edit')
+                ->with('status', 'avatar-uploaded');
+        } catch (\Exception $e) {
+            return Redirect::route('profile.edit')
+                ->withErrors(['avatar' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Delete the user's avatar.
+     */
+    public function deleteAvatar(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        try {
+            $this->avatarService->deleteAvatar($user);
+            
+            return Redirect::route('profile.edit')
+                ->with('status', 'avatar-deleted');
+        } catch (\Exception $e) {
+            return Redirect::route('profile.edit')
+                ->withErrors(['avatar' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -78,6 +144,14 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
+
+        // Delete avatar before deleting user
+        try {
+            $this->avatarService->deleteAvatar($user);
+        } catch (\Exception $e) {
+            // Log error but continue with user deletion
+            Log::error('Failed to delete avatar during user deletion: ' . $e->getMessage());
+        }
 
         $user->delete();
 
