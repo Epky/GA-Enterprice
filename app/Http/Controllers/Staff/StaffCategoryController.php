@@ -622,6 +622,87 @@ class StaffCategoryController extends Controller
     }
 
     /**
+     * Delete a category via AJAX (inline deletion)
+     * Requirements: 1.2, 1.3, 1.4, 1.5
+     */
+    public function deleteInline(Category $category)
+    {
+        // Log the deletion attempt
+        Log::info('Inline category deletion attempt', [
+            'user_id' => auth()->id(),
+            'category_id' => $category->id,
+            'category_name' => $category->name,
+            'product_count' => $category->total_product_count
+        ]);
+
+        try {
+            DB::beginTransaction();
+            
+            // Check if category has associated products (Requirement 1.5)
+            if ($category->total_product_count > 0) {
+                Log::warning('Category deletion prevented - has products', [
+                    'category_id' => $category->id,
+                    'product_count' => $category->total_product_count
+                ]);
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => "Cannot delete category with {$category->total_product_count} associated products.",
+                    'product_count' => $category->total_product_count
+                ], 422);
+            }
+            
+            // Check if category has child categories
+            if ($category->children()->exists()) {
+                $childCount = $category->children()->count();
+                Log::warning('Category deletion prevented - has children', [
+                    'category_id' => $category->id,
+                    'child_count' => $childCount
+                ]);
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => "Cannot delete category with {$childCount} subcategories.",
+                    'child_count' => $childCount
+                ], 422);
+            }
+            
+            // Delete the category (Requirement 1.3)
+            $categoryName = $category->name;
+            $category->delete();
+            
+            // Clear category caches
+            $this->clearCategoryCaches();
+            
+            DB::commit();
+            
+            Log::info('Category deleted successfully via inline', [
+                'category_name' => $categoryName
+            ]);
+            
+            // Return success response (Requirement 1.4)
+            return response()->json([
+                'success' => true,
+                'message' => 'Category deleted successfully.'
+            ]);
+                
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Inline category deletion failed', [
+                'category_id' => $category->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete category. Please try again.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
+    }
+
+    /**
      * Get active categories for dropdown refresh
      * Requirements: 3.1, 3.2, 3.5
      */

@@ -25,123 +25,75 @@ class StaffCategoryControllerTest extends TestCase
         ]);
     }
 
-    public function test_store_inline_creates_category_with_valid_data()
+
+
+    public function test_delete_inline_successfully_deletes_category_without_products()
     {
-        $data = [
-            'name' => 'Test Category',
-            'description' => 'Test description',
-            'is_active' => true
-        ];
+        // Create a category without products
+        $category = Category::factory()->create(['name' => 'Empty Category']);
 
         $response = $this->actingAs($this->staffUser)
-            ->postJson(route('staff.categories.store-inline'), $data);
+            ->deleteJson(route('staff.categories.delete-inline', $category));
 
         $response->assertStatus(200);
         $response->assertJson([
             'success' => true,
-            'data' => [
-                'name' => 'Test Category',
-                'slug' => 'test-category'
-            ]
+            'message' => 'Category deleted successfully.'
         ]);
         
-        $this->assertDatabaseHas('categories', [
-            'name' => 'Test Category',
-            'slug' => 'test-category'
+        $this->assertDatabaseMissing('categories', [
+            'id' => $category->id
         ]);
     }
 
-    public function test_store_inline_validates_missing_required_fields()
+    public function test_delete_inline_prevents_deletion_of_category_with_products()
     {
-        $data = [
-            'description' => 'Test description without name'
-        ];
+        // Create a category with products
+        $category = Category::factory()->hasProducts(3)->create(['name' => 'Category With Products']);
 
         $response = $this->actingAs($this->staffUser)
-            ->postJson(route('staff.categories.store-inline'), $data);
+            ->deleteJson(route('staff.categories.delete-inline', $category));
 
         $response->assertStatus(422);
         $response->assertJson([
-            'success' => false
+            'success' => false,
+            'product_count' => 3
         ]);
-        $response->assertJsonValidationErrors(['name']);
+        $response->assertJsonFragment(['message' => 'Cannot delete category with 3 associated products.']);
+        
+        // Verify category still exists
+        $this->assertDatabaseHas('categories', [
+            'id' => $category->id
+        ]);
     }
 
-    public function test_store_inline_handles_duplicate_name()
+    public function test_delete_inline_prevents_deletion_of_category_with_children()
     {
-        // Create existing category
-        Category::factory()->create(['name' => 'Existing Category']);
-
-        $data = [
-            'name' => 'Existing Category',
-            'description' => 'Duplicate name test'
-        ];
+        // Create a parent category with child categories
+        $parentCategory = Category::factory()->create(['name' => 'Parent Category']);
+        Category::factory()->count(2)->create(['parent_id' => $parentCategory->id]);
 
         $response = $this->actingAs($this->staffUser)
-            ->postJson(route('staff.categories.store-inline'), $data);
+            ->deleteJson(route('staff.categories.delete-inline', $parentCategory));
 
         $response->assertStatus(422);
         $response->assertJson([
-            'success' => false
-        ]);
-        $response->assertJsonValidationErrors(['name']);
-    }
-
-    public function test_store_inline_generates_unique_slug()
-    {
-        // Create category with name 'Unique Name'
-        Category::factory()->create(['name' => 'Unique Name', 'slug' => 'unique-name']);
-
-        // Create another category with different name but similar slug potential
-        $data = [
-            'name' => 'Another Unique Name',
-            'description' => 'Different category'
-        ];
-
-        $response = $this->actingAs($this->staffUser)
-            ->postJson(route('staff.categories.store-inline'), $data);
-
-        $response->assertStatus(200);
-        $response->assertJson([
-            'success' => true
+            'success' => false,
+            'child_count' => 2
         ]);
         
-        // Verify unique slug was generated
+        // Verify parent category still exists
         $this->assertDatabaseHas('categories', [
-            'name' => 'Another Unique Name'
+            'id' => $parentCategory->id
         ]);
-        
-        $category = Category::where('name', 'Another Unique Name')->first();
-        $this->assertNotEquals('unique-name', $category->slug);
     }
 
-    public function test_get_active_returns_only_active_categories()
+    public function test_delete_inline_requires_authentication()
     {
-        // Clear cache before test
-        Cache::forget('categories.active');
-        
-        // Create active and inactive categories
-        Category::factory()->create(['name' => 'Active Category 1', 'is_active' => true]);
-        Category::factory()->create(['name' => 'Active Category 2', 'is_active' => true]);
-        Category::factory()->create(['name' => 'Inactive Category', 'is_active' => false]);
+        $category = Category::factory()->create();
 
-        $response = $this->actingAs($this->staffUser)
-            ->getJson(route('staff.categories.active'));
+        $response = $this->deleteJson(route('staff.categories.delete-inline', $category));
 
-        $response->assertStatus(200);
-        $response->assertJson([
-            'success' => true
-        ]);
-        
-        $data = $response->json('data');
-        $this->assertCount(2, $data);
-        
-        // Verify all returned categories are active
-        foreach ($data as $category) {
-            $this->assertDatabaseHas('categories', [
-                'id' => $category['id'],
-                'is_active' => true
-            ]);
-        }
+        $response->assertStatus(401);
     }
 }

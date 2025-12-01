@@ -126,19 +126,20 @@
 
                                 <!-- Category -->
                                 <div>
-                                    <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Category *</label>
-                                    <div class="flex gap-2">
-                                        <select name="category_id" id="category_id" required class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                            <option value="">Select Category</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <x-searchable-select
+                                        name="category_id"
+                                        label="Category *"
+                                        :items="$categories"
+                                        :selected="old('category_id', $product->category_id)"
+                                        :required="true"
+                                        deleteRoute="staff.categories.delete-inline"
+                                        refreshRoute="staff.categories.active"
+                                        placeholder="Select Category"
+                                    />
+                                    <div class="mt-2">
                                         <x-add-inline-button 
                                             target="category-modal" 
-                                            label="Add New"
+                                            label="Add New Category"
                                         />
                                     </div>
                                     @error('category_id')
@@ -148,19 +149,20 @@
 
                                 <!-- Brand -->
                                 <div>
-                                    <label for="brand_id" class="block text-sm font-medium text-gray-700 mb-1">Brand *</label>
-                                    <div class="flex gap-2">
-                                        <select name="brand_id" id="brand_id" required class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                            <option value="">Select Brand</option>
-                                            @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
-                                                    {{ $brand->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <x-searchable-select
+                                        name="brand_id"
+                                        label="Brand *"
+                                        :items="$brands"
+                                        :selected="old('brand_id', $product->brand_id)"
+                                        :required="true"
+                                        deleteRoute="staff.brands.delete-inline"
+                                        refreshRoute="staff.brands.active"
+                                        placeholder="Select Brand"
+                                    />
+                                    <div class="mt-2">
                                         <x-add-inline-button 
                                             target="brand-modal" 
-                                            label="Add New"
+                                            label="Add New Brand"
                                         />
                                     </div>
                                     @error('brand_id')

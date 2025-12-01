@@ -138,10 +138,30 @@ class InlineCreator {
                 timeout: 30000 // 30 second timeout
             });
 
-            // Handle success
-            if (response.data.success) {
-                this.handleSuccess(response.data);
+            // Log response for debugging
+            console.log('Inline creation response:', response);
+            console.log('Response data:', response.data);
+            console.log('Response data.success:', response.data.success);
+            console.log('Response status:', response.status);
+
+            // Handle success - check both response.data.success and HTTP status
+            if (response.status === 200 || response.status === 201) {
+                if (response.data && response.data.success === true) {
+                    this.handleSuccess(response.data);
+                } else if (response.data && response.data.data) {
+                    // Fallback: if we have data but success flag is missing, assume success based on HTTP status
+                    console.warn('Success flag missing but HTTP status indicates success, proceeding...');
+                    this.handleSuccess({
+                        success: true,
+                        data: response.data.data,
+                        message: response.data.message || 'Created successfully'
+                    });
+                } else {
+                    console.error('Unexpected response structure:', response.data);
+                    this.showError('An unexpected error occurred. Please try again.');
+                }
             } else {
+                console.error('Unexpected HTTP status:', response.status);
                 this.showError('An unexpected error occurred. Please try again.');
             }
         } catch (error) {
@@ -367,6 +387,13 @@ class InlineCreator {
             return;
         }
 
+        // Check if this is a searchable-select component (hidden input)
+        if (this.dropdown.type === 'hidden') {
+            this.updateSearchableSelect(item);
+            return;
+        }
+
+        // Handle regular select element
         // Create new option
         const option = document.createElement('option');
         option.value = item.id;
@@ -402,15 +429,116 @@ class InlineCreator {
     }
 
     /**
+     * Update searchable-select component with new item
+     * 
+     * @param {Object} item - The new item data (id, name, etc.)
+     */
+    updateSearchableSelect(item) {
+        // Set the hidden input value
+        this.dropdown.value = item.id;
+
+        // Find the searchable-select wrapper
+        const wrapper = this.dropdown.closest('.searchable-select-wrapper');
+        if (!wrapper) {
+            console.error('Searchable select wrapper not found');
+            return;
+        }
+
+        // Update the display text
+        const selectedText = wrapper.querySelector('.selected-text');
+        if (selectedText) {
+            selectedText.textContent = item.name;
+            selectedText.classList.remove('text-gray-500');
+            selectedText.classList.add('text-gray-900');
+        }
+
+        // Add the new item to the items list
+        const itemsList = wrapper.querySelector('.items-list');
+        if (itemsList) {
+            // Create new list item
+            const li = document.createElement('li');
+            li.className = 'item flex items-center justify-between px-3 py-2 hover:bg-gray-100 cursor-pointer transition-colors duration-150 bg-blue-50';
+            li.setAttribute('data-id', item.id);
+            li.setAttribute('data-name', item.name);
+            li.setAttribute('role', 'option');
+            li.setAttribute('aria-selected', 'true');
+            
+            li.innerHTML = `
+                <span class="item-name text-sm text-gray-900 flex-1">${item.name}</span>
+                <button 
+                    type="button" 
+                    class="delete-btn ml-2 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    data-id="${item.id}"
+                    data-name="${item.name}"
+                    aria-label="Delete ${item.name}"
+                    title="Delete ${item.name}"
+                >
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                </button>
+            `;
+
+            // Find correct position to insert (alphabetically)
+            const items = Array.from(itemsList.querySelectorAll('.item'));
+            let insertIndex = items.length;
+
+            for (let i = 0; i < items.length; i++) {
+                const itemName = items[i].getAttribute('data-name');
+                if (itemName && itemName.toLowerCase() > item.name.toLowerCase()) {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            // Insert item at correct position
+            if (insertIndex >= items.length) {
+                itemsList.appendChild(li);
+            } else {
+                itemsList.insertBefore(li, items[insertIndex]);
+            }
+
+            // Remove "No items available" message if it exists
+            const noItemsMsg = itemsList.querySelector('li:not(.item)');
+            if (noItemsMsg) {
+                noItemsMsg.remove();
+            }
+        }
+
+        // Trigger change event
+        this.dropdown.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        // Highlight the dropdown briefly
+        this.highlightDropdown();
+    }
+
+    /**
      * Highlight dropdown to show it was updated
      */
     highlightDropdown() {
-        const originalClass = this.dropdown.className;
-        this.dropdown.classList.add('ring-2', 'ring-green-500', 'ring-offset-2');
-        
-        setTimeout(() => {
-            this.dropdown.className = originalClass;
-        }, 2000);
+        // For searchable-select, highlight the trigger button
+        if (this.dropdown.type === 'hidden') {
+            const wrapper = this.dropdown.closest('.searchable-select-wrapper');
+            if (wrapper) {
+                const trigger = wrapper.querySelector('.searchable-select-trigger');
+                if (trigger) {
+                    const originalClass = trigger.className;
+                    trigger.classList.add('ring-2', 'ring-green-500', 'ring-offset-2');
+                    
+                    setTimeout(() => {
+                        trigger.className = originalClass;
+                    }, 2000);
+                }
+            }
+        } else {
+            // For regular select, highlight the select element
+            const originalClass = this.dropdown.className;
+            this.dropdown.classList.add('ring-2', 'ring-green-500', 'ring-offset-2');
+            
+            setTimeout(() => {
+                this.dropdown.className = originalClass;
+            }, 2000);
+        }
     }
 
     /**

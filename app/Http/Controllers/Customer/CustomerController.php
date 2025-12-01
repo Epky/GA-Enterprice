@@ -30,13 +30,14 @@ class CustomerController extends Controller
             }
         }
 
-        $query = Product::with(['category', 'brand', 'primaryImage', 'inventory'])
-            ->where('status', 'active')
-            ->where('is_featured', true);
-
         // Get all active products with filters
         $productsQuery = Product::with(['category', 'brand', 'primaryImage', 'inventory'])
             ->where('status', 'active');
+
+        // Featured products query - will apply same filters
+        $featuredQuery = Product::with(['category', 'brand', 'primaryImage', 'inventory'])
+            ->where('status', 'active')
+            ->where('is_featured', true);
 
         // Search filter
         if ($request->filled('search')) {
@@ -46,24 +47,33 @@ class CustomerController extends Controller
                   ->orWhere('description', 'like', "%{$search}%")
                   ->orWhere('sku', 'like', "%{$search}%");
             });
+            $featuredQuery->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%");
+            });
         }
 
         // Category filter (with validation for invalid IDs)
         if ($request->filled('category')) {
             $productsQuery->where('category_id', $request->category);
+            $featuredQuery->where('category_id', $request->category);
         }
 
         // Brand filter (with validation for invalid IDs)
         if ($request->filled('brand')) {
             $productsQuery->where('brand_id', $request->brand);
+            $featuredQuery->where('brand_id', $request->brand);
         }
 
         // Price range filter
         if ($request->filled('min_price')) {
             $productsQuery->where('base_price', '>=', $request->min_price);
+            $featuredQuery->where('base_price', '>=', $request->min_price);
         }
         if ($request->filled('max_price')) {
             $productsQuery->where('base_price', '<=', $request->max_price);
+            $featuredQuery->where('base_price', '<=', $request->max_price);
         }
 
         // Sorting
@@ -86,12 +96,8 @@ class CustomerController extends Controller
 
         $products = $productsQuery->paginate(12);
         
-        // Featured products should also respect category filter
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
-        }
-        
-        $featuredProducts = $query->take(4)->get();
+        // Get featured products with all filters applied
+        $featuredProducts = $featuredQuery->take(4)->get();
         $categories = Category::where('is_active', true)->get();
         $brands = Brand::where('is_active', true)->get();
         

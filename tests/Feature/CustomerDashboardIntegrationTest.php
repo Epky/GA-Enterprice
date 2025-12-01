@@ -94,22 +94,12 @@ class CustomerDashboardIntegrationTest extends TestCase
 
         // Assert hero section is present
         $response->assertSee('Welcome to GA Beauty Store');
+        $response->assertSee('Discover premium beauty products');
 
         // Assert featured products section
         $response->assertSee('Featured Products');
         $response->assertSee('Featured Product');
         $response->assertSee('FEATURED');
-
-        // Assert category showcase
-        $response->assertSee('Shop by Category');
-        $response->assertSee('Skincare');
-        $response->assertSee('Makeup');
-
-        // Assert quick actions
-        $response->assertSee('Quick Actions');
-        $response->assertSee('My Orders');
-        $response->assertSee('Wishlist');
-        $response->assertSee('Account Settings');
 
         // Assert filter sidebar
         $response->assertSee('Filters');
@@ -118,8 +108,8 @@ class CustomerDashboardIntegrationTest extends TestCase
         $response->assertSee('Price Range');
 
         // Assert product grid
-        $response->assertSee('All Products');
         $response->assertSee('Regular Product');
+        $response->assertSee('View Details');
 
         // Assert pagination info
         $response->assertSee('Showing');
@@ -188,15 +178,18 @@ class CustomerDashboardIntegrationTest extends TestCase
         $response->assertDontSee('Makeup Product');
 
         // Assert Clear Filters button is present
-        $response->assertSee('Clear Filters');
+        $response->assertSee('Clear All Filters');
 
-        // Assert filters are preserved in pagination links
-        $response->assertSee('category=' . $this->category1->id, false);
-        // Brand filter is preserved in hidden inputs
+        // Assert filters are preserved in hidden inputs in the sort form
         $content = $response->getContent();
+        $this->assertStringContainsString('name="category" value="' . $this->category1->id . '"', $content);
         $this->assertStringContainsString('name="brand" value="' . $this->brand->id . '"', $content);
         $this->assertStringContainsString('name="min_price" value="50"', $content);
         $this->assertStringContainsString('name="max_price" value="100"', $content);
+        
+        // Assert filters are selected in the filter form dropdowns
+        $this->assertStringContainsString('value="' . $this->category1->id . '" selected', $content);
+        $this->assertStringContainsString('value="' . $this->brand->id . '" selected', $content);
     }
 
     /**
@@ -441,56 +434,49 @@ class CustomerDashboardIntegrationTest extends TestCase
     }
 
     /**
-     * Test category showcase functionality
-     * Requirements: 7.1, 7.2, 7.3, 7.4
+     * Test category filter functionality
+     * Requirements: 3.2
      */
-    public function test_category_showcase_displays_active_categories(): void
+    public function test_category_filter_displays_only_selected_category(): void
     {
         // Create products for categories
         $product1 = Product::factory()->create([
             'category_id' => $this->category1->id,
             'brand_id' => $this->brand->id,
             'status' => 'active',
+            'name' => 'Skincare Product',
         ]);
 
         $product2 = Product::factory()->create([
             'category_id' => $this->category2->id,
             'brand_id' => $this->brand->id,
             'status' => 'active',
+            'name' => 'Makeup Product',
         ]);
 
         Inventory::factory()->create(['product_id' => $product1->id, 'quantity_available' => 10]);
         Inventory::factory()->create(['product_id' => $product2->id, 'quantity_available' => 5]);
 
-        // Create inactive category (should not appear)
-        $inactiveCategory = Category::factory()->create([
-            'name' => 'Inactive Category',
-            'is_active' => false,
-        ]);
-
-        $response = $this->actingAs($this->customer)->get(route('customer.dashboard'));
+        // Apply category filter
+        $response = $this->actingAs($this->customer)->get(route('customer.dashboard', [
+            'category' => $this->category1->id,
+        ]));
 
         $response->assertStatus(200);
 
-        // Assert category showcase section
-        $response->assertSee('Shop by Category');
-        $response->assertSee('Skincare');
-        $response->assertSee('Makeup');
+        // Assert only products from selected category are shown
+        $response->assertSee('Skincare Product');
+        $response->assertDontSee('Makeup Product');
 
-        // Assert product counts
-        $response->assertSee('1 product');
-
-        // Assert inactive category is not shown
-        $response->assertDontSee('Inactive Category');
-
-        // Assert category cards have filter links
-        $response->assertSee('category=' . $this->category1->id, false);
-        $response->assertSee('category=' . $this->category2->id, false);
+        // Assert category filter is active in dropdown
+        $content = $response->getContent();
+        $this->assertStringContainsString('name="category"', $content);
+        $this->assertStringContainsString('value="' . $this->category1->id . '" selected', $content);
     }
 
     /**
      * Test sort functionality preserves filters
-     * Requirements: 5.6
+     * Requirements: 4.5
      */
     public function test_sort_preserves_active_filters(): void
     {
@@ -522,10 +508,13 @@ class CustomerDashboardIntegrationTest extends TestCase
 
         $response->assertStatus(200);
 
-        // Assert both filter and sort are in the URL
-        $response->assertSee('category=' . $this->category1->id, false);
+        // Assert category filter is preserved in form
         $content = $response->getContent();
-        $this->assertStringContainsString('name="sort"', $content);
+        $this->assertStringContainsString('name="category"', $content);
+        $this->assertStringContainsString('value="' . $this->category1->id . '" selected', $content);
+        
+        // Assert sort is selected
+        $this->assertStringContainsString('value="price_high" selected', $content);
         
         // Both products should be visible (sorting verification is done in unit tests)
         $response->assertSee('Product A');

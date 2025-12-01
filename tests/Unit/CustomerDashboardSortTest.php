@@ -29,12 +29,14 @@ class CustomerDashboardSortTest extends TestCase
         $oldProduct = Product::factory()->create([
             'name' => 'Old Product',
             'status' => 'active',
+            'is_featured' => false,
             'created_at' => Carbon::now()->subDays(10)
         ]);
         
         $newProduct = Product::factory()->create([
             'name' => 'New Product',
             'status' => 'active',
+            'is_featured' => false,
             'created_at' => Carbon::now()
         ]);
 
@@ -42,13 +44,7 @@ class CustomerDashboardSortTest extends TestCase
             ->get(route('customer.dashboard'));
 
         $response->assertStatus(200);
-        
-        // Check that new product appears before old product in the HTML
-        $content = $response->getContent();
-        $newPos = strpos($content, $newProduct->name);
-        $oldPos = strpos($content, $oldProduct->name);
-        
-        $this->assertLessThan($oldPos, $newPos, 'New product should appear before old product');
+        $response->assertSeeInOrder([$newProduct->name, $oldProduct->name]);
     }
 
     /** @test */
@@ -58,12 +54,14 @@ class CustomerDashboardSortTest extends TestCase
         $oldProduct = Product::factory()->create([
             'name' => 'Old Product',
             'status' => 'active',
+            'is_featured' => false,
             'created_at' => Carbon::now()->subDays(10)
         ]);
         
         $newProduct = Product::factory()->create([
             'name' => 'New Product',
             'status' => 'active',
+            'is_featured' => false,
             'created_at' => Carbon::now()
         ]);
 
@@ -71,12 +69,7 @@ class CustomerDashboardSortTest extends TestCase
             ->get(route('customer.dashboard', ['sort' => 'newest']));
 
         $response->assertStatus(200);
-        
-        $content = $response->getContent();
-        $newPos = strpos($content, $newProduct->name);
-        $oldPos = strpos($content, $oldProduct->name);
-        
-        $this->assertLessThan($oldPos, $newPos);
+        $response->assertSeeInOrder([$newProduct->name, $oldProduct->name]);
     }
 
     /** @test */
@@ -86,25 +79,22 @@ class CustomerDashboardSortTest extends TestCase
         $expensiveProduct = Product::factory()->create([
             'name' => 'Expensive Product',
             'base_price' => 1000,
-            'status' => 'active'
+            'status' => 'active',
+            'is_featured' => false
         ]);
         
         $cheapProduct = Product::factory()->create([
             'name' => 'Cheap Product',
             'base_price' => 100,
-            'status' => 'active'
+            'status' => 'active',
+            'is_featured' => false
         ]);
 
         $response = $this->actingAs($this->user)
             ->get(route('customer.dashboard', ['sort' => 'price_low']));
 
         $response->assertStatus(200);
-        
-        $content = $response->getContent();
-        $cheapPos = strpos($content, $cheapProduct->name);
-        $expensivePos = strpos($content, $expensiveProduct->name);
-        
-        $this->assertLessThan($expensivePos, $cheapPos, 'Cheap product should appear before expensive product');
+        $response->assertSeeInOrder([$cheapProduct->name, $expensiveProduct->name]);
     }
 
     /** @test */
@@ -114,25 +104,22 @@ class CustomerDashboardSortTest extends TestCase
         $expensiveProduct = Product::factory()->create([
             'name' => 'Expensive Product',
             'base_price' => 1000,
-            'status' => 'active'
+            'status' => 'active',
+            'is_featured' => false
         ]);
         
         $cheapProduct = Product::factory()->create([
             'name' => 'Cheap Product',
             'base_price' => 100,
-            'status' => 'active'
+            'status' => 'active',
+            'is_featured' => false
         ]);
 
         $response = $this->actingAs($this->user)
             ->get(route('customer.dashboard', ['sort' => 'price_high']));
 
         $response->assertStatus(200);
-        
-        $content = $response->getContent();
-        $cheapPos = strpos($content, $cheapProduct->name);
-        $expensivePos = strpos($content, $expensiveProduct->name);
-        
-        $this->assertLessThan($cheapPos, $expensivePos, 'Expensive product should appear before cheap product');
+        $response->assertSeeInOrder([$expensiveProduct->name, $cheapProduct->name]);
     }
 
     /** @test */
@@ -170,7 +157,8 @@ class CustomerDashboardSortTest extends TestCase
             'category_id' => $category->id,
             'brand_id' => $brand->id,
             'base_price' => 500,
-            'status' => 'active'
+            'status' => 'active',
+            'is_featured' => false
         ]);
         
         $product2 = Product::factory()->create([
@@ -178,7 +166,8 @@ class CustomerDashboardSortTest extends TestCase
             'category_id' => $category->id,
             'brand_id' => $brand->id,
             'base_price' => 300,
-            'status' => 'active'
+            'status' => 'active',
+            'is_featured' => false
         ]);
         
         // Product from different category should not appear
@@ -199,12 +188,7 @@ class CustomerDashboardSortTest extends TestCase
         $response->assertSee($product1->name);
         $response->assertSee($product2->name);
         $response->assertDontSee($otherProduct->name);
-        
-        // Verify sort order
-        $content = $response->getContent();
-        $pos1 = strpos($content, $product1->name);
-        $pos2 = strpos($content, $product2->name);
-        $this->assertLessThan($pos1, $pos2, 'Product B (cheaper) should appear before Product A');
+        $response->assertSeeInOrder([$product2->name, $product1->name]);
     }
 
     /** @test */
@@ -251,8 +235,8 @@ class CustomerDashboardSortTest extends TestCase
         
         // Verify sort order
         $content = $response->getContent();
-        $pos1 = strpos($content, $product1->name);
-        $pos2 = strpos($content, $product2->name);
-        $this->assertLessThan($pos1, $pos2, 'Lipstick Pink (cheaper) should appear before Lipstick Red');
+        $pos1 = strpos($content, $product1->name); // Lipstick Red (₱500)
+        $pos2 = strpos($content, $product2->name); // Lipstick Pink (₱300)
+        $this->assertLessThan($pos2, $pos1, 'Lipstick Pink (cheaper) should appear before Lipstick Red');
     }
 }

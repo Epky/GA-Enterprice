@@ -591,7 +591,7 @@ class StaffBrandController extends Controller
             
             Log::info('Inline brand created successfully', ['brand_id' => $brand->id]);
             
-            return response()->json([
+            $responseData = [
                 'success' => true,
                 'data' => [
                     'id' => $brand->id,
@@ -600,6 +600,12 @@ class StaffBrandController extends Controller
                     'is_active' => $brand->is_active
                 ],
                 'message' => 'Brand created successfully.'
+            ];
+            
+            Log::info('Sending response', ['response' => $responseData]);
+            
+            return response()->json($responseData, 200, [
+                'Content-Type' => 'application/json'
             ]);
                 
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -622,6 +628,72 @@ class StaffBrandController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to create brand. Please try again.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
+    }
+
+    /**
+     * Delete a brand via AJAX (inline deletion)
+     * Requirements: 2.2, 2.3, 2.4, 2.5
+     */
+    public function deleteInline(Brand $brand)
+    {
+        // Log the deletion attempt
+        Log::info('Inline brand deletion attempt', [
+            'user_id' => auth()->id(),
+            'brand_id' => $brand->id,
+            'brand_name' => $brand->name,
+            'product_count' => $brand->product_count
+        ]);
+
+        try {
+            DB::beginTransaction();
+            
+            // Check if brand has associated products (Requirement 2.5)
+            if ($brand->product_count > 0) {
+                Log::warning('Brand deletion prevented - has products', [
+                    'brand_id' => $brand->id,
+                    'product_count' => $brand->product_count
+                ]);
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => "Cannot delete brand with {$brand->product_count} associated products.",
+                    'product_count' => $brand->product_count
+                ], 422);
+            }
+            
+            // Delete the brand (Requirement 2.3)
+            $brandName = $brand->name;
+            $brand->delete();
+            
+            // Clear brand caches
+            $this->clearBrandCaches();
+            
+            DB::commit();
+            
+            Log::info('Brand deleted successfully via inline', [
+                'brand_name' => $brandName
+            ]);
+            
+            // Return success response (Requirement 2.4)
+            return response()->json([
+                'success' => true,
+                'message' => 'Brand deleted successfully.'
+            ]);
+                
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Inline brand deletion failed', [
+                'brand_id' => $brand->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete brand. Please try again.',
                 'error' => config('app.debug') ? $e->getMessage() : null
             ], 500);
         }

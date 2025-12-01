@@ -125,6 +125,9 @@ Route::middleware(['auth', 'role.redirect', 'staff'])->prefix('staff')->name('st
     
     Route::post('categories/inline', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'storeInline'])
         ->name('categories.store-inline');
+    // Use explicit ID binding for inline delete to avoid slug conflict
+    Route::delete('categories/{category:id}/inline', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'deleteInline'])
+        ->name('categories.delete-inline');
     Route::get('categories/active', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'getActive'])
         ->name('categories.active');
     Route::get('categories/tree', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'getTree'])
@@ -144,6 +147,8 @@ Route::middleware(['auth', 'role.redirect', 'staff'])->prefix('staff')->name('st
     // Brand AJAX/API routes - MUST come BEFORE resource routes to avoid conflicts
     Route::post('brands/inline', [\App\Http\Controllers\Staff\StaffBrandController::class, 'storeInline'])
         ->name('brands.store-inline');
+    Route::delete('brands/{brand}/inline', [\App\Http\Controllers\Staff\StaffBrandController::class, 'deleteInline'])
+        ->name('brands.delete-inline');
     Route::get('brands/active', [\App\Http\Controllers\Staff\StaffBrandController::class, 'getActive'])
         ->name('brands.active');
     Route::get('brands-data', [\App\Http\Controllers\Staff\StaffBrandController::class, 'getData'])
