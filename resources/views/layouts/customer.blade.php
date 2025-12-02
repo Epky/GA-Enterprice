@@ -27,9 +27,15 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <a href="/">
-                                    <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-12 w-12 rounded-full object-cover shadow-lg">
-                                </a>
+                                @auth
+                                    <a href="{{ route('customer.dashboard') }}">
+                                        <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-12 w-12 rounded-full object-cover shadow-lg">
+                                    </a>
+                                @else
+                                    <a href="/">
+                                        <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-12 w-12 rounded-full object-cover shadow-lg">
+                                    </a>
+                                @endauth
                             </div>
 
                             <!-- Navigation Links -->
