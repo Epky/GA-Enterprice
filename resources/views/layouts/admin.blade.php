@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }} - Admin Panel</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('storage/logo/G&A_logo.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('storage/logo/G&A_logo.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -23,10 +27,9 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <a href="{{ route('dashboard') }}">
-                                    <h1 class="text-2xl font-bold bg-gradient-to-r from-pink-200 via-purple-200 to-indigo-200 bg-clip-text text-transparent">
-                                        G&A Beauty Store - Admin
-                                    </h1>
+                                <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
+                                    <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-12 w-12 rounded-full object-cover shadow-lg">
+                                    <span class="text-xl font-bold bg-gradient-to-r from-pink-200 via-purple-200 to-indigo-200 bg-clip-text text-transparent">Admin</span>
                                 </a>
                             </div>
 

@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('storage/logo/G&A_logo.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('storage/logo/G&A_logo.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +22,8 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
             <div>
-                <a href="/" class="focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-500 rounded-lg">
-                    <h1 class="text-3xl font-bold text-white drop-shadow-lg">G&A Beauty Store</h1>
+                <a href="/" class="focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-500 rounded-full">
+                    <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-20 w-20 rounded-full object-cover shadow-2xl">
                 </a>
             </div>
 

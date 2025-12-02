@@ -5,10 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" aria-label="Dashboard">
-                        <h1 class="text-2xl font-bold bg-gradient-to-r from-pink-200 via-purple-200 to-indigo-200 bg-clip-text text-transparent">
-                            G&A Beauty Store - Staff
-                        </h1>
+                    <a href="{{ route('dashboard') }}" aria-label="Dashboard" class="flex items-center space-x-3">
+                        <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-12 w-12 rounded-full object-cover shadow-lg">
+                        <span class="text-xl font-bold bg-gradient-to-r from-pink-200 via-purple-200 to-indigo-200 bg-clip-text text-transparent">Staff</span>
                     </a>
                 </div>
 

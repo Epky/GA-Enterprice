@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'G&A Beauty Store') }}</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('storage/logo/G&A_logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('storage/logo/G&A_logo.png') }}">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -14,30 +18,35 @@
 </head>
 <body class="antialiased">
     <!-- Navigation -->
-    <nav class="bg-white/95 backdrop-blur-md shadow-xl sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+    <nav class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 shadow-xl sticky top-0 z-50" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-                        G&A Beauty Store
-                    </h1>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('home') }}" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+                        <div class="h-10 w-10 rounded-full overflow-hidden bg-white shadow-md ring-2 ring-pink-200">
+                            <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store Logo" class="h-full w-full object-cover">
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">
+                            G&A Beauty Store
+                        </h1>
+                    </a>
                 </div>
                 <div class="flex items-center space-x-4">
                     @auth
                         @if(auth()->user()->role === 'admin')
-                            <a href="{{ route('admin.dashboard') }}" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200" aria-label="Go to Admin Dashboard">
+                            <a href="{{ route('admin.dashboard') }}" class="text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-500 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200" aria-label="Go to Admin Dashboard">
                                 Admin Dashboard
                             </a>
                         @elseif(auth()->user()->role === 'customer')
-                            <a href="{{ route('customer.dashboard') }}" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200" aria-label="Go to My Account">
+                            <a href="{{ route('customer.dashboard') }}" class="text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-500 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200" aria-label="Go to My Account">
                                 My Account
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200" aria-label="Login to your account">
+                        <a href="{{ route('login') }}" class="text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-500 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200" aria-label="Login to your account">
                             Login
                         </a>
-                        <a href="{{ route('register') }}" class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200" aria-label="Register for a new account">
+                        <a href="{{ route('register') }}" class="bg-white text-purple-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-500 transition-all duration-200" aria-label="Register for a new account">
                             Register
                         </a>
                     @endauth
@@ -134,30 +143,24 @@
                 <p class="text-gray-600">Explore our wide range of beauty products</p>
             </div>
             
-            <div class="grid md:grid-cols-4 gap-6" role="list">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" role="list">
                 @forelse($categories as $index => $category)
                     @php
                         // Define color schemes for categories
                         $colorSchemes = [
-                            ['border' => 'pink-300', 'gradient' => 'pink-50'],
-                            ['border' => 'purple-300', 'gradient' => 'purple-50'],
-                            ['border' => 'indigo-300', 'gradient' => 'indigo-50'],
-                            ['border' => 'pink-300', 'gradient' => 'pink-50'],
+                            ['border' => 'border-pink-400', 'hover' => 'hover:border-pink-500', 'bg' => 'hover:bg-pink-50'],
+                            ['border' => 'border-purple-400', 'hover' => 'hover:border-purple-500', 'bg' => 'hover:bg-purple-50'],
+                            ['border' => 'border-indigo-400', 'hover' => 'hover:border-indigo-500', 'bg' => 'hover:bg-indigo-50'],
+                            ['border' => 'border-pink-400', 'hover' => 'hover:border-pink-500', 'bg' => 'hover:bg-pink-50'],
                         ];
                         $colors = $colorSchemes[$index % count($colorSchemes)];
-                        
-                        // Define default emojis for categories
-                        $emojis = ['💄', '🧴', '💅', '🌸'];
-                        $emoji = $emojis[$index % count($emojis)];
                     @endphp
                     
-                    <a href="{{ route('products.category', $category->slug) }}" 
-                       class="bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-transparent hover:border-{{ $colors['border'] }} hover:bg-gradient-to-br hover:from-white hover:to-{{ $colors['gradient'] }} focus:outline-none focus:ring-2 focus:ring-{{ $colors['border'] }} focus:ring-offset-2 block"
+                    <a href="{{ route('products.category', $category) }}" 
+                       class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 {{ $colors['border'] }} {{ $colors['hover'] }} {{ $colors['bg'] }} focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 block"
                        role="listitem"
                        aria-label="Browse {{ $category->name }} products">
-                        <div class="text-4xl mb-3 text-center" role="img" aria-label="{{ $category->name }} category">{{ $emoji }}</div>
-                        <h4 class="font-semibold text-gray-900 mb-2 text-center">{{ $category->name }}</h4>
-                        <p class="text-sm text-gray-600 text-center">{{ Str::limit($category->description, 50) }}</p>
+                        <h4 class="font-semibold text-gray-900 text-center text-lg">{{ $category->name }}</h4>
                         <p class="text-xs text-gray-500 text-center mt-2">{{ $category->active_products_count ?? 0 }} {{ Str::plural('product', $category->active_products_count ?? 0) }}</p>
                     </a>
                 @empty

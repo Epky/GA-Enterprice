@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('storage/logo/G&A_logo.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('storage/logo/G&A_logo.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -17,31 +21,31 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-50">
             <!-- Customer Navigation -->
-            <nav x-data="{ open: false }" class="bg-white shadow-sm">
+            <nav x-data="{ open: false }" class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 shadow-xl backdrop-blur-md relative z-50">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <a href="/">
-                                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                                    <img src="{{ asset('storage/logo/G&A_logo.png') }}" alt="G&A Beauty Store" class="h-12 w-12 rounded-full object-cover shadow-lg">
                                 </a>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 @auth
-                                    <x-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('customer.dashboard')">
+                                    <a href="{{ route('customer.dashboard') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200 {{ request()->routeIs('customer.dashboard') ? 'border-b-2 border-white' : '' }}">
                                         {{ __('Home') }}
-                                    </x-nav-link>
+                                    </a>
                                 @else
-                                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                                    <a href="{{ route('home') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200 {{ request()->routeIs('home') ? 'border-b-2 border-white' : '' }}">
                                         {{ __('Home') }}
-                                    </x-nav-link>
+                                    </a>
                                 @endauth
-                                <x-nav-link href="/products" :active="request()->is('products*')">
+                                <a href="/products" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200 {{ request()->is('products*') ? 'border-b-2 border-white' : '' }}">
                                     {{ __('Products') }}
-                                </x-nav-link>
+                                </a>
                             </div>
                         </div>
 
@@ -53,12 +57,12 @@
                                     $userCart = \App\Models\Cart::where('user_id', auth()->id())->first();
                                     $cartItemCount = $userCart ? $userCart->total_items : 0;
                                 @endphp
-                                <a href="{{ route('cart.index') }}" class="relative text-gray-600 hover:text-gray-900">
+                                <a href="{{ route('cart.index') }}" class="relative text-white/90 hover:text-white transition-colors duration-200">
                                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
                                     @if($cartItemCount > 0)
-                                        <span class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                        <span class="absolute -top-2 -right-2 bg-white text-pink-600 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg">
                                             {{ $cartItemCount }}
                                         </span>
                                     @endif
@@ -69,7 +73,7 @@
                                 <!-- User Dropdown -->
                                 <x-dropdown align="right" width="48">
                                     <x-slot name="trigger">
-                                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white/90 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-purple-500 transition-all duration-200">
                                             <x-user-avatar :user="Auth::user()" size="sm" class="mr-2" />
                                             <div>{{ Auth::user()->name }}</div>
 
@@ -105,14 +109,14 @@
                                     </x-slot>
                                 </x-dropdown>
                             @else
-                                <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900">Login</a>
-                                <a href="{{ route('register') }}" class="text-sm text-gray-700 hover:text-gray-900">Register</a>
+                                <a href="{{ route('login') }}" class="text-sm text-white/90 hover:text-white font-medium transition-colors duration-200">Login</a>
+                                <a href="{{ route('register') }}" class="text-sm text-white/90 hover:text-white font-medium transition-colors duration-200">Register</a>
                             @endauth
                         </div>
 
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
-                            <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                            <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-white/90 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-purple-500 transition-all duration-200">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                     <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -123,70 +127,71 @@
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+                <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white/10 backdrop-blur-md">
                     <div class="pt-2 pb-3 space-y-1">
                         @auth
-                            <x-responsive-nav-link :href="route('customer.dashboard')" :active="request()->routeIs('customer.dashboard')">
+                            <a href="{{ route('customer.dashboard') }}" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200 {{ request()->routeIs('customer.dashboard') ? 'border-l-4 border-white bg-white/10' : '' }}">
                                 {{ __('Home') }}
-                            </x-responsive-nav-link>
+                            </a>
                         @else
-                            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            <a href="{{ route('home') }}" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200 {{ request()->routeIs('home') ? 'border-l-4 border-white bg-white/10' : '' }}">
                                 {{ __('Home') }}
-                            </x-responsive-nav-link>
+                            </a>
                         @endauth
-                        <x-responsive-nav-link href="/products" :active="request()->is('products*')">
+                        <a href="/products" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200 {{ request()->is('products*') ? 'border-l-4 border-white bg-white/10' : '' }}">
                             {{ __('Products') }}
-                        </x-responsive-nav-link>
+                        </a>
                         @auth
-                            <x-responsive-nav-link href="/cart">
+                            <a href="/cart" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                 {{ __('Cart') }}
-                            </x-responsive-nav-link>
+                            </a>
                         @endauth
                     </div>
 
                     @auth
                         <!-- Responsive Settings Options -->
-                        <div class="pt-4 pb-1 border-t border-gray-200">
+                        <div class="pt-4 pb-1 border-t border-white/20">
                             <div class="px-4 flex items-center">
                                 <x-user-avatar :user="Auth::user()" size="md" class="mr-3" />
                                 <div>
-                                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                                    <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                                    <div class="font-medium text-sm text-white/80">{{ Auth::user()->email }}</div>
                                 </div>
                             </div>
 
                             <div class="mt-3 space-y-1">
-                                <x-responsive-nav-link href="/dashboard">
+                                <a href="/dashboard" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                     {{ __('My Account') }}
-                                </x-responsive-nav-link>
-                                <x-responsive-nav-link href="/orders">
+                                </a>
+                                <a href="/orders" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                     {{ __('My Orders') }}
-                                </x-responsive-nav-link>
-                                <x-responsive-nav-link :href="route('profile.edit')">
+                                </a>
+                                <a href="{{ route('profile.edit') }}" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                     {{ __('Profile') }}
-                                </x-responsive-nav-link>
+                                </a>
 
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-responsive-nav-link :href="route('logout')"
+                                    <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
+                                                        this.closest('form').submit();"
+                                            class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                         {{ __('Log Out') }}
-                                    </x-responsive-nav-link>
+                                    </a>
                                 </form>
                             </div>
                         </div>
                     @else
-                        <div class="pt-4 pb-1 border-t border-gray-200">
+                        <div class="pt-4 pb-1 border-t border-white/20">
                             <div class="mt-3 space-y-1">
-                                <x-responsive-nav-link :href="route('login')">
+                                <a href="{{ route('login') }}" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                     {{ __('Login') }}
-                                </x-responsive-nav-link>
-                                <x-responsive-nav-link :href="route('register')">
+                                </a>
+                                <a href="{{ route('register') }}" class="block pl-3 pr-4 py-2 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200">
                                     {{ __('Register') }}
-                                </x-responsive-nav-link>
+                                </a>
                             </div>
                         </div>
                     @endauth

@@ -571,7 +571,7 @@
                         </div>
                         <div>
                             <dt class="text-sm font-medium text-gray-500">Price</dt>
-                            <dd class="text-sm text-gray-900">$${formData.get('base_price') || '0.00'}</dd>
+                            <dd class="text-sm text-gray-900">₱${formData.get('base_price') || '0.00'}</dd>
                         </div>
                         <div>
                             <dt class="text-sm font-medium text-gray-500">Status</dt>
