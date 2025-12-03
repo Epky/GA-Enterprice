@@ -82,7 +82,7 @@
                             @endif
 
                             @php
-                                $totalStock = $product->inventory->sum('quantity_available');
+                                $totalStock = $product->total_stock;
                                 $lowStock = $product->inventory->where('quantity_available', '<=', 'reorder_level')->count() > 0;
                             @endphp
                             @if($lowStock)
@@ -158,7 +158,11 @@
                                             Duplicate Product
                                         </button>
                                         <hr class="my-1">
-                                        <button onclick="deleteProduct({{ $product->id }}); toggleQuickActions();" class="w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50 flex items-center">
+                                        <button onclick="deleteProduct({{ $product->id }}); toggleQuickActions();" 
+                                                class="delete-product-btn w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50 flex items-center"
+                                                data-product-id="{{ $product->id }}"
+                                                data-product-name="{{ $product->name }}"
+                                                data-stock-quantity="{{ $totalStock }}">
                                             <svg class="h-4 w-4 mr-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -376,11 +380,11 @@
                                                     <td class="px-6 py-4 whitespace-nowrap">
                                                         <div class="text-sm text-gray-900">
                                                             @if($variant->price_adjustment > 0)
-                                                                +${{ number_format($variant->price_adjustment, 2) }}
+                                                                +₱{{ number_format($variant->price_adjustment, 2) }}
                                                             @elseif($variant->price_adjustment < 0)
-                                                                -${{ number_format(abs($variant->price_adjustment), 2) }}
+                                                                -₱{{ number_format(abs($variant->price_adjustment), 2) }}
                                                             @else
-                                                                $0.00
+                                                                ₱0.00
                                                             @endif
                                                         </div>
                                                     </td>
@@ -488,7 +492,7 @@
                                 
                                 <div class="flex items-center justify-between">
                                     <span class="text-sm text-gray-500">Revenue</span>
-                                    <span class="text-sm font-medium text-gray-900">$0.00</span>
+                                    <span class="text-sm font-medium text-gray-900">₱0.00</span>
                                 </div>
                                 
                                 <div class="flex items-center justify-between">
@@ -581,7 +585,19 @@
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <x-delete-confirmation-modal
+        :productId="$product->id"
+        :productName="$product->name"
+        :stockQuantity="$totalStock"
+        :deleteRoute="route('staff.products.destroy', $product)"
+    />
+
     @push('scripts')
+    <script type="module">
+        import { showDeleteModal } from '{{ asset('js/product-deletion.js') }}';
+        window.showDeleteModal = showDeleteModal;
+    </script>
     <script>
         // Toggle quick actions dropdown
         function toggleQuickActions() {
@@ -799,28 +815,12 @@
             }
         }
 
-        // Delete Product
+        // Delete Product - Now handled by product-deletion.js modal
+        // The showDeleteModal function is imported from product-deletion.js
         function deleteProduct(productId) {
-            if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = `/staff/products/${productId}`;
-                
-                const csrfToken = document.createElement('input');
-                csrfToken.type = 'hidden';
-                csrfToken.name = '_token';
-                csrfToken.value = '{{ csrf_token() }}';
-                form.appendChild(csrfToken);
-                
-                const methodInput = document.createElement('input');
-                methodInput.type = 'hidden';
-                methodInput.name = '_method';
-                methodInput.value = 'DELETE';
-                form.appendChild(methodInput);
-                
-                document.body.appendChild(form);
-                form.submit();
-            }
+            const productName = '{{ $product->name }}';
+            const stockQuantity = {{ $totalStock }};
+            showDeleteModal(productId, productName, stockQuantity);
         }
 
         // Close modal on ESC key

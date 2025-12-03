@@ -32,7 +32,8 @@ class InventoryService
      */
     public function getInventory(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
-        $query = Inventory::with(['product', 'variant']);
+        $query = Inventory::with(['product', 'variant'])
+            ->whereHas('product'); // Only include inventory with valid (non-deleted) products
 
         // Apply location filter
         if (!empty($filters['location'])) {
@@ -84,6 +85,7 @@ class InventoryService
     public function getLowStockItems(?string $location = null): Collection
     {
         $query = Inventory::with(['product', 'variant'])
+            ->whereHas('product') // Only include inventory with valid products
             ->lowStock();
 
         if ($location) {
@@ -99,6 +101,7 @@ class InventoryService
     public function getOutOfStockItems(?string $location = null): Collection
     {
         $query = Inventory::with(['product', 'variant'])
+            ->whereHas('product') // Only include inventory with valid products
             ->outOfStock();
 
         if ($location) {
@@ -299,7 +302,8 @@ class InventoryService
      */
     public function getInventoryMovements(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
-        $query = InventoryMovement::with(['product', 'variant', 'performedBy']);
+        $query = InventoryMovement::with(['product', 'variant', 'performedBy'])
+            ->whereHas('product'); // Only include movements with valid (non-deleted) products
 
         // Apply business-only filter by default (exclude system movements)
         $includeSystemMovements = $filters['include_system_movements'] ?? false;
@@ -427,7 +431,8 @@ class InventoryService
      */
     public function getInventoryStats(?string $location = null): array
     {
-        $query = Inventory::query();
+        $query = Inventory::query()
+            ->whereHas('product'); // Only include inventory with valid (non-deleted) products
 
         if ($location) {
             $query->atLocation($location);
@@ -454,6 +459,7 @@ class InventoryService
     public function getReorderSuggestions(?string $location = null): Collection
     {
         $query = Inventory::with(['product', 'variant'])
+            ->whereHas('product') // Only include inventory with valid (non-deleted) products
             ->lowStock();
 
         if ($location) {
@@ -521,7 +527,8 @@ class InventoryService
      */
     private function calculateInventoryValue(?string $location = null): float
     {
-        $query = Inventory::with('product');
+        $query = Inventory::with('product')
+            ->whereHas('product'); // Only include inventory with valid (non-deleted) products
 
         if ($location) {
             $query->atLocation($location);
@@ -582,6 +589,7 @@ class InventoryService
     public function getCriticalStockItems(?string $location = null): Collection
     {
         $query = Inventory::with(['product', 'variant'])
+            ->whereHas('product') // Only include inventory with valid products
             ->whereRaw('quantity_available <= (reorder_level * 0.5)');
 
         if ($location) {

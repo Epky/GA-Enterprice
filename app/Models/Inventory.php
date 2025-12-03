@@ -189,6 +189,11 @@ class Inventory extends Model
      */
     public function getDisplayNameAttribute(): string
     {
+        // Handle orphaned inventory records (product was deleted)
+        if (!$this->product) {
+            return 'Unknown Product (ID: ' . $this->product_id . ')';
+        }
+        
         $name = $this->product->name;
         
         if ($this->variant) {

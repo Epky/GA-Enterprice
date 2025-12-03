@@ -32,13 +32,9 @@ class ProductStoreRequest extends FormRequest
                 Rule::unique('products', 'sku')
             ],
             'name' => 'required|string|max:255',
-            'slug' => [
-                'nullable',
-                'string',
-                'max:255',
-                'regex:/^[a-z0-9\-]+$/',
-                Rule::unique('products', 'slug')
-            ],
+            // Slug is auto-generated in ProductService with uniqueness handling
+            // No validation needed here as it will be created automatically
+            'slug' => 'nullable|string|max:255|regex:/^[a-z0-9\-]+$/',
             'description' => 'required|string|max:5000',
             'short_description' => 'nullable|string|max:500',
             
@@ -208,12 +204,9 @@ class ProductStoreRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        // Generate slug from name if not provided
-        if (!$this->has('slug') || empty($this->slug)) {
-            $this->merge([
-                'slug' => \Illuminate\Support\Str::slug($this->name)
-            ]);
-        }
+        // Note: Slug will be auto-generated in ProductService to ensure uniqueness
+        // We don't generate it here to avoid duplicate slug validation errors
+        // The ProductService will handle slug generation with proper uniqueness checks
 
         // Ensure boolean values are properly cast
         $this->merge([

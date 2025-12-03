@@ -73,12 +73,11 @@ class ProductService
     public function createProduct(array $data, $request = null): Product
     {
         return DB::transaction(function () use ($data, $request) {
-            // Generate slug if not provided
-            if (empty($data['slug'])) {
-                $data['slug'] = $this->generateUniqueSlug($data['name']);
-            }
+            // ALWAYS generate a unique slug from the name to prevent conflicts
+            // Even if slug is provided, we ensure it's unique
+            $data['slug'] = $this->generateUniqueSlug($data['name']);
 
-            // Validate business rules
+            // Validate business rules (SKU uniqueness, etc.)
             $this->validateProductData($data);
 
             $product = Product::create($data);

@@ -7,6 +7,7 @@ use App\Models\ProductImage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -43,23 +44,75 @@ class ImageUploadService
      */
     public function uploadProductImages(Product $product, array $files, array $options = []): array
     {
+        Log::info('[ImageUploadService] Starting batch upload', [
+            'product_id' => $product->id,
+            'file_count' => count($files),
+            'product_name' => $product->name
+        ]);
+        
         $uploadedImages = [];
         $startOrder = $this->getNextDisplayOrder($product);
+        $processedHashes = [];
+        $duplicateCount = 0;
 
-        DB::transaction(function () use ($product, $files, $options, &$uploadedImages, $startOrder) {
+        DB::transaction(function () use ($product, $files, $options, &$uploadedImages, &$processedHashes, &$duplicateCount, $startOrder) {
             foreach ($files as $index => $file) {
                 if ($file instanceof UploadedFile) {
+                    // Generate MD5 hash for duplicate detection
+                    $fileHash = md5_file($file->getPathname());
+                    
+                    Log::debug('[ImageUploadService] Processing file', [
+                        'product_id' => $product->id,
+                        'file_index' => $index,
+                        'file_name' => $file->getClientOriginalName(),
+                        'file_size' => $file->getSize(),
+                        'file_hash' => $fileHash
+                    ]);
+                    
+                    // Skip if we've already processed this exact file in this batch
+                    if (in_array($fileHash, $processedHashes)) {
+                        $duplicateCount++;
+                        Log::warning('[ImageUploadService] Duplicate file detected in batch, skipping', [
+                            'product_id' => $product->id,
+                            'file_name' => $file->getClientOriginalName(),
+                            'file_hash' => $fileHash,
+                            'duplicate_number' => $duplicateCount
+                        ]);
+                        continue;
+                    }
+                    
+                    $processedHashes[] = $fileHash;
+                    Log::debug('[ImageUploadService] File hash added to processed list', [
+                        'product_id' => $product->id,
+                        'file_hash' => $fileHash,
+                        'processed_hashes_count' => count($processedHashes)
+                    ]);
+                    
                     $uploadedImages[] = $this->uploadSingleProductImage(
                         $product,
                         $file,
                         array_merge($options, [
                             'alt_text' => $options['alt_texts'][$index] ?? null,
-                            'display_order' => $startOrder + $index,
+                            'display_order' => $startOrder + count($uploadedImages),
                         ])
                     );
+                    
+                    Log::info('[ImageUploadService] File uploaded successfully', [
+                        'product_id' => $product->id,
+                        'file_name' => $file->getClientOriginalName(),
+                        'uploaded_count' => count($uploadedImages)
+                    ]);
                 }
             }
         });
+
+        Log::info('[ImageUploadService] Batch upload completed', [
+            'product_id' => $product->id,
+            'total_files_received' => count($files),
+            'files_uploaded' => count($uploadedImages),
+            'duplicates_skipped' => $duplicateCount,
+            'processed_hashes' => $processedHashes
+        ]);
 
         return $uploadedImages;
     }
@@ -69,18 +122,41 @@ class ImageUploadService
      */
     public function uploadSingleProductImage(Product $product, UploadedFile $file, array $options = []): ProductImage
     {
+        Log::debug('[ImageUploadService] Starting single image upload', [
+            'product_id' => $product->id,
+            'file_name' => $file->getClientOriginalName(),
+            'file_size' => $file->getSize(),
+            'mime_type' => $file->getMimeType()
+        ]);
+        
         // Validate the uploaded file
         $this->validateImageFile($file);
+        
+        Log::debug('[ImageUploadService] File validation passed', [
+            'product_id' => $product->id,
+            'file_name' => $file->getClientOriginalName()
+        ]);
 
         return DB::transaction(function () use ($product, $file, $options) {
             // Generate unique filename
             $filename = $this->generateUniqueFilename($file);
+            
+            Log::debug('[ImageUploadService] Generated unique filename', [
+                'product_id' => $product->id,
+                'original_name' => $file->getClientOriginalName(),
+                'unique_filename' => $filename
+            ]);
             
             // Create directory path
             $directory = "products/{$product->id}";
             
             // Store the original image
             $originalPath = $this->storeImage($file, $directory, $filename);
+            
+            Log::debug('[ImageUploadService] Image stored to disk', [
+                'product_id' => $product->id,
+                'path' => $originalPath
+            ]);
 
             // Generate different sizes (if image processing is available)
             $imagePaths = $this->generateImageSizes($file, $directory, $filename);
@@ -92,6 +168,13 @@ class ImageUploadService
                 'alt_text' => $options['alt_text'] ?? $product->name,
                 'display_order' => $options['display_order'] ?? $this->getNextDisplayOrder($product),
                 'is_primary' => $options['is_primary'] ?? false,
+            ]);
+            
+            Log::info('[ImageUploadService] Database record created', [
+                'product_id' => $product->id,
+                'image_id' => $productImage->id,
+                'display_order' => $productImage->display_order,
+                'is_primary' => $productImage->is_primary
             ]);
 
             return $productImage;
@@ -162,12 +245,25 @@ class ImageUploadService
      */
     public function deleteProductImage(ProductImage $image): bool
     {
+        Log::info('[ImageUploadService] Deleting product image', [
+            'image_id' => $image->id,
+            'product_id' => $image->product_id,
+            'image_url' => $image->image_url
+        ]);
+        
         return DB::transaction(function () use ($image) {
             // Delete files from storage
             $this->deleteImageFiles($image->image_url);
 
             // Delete database record
-            return $image->delete();
+            $result = $image->delete();
+            
+            Log::info('[ImageUploadService] Product image deleted', [
+                'image_id' => $image->id,
+                'success' => $result
+            ]);
+            
+            return $result;
         });
     }
 

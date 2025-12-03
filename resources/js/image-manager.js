@@ -4,9 +4,31 @@
  */
 
 class ImageManager {
+    // Static Map to track ImageManager instances by element ID
+    static instances = new Map();
+
     constructor(options = {}) {
+        console.log('[ImageManager] Constructor called with options:', {
+            hasFileInput: !!options.fileInput,
+            hasUploadArea: !!options.uploadArea,
+            productId: options.productId
+        });
+        
+        // Get the file input element to determine the unique identifier
+        const fileInput = options.fileInput || document.getElementById('images');
+        const elementId = fileInput?.id;
+        
+        console.log('[ImageManager] Initialization attempt for element:', elementId);
+        
+        // Check if instance already exists for this element
+        if (elementId && ImageManager.instances.has(elementId)) {
+            console.log(`[ImageManager] Returning existing instance for element ${elementId} (singleton pattern)`);
+            return ImageManager.instances.get(elementId);
+        }
+        
+        // Initialize instance properties
         this.uploadArea = options.uploadArea || document.getElementById('image-upload-area');
-        this.fileInput = options.fileInput || document.getElementById('images');
+        this.fileInput = fileInput;
         this.previewArea = options.previewArea || document.getElementById('image-preview-area');
         this.existingImagesArea = options.existingImagesArea || document.getElementById('existing-images');
         this.maxFileSize = options.maxFileSize || 5 * 1024 * 1024; // 5MB
@@ -17,23 +39,36 @@ class ImageManager {
         
         this.newImages = [];
         this.imagesToDelete = [];
+        // Track processed files to prevent duplicate processing
+        this.processedFiles = new Set();
+        
+        // Store instance in the static Map
+        if (elementId) {
+            ImageManager.instances.set(elementId, this);
+            console.log(`[ImageManager] Created new instance for element ${elementId}`);
+            console.log(`[ImageManager] Total instances: ${ImageManager.instances.size}`);
+        }
         
         this.init();
     }
 
     init() {
+        console.log('[ImageManager] Initializing...');
+        
         if (!this.uploadArea || !this.fileInput) {
-            console.warn('Image manager: Required elements not found', {
+            console.warn('[ImageManager] Required elements not found', {
                 uploadArea: this.uploadArea,
                 fileInput: this.fileInput
             });
             return;
         }
 
-        console.log('Image manager initialized successfully', {
+        console.log('[ImageManager] Initialized successfully', {
             uploadArea: this.uploadArea.id,
             fileInput: this.fileInput.id,
-            maxFiles: this.maxFiles
+            maxFiles: this.maxFiles,
+            productId: this.productId,
+            hasExistingImages: !!this.existingImagesArea
         });
 
         this.setupEventListeners();
@@ -41,18 +76,22 @@ class ImageManager {
         
         // Initialize sortable for existing images if available
         if (this.existingImagesArea) {
+            console.log('[ImageManager] Initializing sortable for existing images');
             this.initializeSortable(this.existingImagesArea);
         }
     }
 
     setupEventListeners() {
+        console.log('[ImageManager] Setting up event listeners');
+        
         // File input change
         this.fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
+        console.log('[ImageManager] File input change listener attached');
         
         // Click on upload area to trigger file input
         this.uploadArea.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('Upload area clicked');
+            console.log('[ImageManager] Upload area clicked');
             this.fileInput.click();
         });
         
@@ -61,7 +100,7 @@ class ImageManager {
         if (label) {
             label.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log('Label clicked');
+                console.log('[ImageManager] Label clicked');
                 this.fileInput.click();
             });
         }
@@ -108,22 +147,77 @@ class ImageManager {
 
     handleFileSelect(e) {
         const files = e.target.files;
-        console.log('Files selected:', files.length);
-        this.handleFiles(files);
+        console.log('[ImageManager] File selection event triggered');
+        console.log('[ImageManager] Files selected:', files.length);
+        
+        // Filter out duplicate files
+        const filesArray = Array.from(files);
+        console.log('[ImageManager] Processing file selection:', {
+            totalFiles: filesArray.length,
+            processedFilesCount: this.processedFiles.size,
+            fileNames: filesArray.map(f => f.name)
+        });
+        
+        const newFiles = filesArray.filter(file => {
+            const signature = this.generateFileSignature(file);
+            
+            // Check if file has already been processed
+            if (this.processedFiles.has(signature)) {
+                console.log(`[ImageManager] Duplicate file detected, skipping: ${file.name} (signature: ${signature})`);
+                return false;
+            }
+            
+            // Mark file as processed
+            this.processedFiles.add(signature);
+            console.log(`[ImageManager] New file added to processing queue: ${file.name} (signature: ${signature})`);
+            return true;
+        });
+        
+        console.log(`[ImageManager] File processing summary: ${newFiles.length} new files, ${filesArray.length - newFiles.length} duplicates skipped`);
+        
+        // Only process new files
+        if (newFiles.length > 0) {
+            this.handleFiles(newFiles);
+        } else {
+            console.log('[ImageManager] No new files to process (all were duplicates)');
+        }
+    }
+
+    /**
+     * Generate a unique signature for a file based on name, size, and lastModified timestamp
+     * @param {File} file - The file to generate a signature for
+     * @returns {string} - Unique file signature
+     */
+    generateFileSignature(file) {
+        return `${file.name}-${file.size}-${file.lastModified}`;
     }
 
     handleFiles(files) {
+        console.log('[ImageManager] handleFiles called with', files.length, 'files');
+        
         // Validate file count
         const currentCount = this.newImages.length + (this.existingImagesArea?.children.length || 0);
+        console.log('[ImageManager] Current image count:', {
+            newImages: this.newImages.length,
+            existingImages: this.existingImagesArea?.children.length || 0,
+            total: currentCount,
+            maxAllowed: this.maxFiles
+        });
+        
         if (currentCount + files.length > this.maxFiles) {
+            console.warn('[ImageManager] File count limit exceeded');
             this.showError(`Maximum ${this.maxFiles} images allowed`);
             return;
         }
 
         // Process each file
         Array.from(files).forEach(file => {
+            console.log('[ImageManager] Validating file:', file.name);
             if (this.validateFile(file)) {
+                console.log('[ImageManager] File validation passed, creating preview:', file.name);
                 this.previewFile(file);
+            } else {
+                console.log('[ImageManager] File validation failed:', file.name);
             }
         });
     }
@@ -145,6 +239,7 @@ class ImageManager {
     }
 
     previewFile(file) {
+        console.log('[ImageManager] Creating preview for file:', file.name);
         const reader = new FileReader();
         
         reader.onload = (e) => {
@@ -153,6 +248,12 @@ class ImageManager {
                 dataUrl: e.target.result,
                 id: `new-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
             };
+            
+            console.log('[ImageManager] File loaded, adding to newImages array:', {
+                fileName: file.name,
+                imageId: imageData.id,
+                newImagesCount: this.newImages.length + 1
+            });
             
             this.newImages.push(imageData);
             this.renderPreview(imageData);

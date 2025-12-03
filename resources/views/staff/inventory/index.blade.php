@@ -178,6 +178,7 @@
                     <div class="space-y-3">
                         <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Priority Items</h4>
                         @forelse($alertDashboard['priority_items'] as $alert)
+                        @if($alert['inventory']->product)
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
                             <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
@@ -217,6 +218,7 @@
                                 </a>
                             </div>
                         </div>
+                        @endif
                         @empty
                         <p class="text-sm text-gray-500 text-center py-4">No priority alerts</p>
                         @endforelse
@@ -249,6 +251,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($recentMovements as $movement)
+                                @if($movement->product)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
@@ -286,6 +289,7 @@
                                         {{ $movement->created_at->diffForHumans() }}
                                     </td>
                                 </tr>
+                                @endif
                                 @empty
                                 <tr>
                                     <td colspan="6" class="px-6 py-8 text-center text-sm text-gray-500">
@@ -325,6 +329,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($inventory as $item)
+                                @if($item->product)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">{{ $item->product->name }}</div>
@@ -362,6 +367,7 @@
                                         </a>
                                     </td>
                                 </tr>
+                                @endif
                                 @empty
                                 <tr>
                                     <td colspan="6" class="px-6 py-8 text-center text-sm text-gray-500">

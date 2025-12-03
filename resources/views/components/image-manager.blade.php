@@ -100,9 +100,9 @@
         <!-- Browse Button - OUTSIDE upload area -->
         <div class="mt-4 text-center">
             <button type="button" 
-                    id="browse-files-btn"
-                    onclick="event.stopPropagation(); document.getElementById('{{ $name }}').click(); console.log('Browse button clicked!');"
-                    class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg">
+                    id="browse-files-btn-{{ str_replace('-', '_', $name) }}"
+                    class="browse-files-btn inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg"
+                    data-target-input="{{ $name }}">
                 <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                 </svg>
@@ -135,8 +135,17 @@
 
 <script>
     (function() {
+        // Unique initialization flag for this instance
+        const initFlagName = 'imageManagerInit_{{ str_replace('-', '_', $name) }}';
+        
         // Wait for both DOM and ImageManager class to be ready
         function initImageManager_{{ str_replace('-', '_', $name) }}() {
+            // Check if already initialized
+            if (window[initFlagName]) {
+                console.log('ImageManager already initialized for {{ $name }}');
+                return;
+            }
+            
             if (typeof ImageManager === 'undefined') {
                 console.log('ImageManager not loaded yet, retrying...');
                 setTimeout(initImageManager_{{ str_replace('-', '_', $name) }}, 100);
@@ -156,6 +165,9 @@
                 setTimeout(initImageManager_{{ str_replace('-', '_', $name) }}, 200);
                 return;
             }
+            
+            // Mark as initialized BEFORE creating instance
+            window[initFlagName] = true;
             
             // Initialize image manager
             const imageManagerInstance = new ImageManager({
@@ -192,18 +204,36 @@
                 });
             }
             
+            // Setup Browse Files button with proper event handling
+            const browseBtn = document.getElementById('browse-files-btn-{{ str_replace('-', '_', $name) }}');
+            if (browseBtn) {
+                browseBtn.addEventListener('click', function(e) {
+                    // Stop all event propagation to prevent conflicts with other handlers
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    
+                    console.log('Browse Files button clicked - opening file browser');
+                    
+                    // Trigger the file input
+                    const targetInput = document.getElementById(this.dataset.targetInput);
+                    if (targetInput) {
+                        targetInput.click();
+                    } else {
+                        console.error('Target file input not found:', this.dataset.targetInput);
+                    }
+                }, true); // Use capture phase to ensure this runs first
+            }
+            
             console.log('ImageManager initialized successfully for {{ $name }}');
         }
 
-        // Try to initialize immediately
-        initImageManager_{{ str_replace('-', '_', $name) }}();
-        
-        // Also try on DOMContentLoaded
+        // Single initialization approach with { once: true } option
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initImageManager_{{ str_replace('-', '_', $name) }});
+            document.addEventListener('DOMContentLoaded', initImageManager_{{ str_replace('-', '_', $name) }}, { once: true });
+        } else {
+            // DOM already loaded, initialize immediately
+            initImageManager_{{ str_replace('-', '_', $name) }}();
         }
-        
-        // And on window load as a fallback
-        window.addEventListener('load', initImageManager_{{ str_replace('-', '_', $name) }});
     })();
 </script>

@@ -41,6 +41,7 @@ class DashboardController extends Controller
         
         // Get low stock items for alerts
         $lowStockItems = Inventory::with(['product', 'variant'])
+            ->whereHas('product') // Only include inventory with valid products
             ->whereColumn('quantity_available', '<=', 'reorder_level')
             ->where('quantity_available', '>', 0)
             ->orderBy('quantity_available', 'asc')
@@ -49,6 +50,7 @@ class DashboardController extends Controller
         
         // Get out of stock items
         $outOfStockItems = Inventory::with(['product', 'variant'])
+            ->whereHas('product') // Only include inventory with valid products
             ->where('quantity_available', '<=', 0)
             ->orderBy('updated_at', 'desc')
             ->limit(5)

@@ -6,6 +6,7 @@ import './inline-creator-init';
 import './analytics-charts';
 import './avatar-preview';
 import './searchable-select';
+import './product-deletion';
 
 // Make InlineCreator available globally
 window.InlineCreator = InlineCreator;

@@ -113,13 +113,14 @@ class ProductImage extends Model
             return $this->image_url;
         }
 
-        // Check if file exists, if not return null to allow graceful handling
+        // Check if file exists, if not return placeholder image
         if (!Storage::disk('public')->exists($this->image_url)) {
-            return ''; // Return empty string for missing files
+            // Return a placeholder image URL or empty string
+            return asset('images/placeholder-product.png');
         }
 
-        // Generate the correct URL for the public disk
-        return Storage::disk('public')->url($this->image_url);
+        // Generate the correct URL using asset() helper which respects current domain
+        return asset('storage/' . $this->image_url);
     }
     
     /**

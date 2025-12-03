@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Button Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-8 bg-gray-100">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
+        <h1 class="text-2xl font-bold mb-4">Simple Button Click Test</h1>
+        
+        <!-- Upload Area (NOT clickable) -->
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mb-4">
+            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" 
+                      stroke-width="2" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round" />
+            </svg>
+            <p class="mt-4 text-sm text-gray-600">Click the button below to upload</p>
+        </div>
+        
+        <!-- Button OUTSIDE (clickable) -->
+        <div class="text-center">
+            <button type="button" 
+                    id="test-btn"
+                    onclick="event.stopPropagation(); document.getElementById('test-file').click(); console.log('Button clicked!'); document.getElementById('status').textContent = 'Button clicked! File picker should open...';"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                </svg>
+                Browse Files
+            </button>
+        </div>
+        
+        <input type="file" 
+               id="test-file"
+               multiple
+               accept="image/*"
+               class="hidden"
+               onchange="console.log('Files selected:', this.files.length); document.getElementById('status').textContent = 'Selected ' + this.files.length + ' file(s)'; showFiles(this.files);">
+        
+        <div id="status" class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-sm text-blue-800">
+            Ready to test. Click the button above.
+        </div>
+        
+        <div id="preview" class="mt-4 grid grid-cols-4 gap-2">
+            <!-- Previews here -->
+        </div>
+    </div>
+    
+    <script>
+        function showFiles(files) {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'w-full h-24 object-cover rounded border-2 border-gray-200';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        console.log('Test page loaded');
+        console.log('Button element:', document.getElementById('test-btn'));
+        console.log('File input element:', document.getElementById('test-file'));
+    </script>
+</body>
+</html>
