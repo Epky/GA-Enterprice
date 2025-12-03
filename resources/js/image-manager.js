@@ -23,9 +23,18 @@ class ImageManager {
 
     init() {
         if (!this.uploadArea || !this.fileInput) {
-            console.warn('Image manager: Required elements not found');
+            console.warn('Image manager: Required elements not found', {
+                uploadArea: this.uploadArea,
+                fileInput: this.fileInput
+            });
             return;
         }
+
+        console.log('Image manager initialized successfully', {
+            uploadArea: this.uploadArea.id,
+            fileInput: this.fileInput.id,
+            maxFiles: this.maxFiles
+        });
 
         this.setupEventListeners();
         this.setupDragAndDrop();
@@ -42,10 +51,20 @@ class ImageManager {
         
         // Click on upload area to trigger file input
         this.uploadArea.addEventListener('click', (e) => {
-            if (e.target === this.uploadArea || e.target.closest('.upload-trigger')) {
-                this.fileInput.click();
-            }
+            e.preventDefault();
+            console.log('Upload area clicked');
+            this.fileInput.click();
         });
+        
+        // Also handle clicks on the label
+        const label = this.uploadArea.querySelector('label');
+        if (label) {
+            label.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Label clicked');
+                this.fileInput.click();
+            });
+        }
     }
 
     setupDragAndDrop() {
@@ -89,6 +108,7 @@ class ImageManager {
 
     handleFileSelect(e) {
         const files = e.target.files;
+        console.log('Files selected:', files.length);
         this.handleFiles(files);
     }
 

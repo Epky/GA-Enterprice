@@ -17,7 +17,7 @@
                          data-image-id="{{ $image->id }}"
                          draggable="true">
                         <div class="relative">
-                            <img src="{{ asset($image->full_url) }}" 
+                            <img src="{{ $image->full_url }}" 
                                  alt="{{ $image->alt_text }}" 
                                  class="w-full h-32 object-cover rounded-lg border-2 border-gray-200">
                             
@@ -79,7 +79,7 @@
         </h4>
         
         <!-- Upload Area -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors cursor-pointer upload-trigger" 
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors" 
              id="image-upload-area">
             <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" 
@@ -88,23 +88,36 @@
                       stroke-linejoin="round" />
             </svg>
             <div class="mt-4">
-                <label for="{{ $name }}" class="cursor-pointer">
-                    <span class="mt-2 block text-sm font-medium text-gray-900">
-                        Click to upload images or drag and drop
-                    </span>
-                    <span class="mt-1 block text-sm text-gray-500">
-                        PNG, JPG, WebP up to 5MB each (max {{ $maxFiles }} images)
-                    </span>
-                </label>
-                <input type="file" 
-                       name="{{ $name }}[]" 
-                       id="{{ $name }}"
-                       multiple
-                       accept="image/jpeg,image/jpg,image/png,image/webp"
-                       {{ $required ? 'required' : '' }}
-                       class="hidden">
+                <span class="mt-2 block text-sm font-medium text-gray-900">
+                    Click the button below to upload images
+                </span>
+                <span class="mt-1 block text-sm text-gray-500">
+                    PNG, JPG, WebP up to 5MB each (max {{ $maxFiles }} images)
+                </span>
             </div>
         </div>
+        
+        <!-- Browse Button - OUTSIDE upload area -->
+        <div class="mt-4 text-center">
+            <button type="button" 
+                    id="browse-files-btn"
+                    onclick="event.stopPropagation(); document.getElementById('{{ $name }}').click(); console.log('Browse button clicked!');"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                </svg>
+                Browse Files
+            </button>
+        </div>
+        
+        <input type="file" 
+               name="{{ $name }}[]" 
+               id="{{ $name }}"
+               multiple
+               accept="image/jpeg,image/jpg,image/png,image/webp"
+               {{ $required ? 'required' : '' }}
+               class="hidden"
+               onchange="console.log('File input changed:', this.files.length, 'files')">
         
         @error($name)
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -120,25 +133,36 @@
     </div>
 </div>
 
-@push('scripts')
 <script>
     (function() {
         // Wait for both DOM and ImageManager class to be ready
-        function initImageManager() {
+        function initImageManager_{{ str_replace('-', '_', $name) }}() {
             if (typeof ImageManager === 'undefined') {
                 console.log('ImageManager not loaded yet, retrying...');
-                setTimeout(initImageManager, 100);
+                setTimeout(initImageManager_{{ str_replace('-', '_', $name) }}, 100);
                 return;
             }
 
             console.log('Initializing ImageManager for {{ $name }}');
             
+            // Get elements
+            const uploadArea = document.getElementById('image-upload-area');
+            const fileInput = document.getElementById('{{ $name }}');
+            const previewArea = document.getElementById('image-preview-area');
+            const existingImagesArea = document.getElementById('existing-images');
+            
+            if (!uploadArea || !fileInput) {
+                console.error('Required elements not found:', { uploadArea, fileInput });
+                setTimeout(initImageManager_{{ str_replace('-', '_', $name) }}, 200);
+                return;
+            }
+            
             // Initialize image manager
             const imageManagerInstance = new ImageManager({
-                uploadArea: document.getElementById('image-upload-area'),
-                fileInput: document.getElementById('{{ $name }}'),
-                previewArea: document.getElementById('image-preview-area'),
-                existingImagesArea: document.getElementById('existing-images'),
+                uploadArea: uploadArea,
+                fileInput: fileInput,
+                previewArea: previewArea,
+                existingImagesArea: existingImagesArea,
                 maxFiles: {{ $maxFiles }},
                 productId: {{ $product?->id ?? 'null' }},
                 csrfToken: document.querySelector('meta[name="csrf-token"]')?.content
@@ -146,6 +170,7 @@
 
             // Set as global imageManager
             window.imageManager = imageManagerInstance;
+            window.imageManager_{{ str_replace('-', '_', $name) }} = imageManagerInstance;
 
             // Setup delete buttons for existing images
             document.querySelectorAll('.delete-existing-image-btn').forEach(btn => {
@@ -158,7 +183,6 @@
             });
 
             // Setup drag end event to update order
-            const existingImagesArea = document.getElementById('existing-images');
             if (existingImagesArea) {
                 existingImagesArea.addEventListener('dragend', function() {
                     // Delay to allow DOM to update
@@ -167,14 +191,19 @@
                     }, 100);
                 });
             }
+            
+            console.log('ImageManager initialized successfully for {{ $name }}');
         }
 
-        // Start initialization when DOM is ready
+        // Try to initialize immediately
+        initImageManager_{{ str_replace('-', '_', $name) }}();
+        
+        // Also try on DOMContentLoaded
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initImageManager);
-        } else {
-            initImageManager();
+            document.addEventListener('DOMContentLoaded', initImageManager_{{ str_replace('-', '_', $name) }});
         }
+        
+        // And on window load as a fallback
+        window.addEventListener('load', initImageManager_{{ str_replace('-', '_', $name) }});
     })();
 </script>
-@endpush
