@@ -33,4 +33,35 @@ Route::middleware(['auth', 'role.redirect', 'admin'])->prefix('admin')->name('ad
 
     // Staff management routes (admin only)
     Route::resource('staff', \App\Http\Controllers\Admin\StaffController::class);
+
+    // Category AJAX/API routes for product forms (shared with staff)
+    Route::get('categories/active', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'getActive'])
+        ->name('categories.active');
+    Route::post('categories/inline', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'storeInline'])
+        ->name('categories.store-inline');
+    Route::delete('categories/{category:id}/inline', [\App\Http\Controllers\Staff\StaffCategoryController::class, 'deleteInline'])
+        ->name('categories.delete-inline');
+    
+    // Brand AJAX/API routes for product forms (shared with staff)
+    Route::get('brands/active', [\App\Http\Controllers\Staff\StaffBrandController::class, 'getActive'])
+        ->name('brands.active');
+    Route::post('brands/inline', [\App\Http\Controllers\Staff\StaffBrandController::class, 'storeInline'])
+        ->name('brands.store-inline');
+    Route::delete('brands/{brand}/inline', [\App\Http\Controllers\Staff\StaffBrandController::class, 'deleteInline'])
+        ->name('brands.delete-inline');
+
+    // Product management routes
+    Route::resource('products', \App\Http\Controllers\Admin\AdminProductController::class);
+    
+    // Product image management routes
+    Route::post('products/{product}/images/upload', [\App\Http\Controllers\Admin\AdminProductController::class, 'uploadImages'])
+        ->name('products.images.upload');
+    Route::delete('products/images/{image}', [\App\Http\Controllers\Admin\AdminProductController::class, 'deleteImage'])
+        ->name('products.images.delete');
+    Route::post('products/images/{image}/set-primary', [\App\Http\Controllers\Admin\AdminProductController::class, 'setPrimaryImage'])
+        ->name('products.images.set-primary');
+    
+    // Product quick actions
+    Route::patch('products/{product}/toggle-featured', [\App\Http\Controllers\Admin\AdminProductController::class, 'toggleFeatured'])
+        ->name('products.toggle-featured');
 });

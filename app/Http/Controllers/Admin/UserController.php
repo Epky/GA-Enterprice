@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::query()->with('profile');
         
         // Search functionality
         if ($request->filled('search')) {

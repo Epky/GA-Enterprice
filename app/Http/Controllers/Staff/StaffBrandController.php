@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 
 class StaffBrandController extends Controller
 {
+
     /**
      * Display a listing of brands with search and filtering
      * Requirement 4.2: Validate brand information and create brand record

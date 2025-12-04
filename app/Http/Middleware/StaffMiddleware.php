@@ -21,8 +21,9 @@ class StaffMiddleware
         }
 
         $user = Auth::user();
-        if (!$user || $user->role !== 'staff') {
-            abort(403, 'Unauthorized access. Staff account required.');
+        // Allow both staff and admin users (admin has all staff permissions)
+        if (!$user || !in_array($user->role, ['staff', 'admin'])) {
+            abort(403, 'Unauthorized access. Staff or Admin account required.');
         }
 
         return $next($request);
