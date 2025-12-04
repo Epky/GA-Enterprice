@@ -75,8 +75,8 @@
                             <div class="border rounded-lg p-6 hover:shadow-lg transition">
                                 <div class="flex items-start justify-between mb-4">
                                     <div class="flex items-center">
-                                        @if($brand->logo_url)
-                                            <img src="{{ $brand->logo_url }}" alt="{{ $brand->name }}" class="h-16 w-16 object-contain mr-4">
+                                        @if($brand->display_logo)
+                                            <img src="{{ asset('storage/' . $brand->display_logo) }}" alt="{{ $brand->name }}" class="h-16 w-16 object-contain mr-4 shadow-sm">
                                         @else
                                             <div class="h-16 w-16 rounded bg-gray-200 flex items-center justify-center mr-4">
                                                 <i class="fas fa-tag text-gray-400 text-2xl"></i>
@@ -99,11 +99,11 @@
 
                                 <div class="grid grid-cols-2 gap-4 mb-4">
                                     <div class="bg-blue-50 p-3 rounded">
-                                        <div class="text-2xl font-bold text-blue-600">{{ $brand->products_count }}</div>
+                                        <div class="text-2xl font-bold text-blue-600">{{ $brand->products_count ?? 0 }}</div>
                                         <div class="text-xs text-gray-600">Total Products</div>
                                     </div>
                                     <div class="bg-green-50 p-3 rounded">
-                                        <div class="text-2xl font-bold text-green-600">{{ $brand->active_products_count }}</div>
+                                        <div class="text-2xl font-bold text-green-600">{{ $brand->active_products_count ?? 0 }}</div>
                                         <div class="text-xs text-gray-600">Active Products</div>
                                     </div>
                                 </div>

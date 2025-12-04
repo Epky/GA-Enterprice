@@ -184,6 +184,27 @@ class Category extends Model
     }
 
     /**
+     * Get the first product image from products in this category.
+     * This automatically displays a category image based on its products.
+     */
+    public function getDisplayImageAttribute(): ?string
+    {
+        // First check if category has its own image
+        if ($this->image_url) {
+            return $this->image_url;
+        }
+
+        // Otherwise, get the first product image from active products
+        $product = $this->products()
+            ->where('status', 'active')
+            ->whereHas('images')
+            ->with('primaryImage')
+            ->first();
+
+        return $product?->primaryImage?->image_url ?? $product?->images?->first()?->image_url;
+    }
+
+    /**
      * Get the route key for the model.
      */
     public function getRouteKeyName(): string

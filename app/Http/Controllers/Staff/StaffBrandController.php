@@ -19,7 +19,15 @@ class StaffBrandController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Brand::withCount(['products', 'activeProducts']);
+        $query = Brand::withCount(['products', 'activeProducts'])
+            ->with([
+                'products' => function($q) {
+                    $q->where('status', 'active')
+                      ->whereHas('images')
+                      ->with('primaryImage:id,product_id,image_url,is_primary')
+                      ->limit(1);
+                }
+            ]);
         
         // Search functionality
         if ($request->filled('search')) {
@@ -125,14 +133,15 @@ class StaffBrandController extends Controller
     {
         $brand->load([
             'products.category',
-            'products.inventory'
+            'products.inventory',
+            'products.primaryImage'
         ]);
         
         // Get brand statistics
         $stats = [
-            'total_products' => $brand->product_count,
-            'active_products' => $brand->active_product_count,
-            'inactive_products' => $brand->product_count - $brand->active_product_count,
+            'total_products' => $brand->products_count ?? 0,
+            'active_products' => $brand->active_products_count ?? 0,
+            'inactive_products' => ($brand->products_count ?? 0) - ($brand->active_products_count ?? 0),
             'total_inventory_value' => $brand->products->sum(function($product) {
                 return ($product->inventory->quantity_available ?? 0) * ($product->base_price ?? 0);
             }),
@@ -143,7 +152,7 @@ class StaffBrandController extends Controller
         
         // Get recent products
         $recentProducts = $brand->products()
-            ->with(['category', 'inventory'])
+            ->with(['category', 'inventory', 'primaryImage'])
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();
@@ -170,11 +179,12 @@ class StaffBrandController extends Controller
             DB::beginTransaction();
             
             // Handle deactivation of brand with products
-            if (!$request->boolean('is_active') && $brand->is_active && $brand->product_count > 0) {
+            $productCount = $brand->products_count ?? $brand->products()->count();
+            if (!$request->boolean('is_active') && $brand->is_active && $productCount > 0) {
                 if (!$request->boolean('confirm_deactivation')) {
                     return redirect()->back()
                         ->withInput()
-                        ->with('warning', 'This brand has ' . $brand->product_count . ' products. Please confirm deactivation.')
+                        ->with('warning', 'This brand has ' . $productCount . ' products. Please confirm deactivation.')
                         ->with('require_confirmation', true);
                 }
             }
@@ -224,7 +234,8 @@ class StaffBrandController extends Controller
             DB::beginTransaction();
             
             // Check if brand has products
-            if ($brand->product_count > 0) {
+            $productCount = $brand->products_count ?? $brand->products()->count();
+            if ($productCount > 0) {
                 return redirect()->back()
                     ->with('error', 'Cannot delete brand with products. Please move or delete products first.');
             }
@@ -256,9 +267,10 @@ class StaffBrandController extends Controller
     {
         try {
             // Check if deactivating brand with products
-            if ($brand->is_active && $brand->product_count > 0) {
+            $productCount = $brand->products_count ?? $brand->products()->count();
+            if ($brand->is_active && $productCount > 0) {
                 return redirect()->back()
-                    ->with('warning', 'Brand has ' . $brand->product_count . ' products. Deactivating will hide them from customers.');
+                    ->with('warning', 'Brand has ' . $productCount . ' products. Deactivating will hide them from customers.');
             }
             
             $brand->update(['is_active' => !$brand->is_active]);
@@ -299,6 +311,7 @@ class StaffBrandController extends Controller
             
             foreach ($brands as $brand) {
                 try {
+                    $productCount = $brand->products_count ?? $brand->products()->count();
                     switch ($request->action) {
                         case 'activate':
                             $brand->update(['is_active' => true]);
@@ -306,7 +319,7 @@ class StaffBrandController extends Controller
                             break;
                             
                         case 'deactivate':
-                            if ($brand->product_count > 0) {
+                            if ($productCount > 0) {
                                 $errors[] = "Brand '{$brand->name}' has products and cannot be deactivated.";
                             } else {
                                 $brand->update(['is_active' => false]);
@@ -315,7 +328,7 @@ class StaffBrandController extends Controller
                             break;
                             
                         case 'delete':
-                            if ($brand->product_count > 0) {
+                            if ($productCount > 0) {
                                 $errors[] = "Brand '{$brand->name}' has products and cannot be deleted.";
                             } else {
                                 $brand->delete();
@@ -640,27 +653,28 @@ class StaffBrandController extends Controller
     public function deleteInline(Brand $brand)
     {
         // Log the deletion attempt
+        $productCount = $brand->products_count ?? $brand->products()->count();
         Log::info('Inline brand deletion attempt', [
             'user_id' => auth()->id(),
             'brand_id' => $brand->id,
             'brand_name' => $brand->name,
-            'product_count' => $brand->product_count
+            'product_count' => $productCount
         ]);
 
         try {
             DB::beginTransaction();
             
             // Check if brand has associated products (Requirement 2.5)
-            if ($brand->product_count > 0) {
+            if ($productCount > 0) {
                 Log::warning('Brand deletion prevented - has products', [
                     'brand_id' => $brand->id,
-                    'product_count' => $brand->product_count
+                    'product_count' => $productCount
                 ]);
                 
                 return response()->json([
                     'success' => false,
-                    'message' => "Cannot delete brand with {$brand->product_count} associated products.",
-                    'product_count' => $brand->product_count
+                    'message' => "Cannot delete brand with {$productCount} associated products.",
+                    'product_count' => $productCount
                 ], 422);
             }
             

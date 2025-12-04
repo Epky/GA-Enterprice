@@ -23,7 +23,8 @@ class StaffCategoryController extends Controller
         $query = Category::with([
             'parent:id,name,slug',
             'children:id,parent_id,name,slug,is_active',
-            'products:id,category_id,name,status'
+            'products:id,category_id,name,status',
+            'products.primaryImage:id,product_id,image_url,is_primary'
         ]);
         
         // Search functionality
@@ -154,7 +155,8 @@ class StaffCategoryController extends Controller
             'parent', 
             'children.products', 
             'products.brand',
-            'products.inventory'
+            'products.inventory',
+            'products.primaryImage'
         ]);
         
         // Get category statistics

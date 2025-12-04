@@ -103,8 +103,8 @@
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                @if($category->image_url)
-                                                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="h-10 w-10 rounded object-cover mr-3">
+                                                @if($category->display_image)
+                                                    <img src="{{ asset('storage/' . $category->display_image) }}" alt="{{ $category->name }}" class="h-10 w-10 rounded object-cover mr-3 shadow-sm">
                                                 @else
                                                     <div class="h-10 w-10 rounded bg-gray-200 flex items-center justify-center mr-3">
                                                         <i class="fas fa-folder text-gray-400"></i>

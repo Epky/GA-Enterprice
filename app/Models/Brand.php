@@ -70,26 +70,31 @@ class Brand extends Model
     }
 
     /**
-     * Get the total number of products for this brand.
-     */
-    public function getProductCountAttribute(): int
-    {
-        return $this->products()->count();
-    }
-
-    /**
-     * Get the total number of active products for this brand.
-     */
-    public function getActiveProductCountAttribute(): int
-    {
-        return $this->activeProducts()->count();
-    }
-
-    /**
      * Check if the brand has any products.
      */
     public function getHasProductsAttribute(): bool
     {
         return $this->products()->exists();
+    }
+
+    /**
+     * Get the display logo for this brand.
+     * Returns the brand's logo if available, otherwise returns the first product image.
+     */
+    public function getDisplayLogoAttribute(): ?string
+    {
+        // First check if brand has its own logo
+        if ($this->logo_url) {
+            return $this->logo_url;
+        }
+
+        // Otherwise, get the first product image from active products
+        $product = $this->products()
+            ->where('status', 'active')
+            ->whereHas('images')
+            ->with('primaryImage')
+            ->first();
+
+        return $product?->primaryImage?->image_url ?? $product?->images?->first()?->image_url;
     }
 }
