@@ -7,51 +7,30 @@
             <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-4">
                 <!-- Time Period Filter -->
                 <form method="GET" action="{{ route('admin.dashboard') }}" id="periodFilterForm" class="w-full sm:w-auto">
-                    <select name="period" id="periodFilter" 
-                            class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 transition-all duration-200"
-                            onchange="document.getElementById('periodFilterForm').submit()">
+                    <select name="period" id="periodFilter"
+                        class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 transition-all duration-200"
+                        onchange="document.getElementById('periodFilterForm').submit()">
                         <option value="today" {{ $period === 'today' ? 'selected' : '' }}>Today</option>
                         <option value="week" {{ $period === 'week' ? 'selected' : '' }}>This Week</option>
                         <option value="month" {{ $period === 'month' ? 'selected' : '' }}>This Month</option>
                         <option value="year" {{ $period === 'year' ? 'selected' : '' }}>This Year</option>
-                        <option value="custom" {{ $period === 'custom' ? 'selected' : '' }}>Custom Range</option>
                     </select>
-                    
-                    <!-- Custom Date Range Fields (shown when custom is selected) -->
-                    @if($period === 'custom')
-                    <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-                        <input type="date" name="start_date" value="{{ request('start_date') }}" 
-                               class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 transition-all duration-200"
-                               required>
-                        <span class="text-gray-600 text-center sm:text-left">to</span>
-                        <input type="date" name="end_date" value="{{ request('end_date') }}" 
-                               class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 transition-all duration-200"
-                               required>
-                        <button type="submit" 
-                                class="w-full sm:w-auto px-3 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg hover:from-pink-600 hover:to-purple-600 transition-all duration-200">
-                            Apply
-                        </button>
-                    </div>
-                    @endif
+
                 </form>
-                
+
                 <!-- Export Button -->
                 <form method="GET" action="{{ route('admin.analytics.export') }}" id="exportForm" class="w-full sm:w-auto">
                     <input type="hidden" name="period" value="{{ $period }}">
-                    @if($period === 'custom')
-                        <input type="hidden" name="start_date" value="{{ request('start_date') }}">
-                        <input type="hidden" name="end_date" value="{{ request('end_date') }}">
-                    @endif
-                    <button type="submit" 
-                            class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 border border-transparent rounded-lg font-semibold text-xs text-white uppercase tracking-widest hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 active:from-pink-700 active:via-purple-700 active:to-indigo-700 transition-all duration-200"
-                            id="exportButton">
+                    <button type="submit"
+                        class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 border border-transparent rounded-lg font-semibold text-xs text-white uppercase tracking-widest hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 active:from-pink-700 active:via-purple-700 active:to-indigo-700 transition-all duration-200"
+                        id="exportButton">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                         <span id="exportButtonText">Export CSV</span>
                     </button>
                 </form>
-                
+
                 <div class="hidden lg:block text-sm text-gray-600">
                     Welcome back, {{ Auth::user()->name }}!
                 </div>
@@ -61,36 +40,36 @@
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
+
             <!-- Dashboard Navigation -->
             <x-dashboard-navigation current="overview" :period="$period" />
-            
+
             <!-- Validation Errors -->
             @if($errors->any())
             <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                         </svg>
                     </div>
                     <div class="ml-3">
                         <ul class="list-disc list-inside text-sm text-red-700">
                             @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                            <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
             @endif
-            
+
             @if(isset($error))
             <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                         </svg>
                     </div>
                     <div class="ml-3">
@@ -99,59 +78,65 @@
                 </div>
             </div>
             @endif
-            
+
             @if(isset($analytics))
             <!-- Revenue Metrics Section -->
             <div class="mb-8">
                 <h3 class="text-lg font-semibold bg-gradient-to-r from-pink-700 via-purple-700 to-indigo-700 bg-clip-text text-transparent mb-4">Revenue & Orders Overview</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <a href="{{ route('admin.dashboard.sales', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Total Revenue"
                             :value="'₱' . number_format($analytics['revenue']['total'] ?? 0, 2)"
                             icon="currency-dollar"
                             color="pink"
                             :change="$analytics['revenue']['change_percent'] ?? 0"
-                            :changeType="($analytics['revenue']['change_percent'] ?? 0) >= 0 ? 'increase' : 'decrease'"
-                        />
+                            :changeType="($analytics['revenue']['change_percent'] ?? 0) >= 0 ? 'increase' : 'decrease'" />
                     </a>
-                    
+
                     <a href="{{ route('admin.dashboard.sales', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Total Orders"
                             :value="number_format($analytics['order_metrics']['total_orders'] ?? 0)"
                             icon="shopping-cart"
                             color="purple"
                             :change="$analytics['order_metrics']['change_percent'] ?? 0"
-                            :changeType="($analytics['order_metrics']['change_percent'] ?? 0) >= 0 ? 'increase' : 'decrease'"
-                        />
+                            :changeType="($analytics['order_metrics']['change_percent'] ?? 0) >= 0 ? 'increase' : 'decrease'" />
                     </a>
-                    
+
                     <a href="{{ route('admin.dashboard.sales', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Average Order Value"
                             :value="'₱' . number_format($analytics['order_metrics']['avg_order_value'] ?? 0, 2)"
                             icon="chart-bar"
                             color="indigo"
                             :change="$analytics['order_metrics']['aov_change_percent'] ?? 0"
-                            :changeType="($analytics['order_metrics']['aov_change_percent'] ?? 0) >= 0 ? 'increase' : 'decrease'"
-                        />
+                            :changeType="($analytics['order_metrics']['aov_change_percent'] ?? 0) >= 0 ? 'increase' : 'decrease'" />
                     </a>
-                    
+
                     <a href="{{ route('admin.dashboard.sales', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Gross Profit"
                             :value="'₱' . number_format($analytics['profit_metrics']['gross_profit'] ?? 0, 2)"
                             icon="trending-up"
                             color="pink"
                             :change="$analytics['profit_metrics']['profit_margin'] ?? 0"
-                            changeType="margin"
-                        />
+                            changeType="margin" />
                     </a>
                 </div>
             </div>
             @endif
-            
+
+            <!-- Sales Trend Chart Section -->
+            <div class="mb-8">
+                <div class="bg-white overflow-hidden shadow-lg rounded-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold bg-gradient-to-r from-pink-700 via-purple-700 to-indigo-700 bg-clip-text text-transparent mb-6">Sales Trend</h3>
+                        <x-sales-chart :chartData="$analytics['sales_trend']" :period="$period" />
+                    </div>
+                </div>
+            </div>
+
             <!-- Statistics Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Total Users -->
@@ -261,52 +246,48 @@
                 <h3 class="text-lg font-semibold bg-gradient-to-r from-pink-700 via-purple-700 to-indigo-700 bg-clip-text text-transparent mb-4">Sales Channels & Customers Overview</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <a href="{{ route('admin.dashboard.customers', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Walk-in Sales"
                             :value="'₱' . number_format($analytics['channel_comparison']['walk_in']['revenue'] ?? 0, 2)"
                             icon="store"
                             color="purple"
                             :change="$analytics['channel_comparison']['walk_in']['percentage'] ?? 0"
-                            changeType="percentage"
-                        />
+                            changeType="percentage" />
                     </a>
-                    
+
                     <a href="{{ route('admin.dashboard.customers', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Online Sales"
                             :value="'₱' . number_format($analytics['channel_comparison']['online']['revenue'] ?? 0, 2)"
                             icon="globe"
                             color="indigo"
                             :change="$analytics['channel_comparison']['online']['percentage'] ?? 0"
-                            changeType="percentage"
-                        />
+                            changeType="percentage" />
                     </a>
-                    
+
                     <a href="{{ route('admin.dashboard.customers', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Total Customers"
                             :value="number_format($analytics['customer_metrics']['total_customers'] ?? 0)"
                             icon="users"
                             color="pink"
                             :change="$analytics['customer_metrics']['growth_rate'] ?? 0"
-                            :changeType="($analytics['customer_metrics']['growth_rate'] ?? 0) >= 0 ? 'increase' : 'decrease'"
-                        />
+                            :changeType="($analytics['customer_metrics']['growth_rate'] ?? 0) >= 0 ? 'increase' : 'decrease'" />
                     </a>
-                    
+
                     <a href="{{ route('admin.dashboard.inventory', ['period' => $period]) }}" class="block transform hover:scale-105 transition-all duration-200">
-                        <x-analytics-card 
+                        <x-analytics-card
                             title="Low Stock Items"
                             :value="number_format($analytics['inventory_alerts']['low_stock_count'] ?? 0)"
                             icon="exclamation"
                             color="purple"
                             :change="null"
-                            changeType="alert"
-                        />
+                            changeType="alert" />
                     </a>
                 </div>
             </div>
             @endif
-            
+
             <!-- User Role Distribution -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div class="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 overflow-hidden shadow-lg sm:rounded-xl hover:shadow-2xl transition-all duration-300">
@@ -375,18 +356,18 @@
             </div>
         </div>
     </div>
-    
+
     @push('scripts')
     <script>
         // Export button loading state
         document.getElementById('exportForm').addEventListener('submit', function() {
             const button = document.getElementById('exportButton');
             const buttonText = document.getElementById('exportButtonText');
-            
+
             button.disabled = true;
             button.classList.add('opacity-50', 'cursor-not-allowed');
             buttonText.textContent = 'Exporting...';
-            
+
             // Re-enable after 3 seconds (file should be downloaded by then)
             setTimeout(function() {
                 button.disabled = false;

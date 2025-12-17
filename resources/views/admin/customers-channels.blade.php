@@ -7,32 +7,14 @@
             <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-4">
                 <!-- Time Period Filter -->
                 <form method="GET" action="{{ route('admin.dashboard.customers') }}" id="periodFilterForm" class="w-full sm:w-auto">
-                    <select name="period" id="periodFilter" 
-                            class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 transition-all duration-200"
-                            onchange="document.getElementById('periodFilterForm').submit()">
+                    <select name="period" id="periodFilter"
+                        class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 transition-all duration-200"
+                        onchange="document.getElementById('periodFilterForm').submit()">
                         <option value="today" {{ $period === 'today' ? 'selected' : '' }}>Today</option>
                         <option value="week" {{ $period === 'week' ? 'selected' : '' }}>This Week</option>
                         <option value="month" {{ $period === 'month' ? 'selected' : '' }}>This Month</option>
                         <option value="year" {{ $period === 'year' ? 'selected' : '' }}>This Year</option>
-                        <option value="custom" {{ $period === 'custom' ? 'selected' : '' }}>Custom Range</option>
                     </select>
-                    
-                    <!-- Custom Date Range Fields (shown when custom is selected) -->
-                    @if($period === 'custom')
-                    <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-                        <input type="date" name="start_date" value="{{ request('start_date') }}" 
-                               class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 transition-all duration-200"
-                               required>
-                        <span class="text-gray-600 text-center sm:text-left">to</span>
-                        <input type="date" name="end_date" value="{{ request('end_date') }}" 
-                               class="w-full sm:w-auto rounded-lg border-purple-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-400 transition-all duration-200"
-                               required>
-                        <button type="submit" 
-                                class="w-full sm:w-auto px-3 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg hover:from-pink-600 hover:to-purple-600 transition-all duration-200">
-                            Apply
-                        </button>
-                    </div>
-                    @endif
                 </form>
             </div>
         </div>
@@ -40,36 +22,36 @@
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
+
             <!-- Dashboard Navigation -->
             <x-dashboard-navigation current="customers" :period="$period" />
-            
+
             <!-- Validation Errors -->
             @if($errors->any())
             <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                         </svg>
                     </div>
                     <div class="ml-3">
                         <ul class="list-disc list-inside text-sm text-red-700">
                             @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                            <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
             @endif
-            
+
             @if(isset($error))
             <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                         </svg>
                     </div>
                     <div class="ml-3">
@@ -78,36 +60,33 @@
                 </div>
             </div>
             @endif
-            
+
             @if(isset($analytics))
             <!-- Customer Metrics Section -->
             <div class="mb-8">
                 <h3 class="text-lg font-semibold bg-gradient-to-r from-pink-700 via-purple-700 to-indigo-700 bg-clip-text text-transparent mb-4">Customer Metrics</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <x-analytics-card 
+                    <x-analytics-card
                         title="Total Customers"
                         :value="number_format($analytics['customer_metrics']['total_customers'] ?? 0)"
                         icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />'
-                        color="pink"
-                    />
-                    
-                    <x-analytics-card 
+                        color="pink" />
+
+                    <x-analytics-card
                         title="New Customers"
                         :value="number_format($analytics['customer_metrics']['new_customers'] ?? 0)"
                         icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />'
                         color="purple"
                         :change="$analytics['customer_metrics']['growth_rate'] ?? 0"
-                        :changeType="($analytics['customer_metrics']['growth_rate'] ?? 0) >= 0 ? 'increase' : 'decrease'"
-                    />
-                    
-                    <x-analytics-card 
+                        :changeType="($analytics['customer_metrics']['growth_rate'] ?? 0) >= 0 ? 'increase' : 'decrease'" />
+
+                    <x-analytics-card
                         title="Customer Growth Rate"
                         :value="number_format($analytics['customer_metrics']['growth_rate'] ?? 0, 1) . '%'"
                         icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />'
                         color="indigo"
                         :change="$analytics['customer_metrics']['growth_rate'] ?? 0"
-                        :changeType="($analytics['customer_metrics']['growth_rate'] ?? 0) >= 0 ? 'increase' : 'decrease'"
-                    />
+                        :changeType="($analytics['customer_metrics']['growth_rate'] ?? 0) >= 0 ? 'increase' : 'decrease'" />
                 </div>
             </div>
 
