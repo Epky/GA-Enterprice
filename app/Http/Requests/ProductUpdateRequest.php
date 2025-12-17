@@ -12,7 +12,7 @@ class ProductUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() && $this->user()->isStaff();
+        return $this->user() && ($this->user()->isAdmin() || $this->user()->isStaff());
     }
 
     /**
@@ -23,7 +23,7 @@ class ProductUpdateRequest extends FormRequest
     public function rules(): array
     {
         $productId = $this->route('product')?->id;
-        
+
         return [
             // Basic product information
             'sku' => [
@@ -43,7 +43,7 @@ class ProductUpdateRequest extends FormRequest
             ],
             'description' => 'required|string|max:5000',
             'short_description' => 'nullable|string|max:500',
-            
+
             // Category and brand relationships
             'category_id' => [
                 'required',
@@ -65,7 +65,7 @@ class ProductUpdateRequest extends FormRequest
                     }
                 }
             ],
-            
+
             // Pricing information
             'base_price' => 'required|numeric|min:0|max:999999.99',
             'sale_price' => [
@@ -76,25 +76,25 @@ class ProductUpdateRequest extends FormRequest
                 'lt:base_price'
             ],
             'cost_price' => 'nullable|numeric|min:0|max:999999.99',
-            
+
             // Product flags
             'is_featured' => 'boolean',
             'is_new_arrival' => 'boolean',
             'is_best_seller' => 'boolean',
             'status' => 'required|in:active,inactive,discontinued,out_of_stock',
-            
+
             // SEO metadata
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'meta_keywords' => 'nullable|string|max:1000',
-            
+
             // Product images (for new uploads)
             'new_images' => 'nullable|array|max:10',
             'new_images.*' => 'image|mimes:jpeg,png,webp|max:5120', // 5MB max
             'primary_image_id' => 'nullable|exists:product_images,id',
             'remove_image_ids' => 'nullable|array',
             'remove_image_ids.*' => 'exists:product_images,id',
-            
+
             // Product variants (for updates)
             'variants' => 'nullable|array|max:50',
             'variants.*.id' => 'nullable|exists:product_variants,id',
@@ -107,11 +107,11 @@ class ProductUpdateRequest extends FormRequest
                 function ($attribute, $value, $fail) use ($productId) {
                     $variantId = $this->input(str_replace('.sku', '.id', $attribute));
                     $query = \App\Models\ProductVariant::where('sku', $value);
-                    
+
                     if ($variantId) {
                         $query->where('id', '!=', $variantId);
                     }
-                    
+
                     if ($query->exists()) {
                         $fail('Variant SKU must be unique.');
                     }
@@ -123,7 +123,7 @@ class ProductUpdateRequest extends FormRequest
             'variants.*.price_adjustment' => 'nullable|numeric|min:-999999.99|max:999999.99',
             'variants.*.is_active' => 'boolean',
             'variants.*.delete' => 'boolean', // Flag to mark variant for deletion
-            
+
             // Product specifications (for updates)
             'specifications' => 'nullable|array|max:20',
             'specifications.*.id' => 'nullable|exists:product_specifications,id',
@@ -131,7 +131,7 @@ class ProductUpdateRequest extends FormRequest
             'specifications.*.value' => 'required_with:specifications|string|max:1000',
             'specifications.*.display_order' => 'nullable|integer|min:0',
             'specifications.*.delete' => 'boolean', // Flag to mark specification for deletion
-            
+
             // Status change confirmation
             'confirm_status_change' => 'nullable|boolean',
         ];
@@ -237,11 +237,11 @@ class ProductUpdateRequest extends FormRequest
         if ($this->has('variants') && is_array($this->variants)) {
             $variants = $this->variants;
             foreach ($variants as $index => $variant) {
-                $variants[$index]['is_active'] = isset($variant['is_active']) 
-                    ? filter_var($variant['is_active'], FILTER_VALIDATE_BOOLEAN) 
+                $variants[$index]['is_active'] = isset($variant['is_active'])
+                    ? filter_var($variant['is_active'], FILTER_VALIDATE_BOOLEAN)
                     : true;
-                $variants[$index]['delete'] = isset($variant['delete']) 
-                    ? filter_var($variant['delete'], FILTER_VALIDATE_BOOLEAN) 
+                $variants[$index]['delete'] = isset($variant['delete'])
+                    ? filter_var($variant['delete'], FILTER_VALIDATE_BOOLEAN)
                     : false;
             }
             $this->merge(['variants' => $variants]);
@@ -251,8 +251,8 @@ class ProductUpdateRequest extends FormRequest
         if ($this->has('specifications') && is_array($this->specifications)) {
             $specifications = $this->specifications;
             foreach ($specifications as $index => $specification) {
-                $specifications[$index]['delete'] = isset($specification['delete']) 
-                    ? filter_var($specification['delete'], FILTER_VALIDATE_BOOLEAN) 
+                $specifications[$index]['delete'] = isset($specification['delete'])
+                    ? filter_var($specification['delete'], FILTER_VALIDATE_BOOLEAN)
                     : false;
             }
             $this->merge(['specifications' => $specifications]);
@@ -269,13 +269,13 @@ class ProductUpdateRequest extends FormRequest
     public function validated($key = null, $default = null)
     {
         $validated = parent::validated($key, $default);
-        
+
         // Remove processing flags from validated data
         if (is_array($validated)) {
             unset($validated['confirm_status_change']);
             unset($validated['remove_image_ids']);
         }
-        
+
         return $validated;
     }
 
@@ -289,7 +289,7 @@ class ProductUpdateRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $product = $this->route('product');
-            
+
             // Validate primary image belongs to this product
             if ($this->has('primary_image_id') && $this->primary_image_id) {
                 $image = \App\Models\ProductImage::find($this->primary_image_id);
@@ -353,15 +353,17 @@ class ProductUpdateRequest extends FormRequest
             if ($this->has('status') && $product) {
                 $newStatus = $this->status;
                 $currentStatus = $product->status;
-                
+
                 $criticalChanges = [
                     'active' => ['discontinued', 'out_of_stock'],
                     'inactive' => ['discontinued'],
                 ];
-                
-                if (isset($criticalChanges[$currentStatus]) && 
-                    in_array($newStatus, $criticalChanges[$currentStatus]) && 
-                    !$this->confirm_status_change) {
+
+                if (
+                    isset($criticalChanges[$currentStatus]) &&
+                    in_array($newStatus, $criticalChanges[$currentStatus]) &&
+                    !$this->confirm_status_change
+                ) {
                     $validator->errors()->add('status', 'Please confirm this status change as it may affect product availability.');
                 }
             }

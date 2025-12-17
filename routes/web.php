@@ -14,14 +14,31 @@ Route::get('/', function () {
             ->ordered()
             ->withCount('activeProducts')
             ->get();
+
+        // Fetch featured products
+        $products = \App\Models\Product::where('status', 'active')
+            ->where('is_featured', true)
+            ->with(['category', 'primaryImage'])
+            ->latest()
+            ->take(8)
+            ->get();
+
+        // If no featured products, get latest active products
+        if ($products->isEmpty()) {
+            $products = \App\Models\Product::where('status', 'active')
+                ->with(['category', 'primaryImage'])
+                ->latest()
+                ->take(8)
+                ->get();
+        }
     } catch (\Exception $e) {
         // Fallback: If database connection fails, use Supabase API
         Log::warning('Database connection failed, using Supabase API: ' . $e->getMessage());
         $supabase = new \App\Services\SupabaseService();
         $categories = $supabase->getActiveCategories();
     }
-    
-    return view('welcome', compact('categories'));
+
+    return view('welcome', compact('categories', 'products'));
 })->name('home');
 
 // Public Product Browsing Routes (No authentication required)
@@ -42,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', function () {
     /** @var \App\Models\User $user */
     $user = Auth::user();
-    
+
     if ($user && $user->isAdmin()) {
         return redirect()->route('admin.dashboard');
     } elseif ($user && $user->isStaff()) {
@@ -56,13 +73,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     // Avatar routes
     Route::post('/profile/avatar', [ProfileController::class, 'uploadAvatar'])->name('profile.avatar.upload');
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Customer routes
 Route::middleware(['auth', 'role.redirect', 'customer'])->prefix('customer')->name('customer.')->group(function () {
