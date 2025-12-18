@@ -159,7 +159,7 @@ class ProductService
         return DB::transaction(function () use ($product) {
             // Check if product has any orders or sales history
             // This would prevent deletion if there are dependencies
-            
+
             // Delete related images from storage (handled by ImageUploadService)
             foreach ($product->images as $image) {
                 // Image deletion will be handled by ImageUploadService
@@ -167,10 +167,10 @@ class ProductService
 
             // Delete the product (cascade will handle related records)
             $deleted = $product->delete();
-            
+
             // Clear relevant caches
             $this->clearProductCaches();
-            
+
             return $deleted;
         });
     }
@@ -182,7 +182,7 @@ class ProductService
     public function changeProductStatus(Product $product, string $status): Product
     {
         $validStatuses = ['active', 'inactive', 'discontinued', 'out_of_stock'];
-        
+
         if (!in_array($status, $validStatuses)) {
             throw ValidationException::withMessages([
                 'status' => "Invalid status. Must be one of: " . implode(', ', $validStatuses)
@@ -190,7 +190,7 @@ class ProductService
         }
 
         $product->update(['status' => $status]);
-        
+
         // Clear relevant caches
         $this->clearProductCaches();
 
@@ -204,10 +204,10 @@ class ProductService
     public function toggleFeatured(Product $product): Product
     {
         $product->update(['is_featured' => !$product->is_featured]);
-        
+
         // Clear featured products cache
         Cache::forget('products.featured');
-        
+
         // Only use cache tags if the driver supports it (Redis, Memcached)
         try {
             if (in_array(config('cache.default'), ['redis', 'memcached'])) {
@@ -216,7 +216,7 @@ class ProductService
         } catch (\BadMethodCallException $e) {
             // Cache driver doesn't support tagging, skip it
         }
-        
+
         $this->clearProductCaches();
 
         return $product;
@@ -229,7 +229,7 @@ class ProductService
     public function bulkUpdateStatus(array $productIds, string $status): int
     {
         $validStatuses = ['active', 'inactive', 'discontinued', 'out_of_stock'];
-        
+
         if (!in_array($status, $validStatuses)) {
             throw ValidationException::withMessages([
                 'status' => "Invalid status. Must be one of: " . implode(', ', $validStatuses)
@@ -237,10 +237,10 @@ class ProductService
         }
 
         $updated = Product::whereIn('id', $productIds)->update(['status' => $status]);
-        
+
         // Clear relevant caches
         $this->clearProductCaches();
-        
+
         return $updated;
     }
 
@@ -256,9 +256,9 @@ class ProductService
                 'brand:id,name,slug',
                 'inventory:id,product_id,quantity_available,reorder_level'
             ])
-            ->lowStock()
-            ->active()
-            ->get();
+                ->lowStock()
+                ->active()
+                ->get();
         });
     }
 
@@ -269,15 +269,15 @@ class ProductService
     public function getFeaturedProducts(?int $limit = null): Collection
     {
         $cacheKey = 'products.featured' . ($limit ? ".limit_{$limit}" : '');
-        
+
         return Cache::remember($cacheKey, 600, function () use ($limit) {
             $query = Product::with([
                 'category:id,name,slug',
                 'brand:id,name,slug',
                 'primaryImage:id,product_id,image_url,alt_text'
             ])
-            ->featured()
-            ->active();
+                ->featured()
+                ->active();
 
             if ($limit) {
                 $query->limit($limit);
@@ -298,7 +298,7 @@ class ProductService
             'brand:id,name,slug',
             'primaryImage:id,product_id,image_url,alt_text'
         ])
-        ->search($query);
+            ->search($query);
 
         // Apply additional filters
         if (!empty($filters['category_id'])) {
@@ -344,7 +344,7 @@ class ProductService
             if ($excludeId) {
                 $query->where('id', '!=', $excludeId);
             }
-            
+
             if ($query->exists()) {
                 throw ValidationException::withMessages([
                     'sku' => 'The SKU has already been taken.'
@@ -352,7 +352,10 @@ class ProductService
             }
         }
 
-        // Check slug uniqueness
+
+        // Slug uniqueness is already ensured by generateUniqueSlug() method
+        // No need to validate here as it would cause false positives
+        /*
         if (isset($data['slug'])) {
             $query = Product::where('slug', $data['slug']);
             if ($excludeId) {
@@ -365,6 +368,8 @@ class ProductService
                 ]);
             }
         }
+        */
+
 
         // Validate category exists and is active
         if (isset($data['category_id'])) {
@@ -441,15 +446,15 @@ class ProductService
 
             // Create new product data
             $productData = $originalProduct->toArray();
-            
+
             // Remove ID and timestamps
             unset($productData['id'], $productData['created_at'], $productData['updated_at']);
-            
+
             // Modify name and SKU to indicate it's a copy
             $productData['name'] = $productData['name'] . ' (Copy)';
             $productData['sku'] = $this->generateUniqueSku($productData['sku'] . '-copy');
             $productData['slug'] = $this->generateUniqueSlug($productData['name']);
-            
+
             // Set as inactive by default
             $productData['status'] = 'inactive';
             $productData['is_featured'] = false;
@@ -471,10 +476,10 @@ class ProductService
             foreach ($originalProduct->variants as $variant) {
                 $variantData = $variant->toArray();
                 unset($variantData['id'], $variantData['product_id'], $variantData['created_at'], $variantData['updated_at']);
-                
+
                 // Generate unique SKU for variant
                 $variantData['sku'] = $this->generateUniqueSku($variantData['sku'] . '-copy');
-                
+
                 $newProduct->variants()->create($variantData);
             }
 
@@ -482,7 +487,7 @@ class ProductService
             foreach ($originalProduct->specifications as $spec) {
                 $specData = $spec->toArray();
                 unset($specData['id'], $specData['product_id'], $specData['created_at'], $specData['updated_at']);
-                
+
                 $newProduct->specifications()->create($specData);
             }
 
@@ -551,7 +556,7 @@ class ProductService
         if (isset($pricingData['adjustment_type'])) {
             // Calculate new prices based on adjustment type
             $products = Product::whereIn('id', $productIds)->get();
-            
+
             foreach ($products as $product) {
                 $newPricing = $this->calculatePriceAdjustment($product, $pricingData);
                 $product->update($newPricing);
@@ -609,7 +614,7 @@ class ProductService
     public function updateVariantPricing(int $variantId, array $pricingData): bool
     {
         $variant = \App\Models\ProductVariant::findOrFail($variantId);
-        
+
         return $variant->update([
             'price_adjustment' => $pricingData['price_adjustment'] ?? $variant->price_adjustment,
         ]);
@@ -683,7 +688,7 @@ class ProductService
     public function toggleMarketingFlag(Product $product, string $flag): Product
     {
         $validFlags = ['is_featured', 'is_new_arrival', 'is_best_seller'];
-        
+
         if (!in_array($flag, $validFlags)) {
             throw ValidationException::withMessages([
                 'flag' => "Invalid flag. Must be one of: " . implode(', ', $validFlags)
@@ -727,7 +732,7 @@ class ProductService
         }
 
         $totalStock = $product->total_stock;
-        
+
         if ($totalStock <= 0) {
             return 'Out of Stock';
         } elseif ($totalStock <= 10) {
@@ -743,7 +748,7 @@ class ProductService
     public function scheduleStatusChange(Product $product, string $status, \DateTime $scheduledAt): bool
     {
         $validStatuses = ['active', 'inactive', 'discontinued', 'out_of_stock'];
-        
+
         if (!in_array($status, $validStatuses)) {
             throw ValidationException::withMessages([
                 'status' => "Invalid status. Must be one of: " . implode(', ', $validStatuses)
@@ -801,7 +806,7 @@ class ProductService
         Cache::forget('products.stats');
         Cache::forget('products.low_stock');
         Cache::forget('products.featured');
-        
+
         // Clear featured products with different limits
         for ($i = 1; $i <= 20; $i++) {
             Cache::forget("products.featured.limit_{$i}");

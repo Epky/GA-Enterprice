@@ -17,9 +17,40 @@
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Flash Messages -->
+            @if (session('success'))
+            <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-green-700">{{ session('success') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700">{{ session('error') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <form action="{{ route('staff.products.store') }}" method="POST" enctype="multipart/form-data" id="product-form">
                 @csrf
-                
+
                 <!-- Progress Steps -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                     <div class="p-6">
@@ -62,35 +93,35 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                         <div class="p-6">
                             <h3 class="text-lg font-medium text-gray-900 mb-6">Basic Product Information</h3>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Product Name -->
                                 <div class="md:col-span-2">
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
-                                    <input type="text" 
-                                           name="name" 
-                                           id="name"
-                                           value="{{ old('name') }}"
-                                           required
-                                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                           placeholder="Enter product name">
+                                    <input type="text"
+                                        name="name"
+                                        id="name"
+                                        value="{{ old('name') }}"
+                                        required
+                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        placeholder="Enter product name">
                                     @error('name')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <!-- SKU -->
                                 <div>
                                     <label for="sku" class="block text-sm font-medium text-gray-700 mb-1">SKU *</label>
-                                    <input type="text" 
-                                           name="sku" 
-                                           id="sku"
-                                           value="{{ old('sku') }}"
-                                           required
-                                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                           placeholder="Enter unique SKU">
+                                    <input type="text"
+                                        name="sku"
+                                        id="sku"
+                                        value="{{ old('sku') }}"
+                                        required
+                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        placeholder="Enter unique SKU">
                                     @error('sku')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
@@ -101,18 +132,18 @@
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <span class="text-gray-500 sm:text-sm">₱</span>
                                         </div>
-                                        <input type="number" 
-                                               name="base_price" 
-                                               id="base_price"
-                                               value="{{ old('base_price') }}"
-                                               step="0.01"
-                                               min="0"
-                                               required
-                                               class="w-full pl-7 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                               placeholder="0.00">
+                                        <input type="number"
+                                            name="base_price"
+                                            id="base_price"
+                                            value="{{ old('base_price') }}"
+                                            step="0.01"
+                                            min="0"
+                                            required
+                                            class="w-full pl-7 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="0.00">
                                     </div>
                                     @error('base_price')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
@@ -126,16 +157,14 @@
                                         :required="true"
                                         deleteRoute="staff.categories.delete-inline"
                                         refreshRoute="staff.categories.active"
-                                        placeholder="Select Category"
-                                    />
+                                        placeholder="Select Category" />
                                     <div class="mt-2">
-                                        <x-add-inline-button 
-                                            target="category-modal" 
-                                            label="Add New Category"
-                                        />
+                                        <x-add-inline-button
+                                            target="category-modal"
+                                            label="Add New Category" />
                                     </div>
                                     @error('category_id')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
@@ -149,30 +178,28 @@
                                         :required="true"
                                         deleteRoute="staff.brands.delete-inline"
                                         refreshRoute="staff.brands.active"
-                                        placeholder="Select Brand"
-                                    />
+                                        placeholder="Select Brand" />
                                     <div class="mt-2">
-                                        <x-add-inline-button 
-                                            target="brand-modal" 
-                                            label="Add New Brand"
-                                        />
+                                        <x-add-inline-button
+                                            target="brand-modal"
+                                            label="Add New Brand" />
                                     </div>
                                     @error('brand_id')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <!-- Description -->
                                 <div class="md:col-span-2">
                                     <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
-                                    <textarea name="description" 
-                                              id="description"
-                                              rows="4"
-                                              required
-                                              class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                              placeholder="Enter product description">{{ old('description') }}</textarea>
+                                    <textarea name="description"
+                                        id="description"
+                                        rows="4"
+                                        required
+                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        placeholder="Enter product description">{{ old('description') }}</textarea>
                                     @error('description')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
@@ -185,22 +212,22 @@
                                         <option value="discontinued" {{ old('status') == 'discontinued' ? 'selected' : '' }}>Discontinued</option>
                                     </select>
                                     @error('status')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <!-- Featured -->
                                 <div>
                                     <label class="flex items-center">
-                                        <input type="checkbox" 
-                                               name="is_featured" 
-                                               value="1"
-                                               {{ old('is_featured') ? 'checked' : '' }}
-                                               class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <input type="checkbox"
+                                            name="is_featured"
+                                            value="1"
+                                            {{ old('is_featured') ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                         <span class="ml-2 text-sm text-gray-700">Mark as Featured Product</span>
                                     </label>
                                     @error('is_featured')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -213,14 +240,13 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                         <div class="p-6">
                             <h3 class="text-lg font-medium text-gray-900 mb-6">Product Images</h3>
-                            
-                            <x-image-manager 
+
+                            <x-image-manager
                                 :product="null"
                                 :existingImages="[]"
                                 name="images"
                                 :maxFiles="10"
-                                :required="false"
-                            />
+                                :required="false" />
                         </div>
                     </div>
                 </div>
@@ -256,7 +282,7 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                         <div class="p-6">
                             <h3 class="text-lg font-medium text-gray-900 mb-6">Review Product Details</h3>
-                            
+
                             <div id="review-content">
                                 <!-- Review content will be populated by JavaScript -->
                             </div>
@@ -274,7 +300,7 @@
                                 </svg>
                                 Previous
                             </button>
-                            
+
                             <div class="flex space-x-3">
                                 <button type="button" id="next-step" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     Next
@@ -282,7 +308,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                     </svg>
                                 </button>
-                                
+
                                 <button type="submit" id="submit-product" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150" style="display: none;">
                                     <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -302,6 +328,8 @@
         let currentStep = 1;
         const totalSteps = 4;
         let variantCounter = 0;
+
+
 
         // Step navigation
         document.getElementById('next-step').addEventListener('click', function() {
@@ -360,29 +388,42 @@
 
         function validateCurrentStep() {
             if (currentStep === 1) {
-                const requiredFields = [
-                    { id: 'name', label: 'Product Name' },
-                    { id: 'sku', label: 'SKU' },
-                    { id: 'base_price', label: 'Price' },
-                    { id: 'category_id', label: 'Category' },
-                    { id: 'brand_id', label: 'Brand' },
-                    { id: 'description', label: 'Description' }
+                const requiredFields = [{
+                        id: 'name',
+                        label: 'Product Name'
+                    },
+                    {
+                        id: 'sku',
+                        label: 'SKU'
+                    },
+                    {
+                        id: 'base_price',
+                        label: 'Price'
+                    },
+                    {
+                        id: 'category_id',
+                        label: 'Category'
+                    },
+                    {
+                        id: 'brand_id',
+                        label: 'Brand'
+                    },
+                    {
+                        id: 'description',
+                        label: 'Description'
+                    }
                 ];
-                
-                console.log('Validating step 1...');
-                
+
                 for (let field of requiredFields) {
                     const element = document.getElementById(field.id);
-                    console.log(`Checking ${field.label}:`, element ? element.value : 'element not found');
-                    
+
                     if (!element) {
-                        console.error(`Element not found: ${field.id}`);
-                        alert(`Error: ${field.label} field not found.`);
-                        return false;
+                        console.warn(`Element not found: ${field.id}`);
+                        continue;
                     }
-                    
+
                     const value = element.value ? element.value.trim() : '';
-                    
+
                     // Check if field is empty
                     if (value === '') {
                         element.focus();
@@ -390,7 +431,7 @@
                         alert(`Please fill in the ${field.label} field.`);
                         return false;
                     }
-                    
+
                     // Additional check for price - must be greater than 0
                     if (field.id === 'base_price' && parseFloat(value) <= 0) {
                         element.focus();
@@ -398,22 +439,28 @@
                         alert(`${field.label} must be greater than 0.`);
                         return false;
                     }
-                    
+
                     element.classList.remove('border-red-500');
                 }
-                
-                console.log('Step 1 validation passed!');
             }
             return true;
         }
 
-        // Image upload handling is now managed by the ImageManager component
+        // Image upload handling is managed by the ImageManager component
 
         // Variant management
-        document.getElementById('add-variant').addEventListener('click', addVariant);
+        document.getElementById('add-variant').addEventListener('click', () => addVariant());
 
-        function addVariant() {
+        function addVariant(data = null) {
             variantCounter++;
+
+            const type = data?.variant_type || 'color';
+            const val = data?.variant_value || '';
+            const skuVal = data?.sku || '';
+            const priceVal = data?.price_adjustment || '';
+            const stockVal = data?.stock_quantity || '';
+            const isActive = data ? (String(data.is_active) === '1' || data.is_active === true) : true;
+
             const variantHtml = `
                 <div class="variant-item border border-gray-200 rounded-lg p-4 mb-4" data-variant="${variantCounter}">
                     <div class="flex justify-between items-center mb-4">
@@ -429,11 +476,11 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Variant Type</label>
                             <select name="variants[${variantCounter}][variant_type]" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                <option value="color">Color</option>
-                                <option value="size">Size</option>
-                                <option value="material">Material</option>
-                                <option value="style">Style</option>
-                                <option value="other">Other</option>
+                                <option value="color" ${type === 'color' ? 'selected' : ''}>Color</option>
+                                <option value="size" ${type === 'size' ? 'selected' : ''}>Size</option>
+                                <option value="material" ${type === 'material' ? 'selected' : ''}>Material</option>
+                                <option value="style" ${type === 'style' ? 'selected' : ''}>Style</option>
+                                <option value="other" ${type === 'other' ? 'selected' : ''}>Other</option>
                             </select>
                         </div>
                         
@@ -441,6 +488,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">Variant Value</label>
                             <input type="text" 
                                    name="variants[${variantCounter}][variant_value]" 
+                                   value="${val}"
                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="e.g., Red, Large, Cotton">
                         </div>
@@ -449,6 +497,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">SKU</label>
                             <input type="text" 
                                    name="variants[${variantCounter}][sku]" 
+                                   value="${skuVal}"
                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="Variant SKU">
                         </div>
@@ -461,6 +510,7 @@
                                 </div>
                                 <input type="number" 
                                        name="variants[${variantCounter}][price_adjustment]" 
+                                       value="${priceVal}"
                                        step="0.01"
                                        class="w-full pl-7 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                        placeholder="0.00">
@@ -472,6 +522,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
                             <input type="number" 
                                    name="variants[${variantCounter}][stock_quantity]" 
+                                   value="${stockVal}"
                                    min="0"
                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="0">
@@ -482,7 +533,7 @@
                                 <input type="checkbox" 
                                        name="variants[${variantCounter}][is_active]" 
                                        value="1"
-                                       checked
+                                       ${isActive ? 'checked' : ''}
                                        class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <span class="ml-2 text-sm text-gray-700">Active</span>
                             </label>
@@ -490,7 +541,7 @@
                     </div>
                 </div>
             `;
-            
+
             document.getElementById('variants-container').insertAdjacentHTML('beforeend', variantHtml);
         }
 
@@ -505,7 +556,7 @@
         function populateReview() {
             const formData = new FormData(document.getElementById('product-form'));
             let reviewHtml = '<div class="space-y-6">';
-            
+
             // Basic Information
             reviewHtml += `
                 <div>
@@ -530,16 +581,19 @@
                     </dl>
                 </div>
             `;
-            
+
             // Images
-            const imageCount = document.getElementById('images').files.length;
+            // Helper to count files in the image-manager input
+            const imageInput = document.getElementById('images');
+            const imageCount = imageInput && imageInput.files ? imageInput.files.length : 0;
+
             reviewHtml += `
                 <div>
                     <h4 class="text-md font-medium text-gray-900 mb-3">Images</h4>
                     <p class="text-sm text-gray-600">${imageCount} image(s) selected</p>
                 </div>
             `;
-            
+
             // Variants
             const variantCount = document.querySelectorAll('.variant-item').length;
             reviewHtml += `
@@ -548,9 +602,9 @@
                     <p class="text-sm text-gray-600">${variantCount} variant(s) configured</p>
                 </div>
             `;
-            
+
             reviewHtml += '</div>';
-            
+
             document.getElementById('review-content').innerHTML = reviewHtml;
         }
 
@@ -565,6 +619,22 @@
 
         // Initialize inline creators for category and brand
         document.addEventListener('DOMContentLoaded', function() {
+            // Restore variants from validation error
+            const oldVariants = @json(old('variants', []));
+            const variantsData = typeof oldVariants === 'object' && oldVariants !== null ?
+                Object.values(oldVariants) : [];
+
+            if (variantsData.length > 0) {
+                variantsData.forEach(variant => {
+                    addVariant(variant);
+                });
+            }
+
+            // Show calculated current step
+            if (currentStep > 1) {
+                showStep(currentStep);
+            }
+
             if (typeof window.InlineCreator !== 'undefined') {
                 const categoryCreator = new window.InlineCreator(
                     'category-modal',
@@ -583,14 +653,12 @@
     @endpush
 
     <!-- Inline Creation Modals -->
-    <x-inline-create-modal 
-        type="category" 
+    <x-inline-create-modal
+        type="category"
         :parentCategories="$categories"
-        modalId="category-modal" 
-    />
+        modalId="category-modal" />
 
-    <x-inline-create-modal 
-        type="brand" 
-        modalId="brand-modal" 
-    />
+    <x-inline-create-modal
+        type="brand"
+        modalId="brand-modal" />
 </x-app-layout>
